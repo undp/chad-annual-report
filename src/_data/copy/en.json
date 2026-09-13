@@ -17,19 +17,67 @@
   },
   "hero": {
     "title": "Where UNDP made a difference in 2025",
-    "titleLines": ["Where UNDP", "made a", "difference in", "2025"],
+    "titleLines": [
+      "Where UNDP",
+      "made a",
+      "difference in",
+      "2025"
+    ],
     "intro": "In 2025, Chad continued to strengthen its institutions and advance its development priorities, marking a new chapter for the country. Throughout the year, we worked with the Government, communities and development partners to strengthen institutions and improve the lives of the country's most vulnerable people.",
-    "mapAlt": "Map of Chad"
+    "mapAlt": "Map of Chad",
+    "photos": [
+      {
+        "src": "/assets/img/hero-01.jpg",
+        "alt": "A musician plays a trumpet as children gather around him in a village square.",
+        "rot": 4.94,
+        "side": "right",
+        "w": 1400,
+        "h": 1046
+      },
+      {
+        "src": "/assets/img/hero-02.jpg",
+        "alt": "A woman in a turquoise headscarf stands beside wooden boats on the shore of Lake Chad.",
+        "rot": -5.61,
+        "side": "left",
+        "w": 1400,
+        "h": 935
+      }
+    ],
+    "paragraphs": [
+      "In 2025, Chad continued to strengthen its institutions and advance its development priorities, marking a new chapter for the country.",
+      "Throughout the year, we worked with the Government, communities and development partners to **strengthen institutions** and **improve the lives of the country's most vulnerable people**."
+    ],
+    "scrollHint": "Scroll to explore"
   },
   "impact": {
     "context": "Between 2024 and 2025, Chad continued to face persistent economic, social, climate and institutional challenges, against a backdrop of rapid population growth and significant demand for basic services. At the same time, the country holds considerable potential, driven by a predominantly young population and opportunities for structural transformation still to be realized.",
     "lead": "Chad's future is shaped by both immense potential and significant challenges.",
     "stats": [
-      { "value": "74", "suffix": "%", "label": "benefit from economic recovery" },
-      { "value": "68", "suffix": "%", "label": "report better access to justice" },
-      { "value": "63", "suffix": "%", "label": "of households feel safer" },
-      { "value": "15000", "suffix": "+", "label": "children are learning in safer schools" },
-      { "value": "2000", "suffix": "+", "label": "households are better protected, benefiting nearly 10,000 people" }
+      {
+        "value": "74",
+        "suffix": "%",
+        "label": "benefit from economic recovery"
+      },
+      {
+        "value": "68",
+        "suffix": "%",
+        "label": "report better access to justice"
+      },
+      {
+        "value": "63",
+        "suffix": "%",
+        "label": "of households feel safer"
+      },
+      {
+        "value": "15000",
+        "suffix": "+",
+        "label": "children are learning in safer schools"
+      },
+      {
+        "value": "2000",
+        "suffix": "+",
+        "label": "households are better protected, benefiting nearly 10,000 people"
+      }
     ],
     "cta": "learn more",
     "transition": "Working alongside the Government, local authorities, communities and development partners, we delivered results that are improving people's lives across Chad."
@@ -39,29 +87,63 @@
       "id": "trust",
       "title": "Building trust in institutions",
       "intro": "We supported more transparent, inclusive and accountable institutions through digital transformation, decentralization and greater participation in public life.",
-      "image": { "src": "/assets/img/chapter-trust.jpg", "alt": "TODO-alt" },
       "blocks": [
         {
           "type": "feature",
           "heading": "Strengthening transparency and public accountability",
           "body": "A new national digital platform supports more effective monitoring of government performance, enabling better-informed decision-making. Legal and regulatory texts dating back to 1954 are now publicly accessible through the Official Gazette digital platform.",
-          "highlights": ["national digital platform", "Official Gazette digital platform"],
-          "cta": "learn more"
+          "highlights": [
+            "national digital platform",
+            "Official Gazette digital platform"
+          ],
+          "cta": "learn more",
+          "photos": [
+            {
+              "src": "/assets/img/trust-01.jpg",
+              "alt": "A woman in a yellow headscarf takes notes during an institutional meeting.",
+              "rot": 4.85,
+              "side": "right",
+              "w": 1400,
+              "h": 933
+            }
+          ]
         },
         {
           "type": "feature",
           "heading": "Local governments growing into drivers of development",
           "body": "A National Seminar on Decentralization, chaired by the President of the Republic, brought together more than 300 stakeholders. 10-year National Decentralization Roadmap adopted and disseminated nationwide. A shared national framework is now helping place local governments at the heart of development.",
-          "highlights": ["more than 300 stakeholders.", "10-year National Decentralization Roadmap", "shared national framework"],
-          "align": "right"
+          "highlights": [
+            "more than 300 stakeholders.",
+            "10-year National Decentralization Roadmap",
+            "shared national framework"
+          ],
+          "align": "right",
+          "photos": [
+            {
+              "src": "/assets/img/trust-02.jpg",
+              "alt": "A singer in a red dress performs on stage at a public event.",
+              "rot": -5.9,
+              "side": "left",
+              "w": 933,
+              "h": 1400
+            }
+          ]
         },
         {
           "type": "cards",
           "heading": "Making institutions more inclusive",
           "items": [
-            { "label": "Women's representation increased in national and local elected bodies" },
-            { "label": "Persons with disabilities regained mobility and independence through assistive devices" },
-            { "value": "950", "suffix": "+", "label": "detainees received legal aid through mobile court hearings" }
+            {
+              "label": "Women's representation increased in national and local elected bodies"
+            },
+            {
+              "label": "Persons with disabilities regained mobility and independence through assistive devices"
+            },
+            {
+              "value": "950",
+              "suffix": "+",
+              "label": "detainees received legal aid through mobile court hearings"
+            }
           ],
           "cta": "learn more"
         }
@@ -69,111 +151,230 @@
     },
     {
       "id": "crises",
-      "title": "helping communities withstand crises",
+      "title": "Helping communities withstand crises",
       "intro": "Across the Lake Chad Basin and eastern Chad, we helped communities strengthen resilience by improving security, restoring essential services and preventing conflict.",
-      "image": { "src": "/assets/img/chapter-crises.jpg", "alt": "TODO-alt" },
       "blocks": [
         {
-          "type": "gallery",
+          "type": "photos",
           "heading": "Restoring hope around Lake Chad Basin",
-          "items": [
-            { "src": "/assets/img/lake-01.jpg", "alt": "TODO-alt", "caption": "TODO-caption" },
-            { "src": "/assets/img/lake-02.jpg", "alt": "TODO-alt", "caption": "TODO-caption" },
-            { "src": "/assets/img/lake-03.jpg", "alt": "TODO-alt", "caption": "TODO-caption" }
+          "photos": [
+            {
+              "src": "/assets/img/crises-01.jpg",
+              "alt": "Community members in ceremonial dress gather around a canton banner at a local event.",
+              "rot": 9.39,
+              "side": "right",
+              "w": 1400,
+              "h": 933
+            }
           ]
         },
         {
           "type": "feature",
           "heading": "Supporting refugees and host communities",
           "body": "3,000 people now have access to safe drinking water in Iriba. Communities in Adré have improved access to education and essential community services through new public facilities. More than 1,000 women strengthened their livelihoods through targeted income-generating support.",
-          "highlights": ["access to safe drinking water", "access to education and essential community services", "targeted income-generating support"]
+          "highlights": [
+            "access to safe drinking water",
+            "access to education and essential community services",
+            "targeted income-generating support"
+          ],
+          "photos": [
+            {
+              "src": "/assets/img/crises-02.jpg",
+              "alt": "Two women stand on sacks of grain at a distribution point in a desert landscape.",
+              "rot": -5.43,
+              "side": "right",
+              "w": 1400,
+              "h": 1024
+            }
+          ]
         },
         {
           "type": "counters",
           "heading": "Preventing conflict before it escalates",
           "items": [
-            { "value": "40", "suffix": "+", "label": "Peace Committees established" },
-            { "value": "500", "suffix": "+", "label": "conflicts prevented or resolved locally" }
+            {
+              "value": "40",
+              "suffix": "+",
+              "label": "Peace Committees established"
+            },
+            {
+              "value": "500",
+              "suffix": "+",
+              "label": "conflicts prevented or resolved locally"
+            }
           ]
         }
       ]
     },
     {
       "id": "climate",
-      "title": "advancing climate resilience and clean energy",
+      "title": "Advancing climate resilience and clean energy",
       "intro": "From flood protection to renewable energy, we helped communities adapt to climate change while creating new opportunities for livelihoods.",
-      "image": { "src": "/assets/img/chapter-climate.jpg", "alt": "TODO-alt" },
       "blocks": [
         {
-          "type": "gallery",
+          "type": "photos",
           "heading": "Better protected against floods",
-          "items": [
-            { "src": "/assets/img/energy-01.jpg", "alt": "TODO-alt", "caption": "TODO-caption" },
-            { "src": "/assets/img/energy-02.jpg", "alt": "TODO-alt", "caption": "TODO-caption" }
+          "photos": [
+            {
+              "src": "/assets/img/climate-01.jpg",
+              "alt": "Pupils gather in the courtyard of a school building flying the Chadian flag.",
+              "rot": 9.91,
+              "side": "left",
+              "w": 1400,
+              "h": 933
+            }
           ]
         },
         {
           "type": "counters",
           "heading": "TODO-heading (in Figma il titolo ripete \"Supporting refugees and host communities\" — da confermare con Sofia)",
           "items": [
-            { "value": "1200", "label": "people, including 500 women, gained access to electricity through a solar mini-grid" },
-            { "value": "30", "label": "women's groups increased agricultural productivity using solar-powered equipment" }
+            {
+              "value": "1200",
+              "label": "people, including 500 women, gained access to electricity through a solar mini-grid"
+            },
+            {
+              "value": "30",
+              "label": "women's groups increased agricultural productivity using solar-powered equipment"
+            }
+          ],
+          "photos": [
+            {
+              "src": "/assets/img/energy-01.jpg",
+              "alt": "Rows of solar panels installed in an arid landscape.",
+              "rot": 6.03,
+              "side": "right",
+              "w": 960,
+              "h": 1280
+            },
+            {
+              "src": "/assets/img/energy-02.jpg",
+              "alt": "A sign announcing the installation of a solar mini-grid in the Chari-Baguirmi province.",
+              "rot": -2.59,
+              "side": "right",
+              "w": 1280,
+              "h": 960
+            }
           ]
         }
       ]
     },
     {
       "id": "health",
-      "title": "expanding access to quality health services",
+      "title": "Expanding access to quality health services",
       "intro": "We supported stronger health systems by improving disease prevention, modernizing health facilities and accelerating digital innovation.",
-      "image": { "src": "/assets/img/chapter-health.jpg", "alt": "TODO-alt" },
       "blocks": [
         {
           "type": "counters",
           "heading": "Protecting children against malaria",
           "items": [
-            { "value": "96", "suffix": "%", "label": "of children aged 3–59 months in targeted districts protected" },
-            { "value": "350000", "label": "children monitored digitally through the DHIS2 platform during the SMC campaign" }
+            {
+              "value": "96",
+              "suffix": "%",
+              "label": "of children aged 3–59 months in targeted districts protected"
+            },
+            {
+              "value": "350000",
+              "label": "children monitored digitally through the DHIS2 platform during the SMC campaign"
+            }
+          ],
+          "photos": [
+            {
+              "src": "/assets/img/health-01.jpg",
+              "alt": "A health worker attends to a mother and her child in a clinic consultation room.",
+              "rot": -3.65,
+              "side": "right",
+              "w": 1400,
+              "h": 933
+            }
           ]
         },
         {
           "type": "feature",
           "heading": "Health facilities better equipped to deliver care",
           "body": "100 health centres and 11 hospitals equipped with medical equipment and cold chain systems. Solar energy helps ensure continuity of essential health services.",
-          "highlights": ["Solar energy helps ensure continuity of essential health services"]
+          "highlights": [
+            "Solar energy helps ensure continuity of essential health services"
+          ]
         },
         {
           "type": "feature",
           "heading": "Smarter medicine supply systems",
           "body": "Pharmaceutical supply chain fully digitalized. Digital tools improved stock management and medicine distribution.",
-          "highlights": ["Digital tools improved stock management and medicine distribution"],
-          "align": "right"
+          "highlights": [
+            "Digital tools improved stock management and medicine distribution"
+          ],
+          "align": "right",
+          "photos": [
+            {
+              "src": "/assets/img/health-02.jpg",
+              "alt": "A health worker manages medicine stock on a laptop beside boxes of supplies.",
+              "rot": 4.96,
+              "side": "left",
+              "w": 1400,
+              "h": 933
+            }
+          ]
         }
       ]
     },
     {
       "id": "youth",
-      "title": "empowering young people to lead change",
+      "title": "Empowering young people to lead change",
       "intro": "We worked with young people to strengthen their digital skills, shape public dialogue and contribute to the future of the Sahel.",
-      "image": { "src": "/assets/img/chapter-youth.jpg", "alt": "TODO-alt" },
       "blocks": [
         {
           "type": "cards",
           "heading": "Young people shaping regional dialogue",
           "items": [
-            { "value": "1000", "suffix": "+", "label": "young people gathered in N'Djamena for the second YouthConnekt Sahel Forum" },
-            { "title": "Direct dialogue", "label": "between young people and national and regional decision-makers" },
-            { "title": "2025–2030 Sahel Youth Pact adopted" }
+            {
+              "value": "1000",
+              "suffix": "+",
+              "label": "young people gathered in N'Djamena for the second YouthConnekt Sahel Forum"
+            },
+            {
+              "title": "Direct dialogue",
+              "label": "between young people and national and regional decision-makers"
+            },
+            {
+              "title": "2025–2030 Sahel Youth Pact adopted"
+            }
+          ],
+          "photos": [
+            {
+              "src": "/assets/img/youth-01.jpg",
+              "alt": "A young woman holds a YouthConnekt Sahel photo frame reading “J’y étais”.",
+              "rot": 7.9,
+              "side": "right",
+              "w": 933,
+              "h": 1400
+            }
           ]
         },
         {
           "type": "counters",
           "heading": "Building digital skills for tomorrow",
           "items": [
-            { "value": "7", "label": "young Chadian innovators trained in practical AI applications in Guinea" },
-            { "value": "5", "label": "young Chadians earned cybersecurity certification through the Tech4Peace initiative in Senegal" }
+            {
+              "value": "7",
+              "label": "young Chadian innovators trained in practical AI applications in Guinea"
+            },
+            {
+              "value": "5",
+              "label": "young Chadians earned cybersecurity certification through the Tech4Peace initiative in Senegal"
+            }
           ],
-          "cta": "learn more"
+          "cta": "learn more",
+          "photos": [
+            {
+              "src": "/assets/img/youth-02.jpg",
+              "alt": "Women in brightly coloured dress gather at a community event in the Lac province.",
+              "rot": -11.61,
+              "side": "left",
+              "w": 1400,
+              "h": 1125
+            }
+          ]
         }
       ]
     }
@@ -181,15 +382,31 @@
   "priorities": {
     "title": "Building on these results, we are ready to scale up impact.",
     "items": [
-      { "title": "Governance, local development and justice", "body": "Turning decentralization into action, strengthening local institutions and expanding access to justice." },
-      { "title": "Stabilization and social cohesion", "body": "Building on progress in stabilization while strengthening resilience, social cohesion and support for refugees and host communities." },
-      { "title": "Climate, energy and inclusive growth", "body": "Accelerating climate action, advancing clean energy and creating more inclusive economic opportunities, with women at the centre of solutions." },
-      { "title": "Youth and innovation", "body": "Creating opportunities for young people to build digital skills, drive innovation and shape Chad's future." }
+      {
+        "title": "Governance, local development and justice",
+        "body": "Turning decentralization into action, strengthening local institutions and expanding access to justice."
+      },
+      {
+        "title": "Stabilization and social cohesion",
+        "body": "Building on progress in stabilization while strengthening resilience, social cohesion and support for refugees and host communities."
+      },
+      {
+        "title": "Climate, energy and inclusive growth",
+        "body": "Accelerating climate action, advancing clean energy and creating more inclusive economic opportunities, with women at the centre of solutions."
+      },
+      {
+        "title": "Youth and innovation",
+        "body": "Creating opportunities for young people to build digital skills, drive innovation and shape Chad's future."
+      }
     ]
   },
   "closing": {
     "body": "This is what lasting transformation looks like: working alongside the Government, local governments, development partners, civil society and the private sector. Together. So that women, men and communities can shape their own future.",
-    "highlights": ["This is what lasting transformation looks like:", "Together.", "can shape their own future."],
+    "highlights": [
+      "This is what lasting transformation looks like:",
+      "Together.",
+      "can shape their own future."
+    ],
     "cta": "learn more"
   },
   "footer": {

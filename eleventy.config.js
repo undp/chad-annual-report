@@ -13,6 +13,14 @@ export default function (eleventyConfig) {
     return value;
   });
 
+  // Copy carries emphasis as **double asterisks** so translators edit plain text
+  // and can never inject markup; everything else is escaped.
+  eleventyConfig.addFilter('emph', function (value) {
+    const escaped = String(value ?? '').replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+    return escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  });
+
   return {
     dir: { input: 'src', output: '_site', includes: '_includes', data: '_data' },
     pathPrefix: process.env.PATH_PREFIX || '/',

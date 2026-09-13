@@ -1,11 +1,32 @@
+{# Full-bleed hero: mesh-gradient backdrop, the two tilted prints sitting *behind*
+   the headline, and the oversized white display type on top — as in the Figma
+   frame. The title is stored sentence-case (it feeds <title> and OG tags) and
+   uppercased in CSS, so translators never deal with casing. #}
 <section class="hero" id="hero" aria-labelledby="hero-title">
-  <div class="hero__map" aria-hidden="true" data-parallax="0.15">
-    <img src="{{ '/assets/img/chad-map.svg' | url }}" alt="" loading="eager" decoding="async">
-  </div>
   <div class="hero__photos" aria-hidden="true">
-    <img class="hero__photo hero__photo--a" src="{{ '/assets/img/hero-01.jpg' | url }}" alt="" data-parallax="0.08">
-    <img class="hero__photo hero__photo--b" src="{{ '/assets/img/hero-02.jpg' | url }}" alt="" data-parallax="-0.06">
+    {%- for p in en.hero.photos %}
+    <figure class="hero__photo hero__photo--{{ loop.index }}" style="--rot:{{ p.rot }}deg" data-parallax="{{ 0.08 if loop.first else -0.06 }}">
+      <picture>
+        <source srcset="{{ (p.src | replace('.jpg', '.webp')) | url }}" type="image/webp">
+        <img src="{{ p.src | url }}" width="{{ p.w }}" height="{{ p.h }}" alt="" loading="eager" decoding="async">
+      </picture>
+    </figure>
+    {%- endfor %}
   </div>
-  <h1 class="hero__title" id="hero-title">{{ c.hero.title | t(en.hero.title) }}</h1>
-  <p class="hero__intro" data-anim="text-reveal">{{ c.hero.intro | t(en.hero.intro) }}</p>
+
+  <h1 class="hero__title" id="hero-title">
+    {%- for line in en.hero.titleLines %}<span class="hero__title-line">{{ (c.hero.titleLines[loop.index0] if c.hero.titleLines else '') | t(line) }}</span>{% endfor %}
+  </h1>
+
+  <div class="hero__intro" data-anim="text-reveal">
+    {%- for para in en.hero.paragraphs %}
+    <p>{{ (c.hero.paragraphs[loop.index0] if c.hero.paragraphs else '') | t(para) | emph | safe }}</p>
+    {%- endfor %}
+  </div>
+
+  <a class="hero__scroll" href="#impact" aria-label="{{ c.hero.scrollHint | t(en.hero.scrollHint) }}">
+    <svg viewBox="0 0 48 26" width="48" height="26" aria-hidden="true" focusable="false">
+      <path d="M2 2 24 24 46 2" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="square"/>
+    </svg>
+  </a>
 </section>

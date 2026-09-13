@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "UNDP Chad Annual Report 2025 — interactive scrollytelling microsite (EN/FR)",
+  "description": "UNDP Chad Annual Report 2025 \u2014 interactive scrollytelling microsite (EN/FR)",
   "scripts": {
     "dev": "npm run js:dev & eleventy --serve --quiet",
     "build": "npm run js:build && eleventy",
     "js:build": "esbuild src/assets/js/main.js --bundle --minify --format=esm --outfile=src/assets/js/bundle.js",
     "js:dev": "esbuild src/assets/js/main.js --bundle --format=esm --outfile=src/assets/js/bundle.js --watch",
-    "clean": "rm -rf _site src/assets/js/bundle.js"
+    "clean": "rm -rf _site src/assets/js/bundle.js",
+    "images": "python3 scripts/build-images.py"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

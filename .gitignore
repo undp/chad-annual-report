@@ -2,3 +2,8 @@ node_modules/
 _site/
 src/assets/js/bundle.js
 .DS_Store
+
+# Raw Figma exports (84 MB of full-resolution camera JPEGs). The web-ready
+# derivatives in src/assets/img are committed, so a fresh clone builds and
+# deploys; re-fetch these only to regenerate them. See README "Images".
+src/assets/figma/

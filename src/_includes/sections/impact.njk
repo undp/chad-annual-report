@@ -1,4 +1,9 @@
 <section class="impact" aria-labelledby="impact-lead">
+  {#- In the design the outline map of Chad is the backdrop of this band, not of
+      the hero: the hero's gradient covers it entirely. #}
+  <div class="impact__map" aria-hidden="true" data-parallax="0.15">
+    <img src="{{ '/assets/img/chad-map.svg' | url }}" alt="" loading="lazy" decoding="async">
+  </div>
   <p class="impact__context">{{ c.impact.context | t(en.impact.context) }}</p>
   <p class="impact__lead" id="impact-lead" data-anim="text-reveal">{{ c.impact.lead | t(en.impact.lead) }}</p>
   <ul class="impact__stats" role="list" data-anim="reveal">

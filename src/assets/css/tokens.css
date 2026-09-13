@@ -8,6 +8,7 @@
   --color-slate: #54606e;  /* secondary text */
   --color-mist:  #eff0f3;  /* light section background */
   --color-white: #ffffff;
+  --color-yellow: #fcc900; /* scroll cue in the hero */
   --color-overlay: rgb(255 255 255 / 0.2);
 
   --color-text: var(--color-navy);

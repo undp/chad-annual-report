@@ -66,3 +66,22 @@ For a project-page staging URL (not the custom domain), build with
 - "learn more" CTAs: modal, accordion or external link — pending design decision
 - Mobile frames not provided: the small-screen rules in `sections.css` are proposals
 - Real image exports and the downloadable PDF still to be delivered (placeholders in place)
+
+## Images
+
+`src/assets/img/*` is generated, not hand-placed. The sources are the raw Figma
+exports in `src/assets/figma/` (git-ignored, ~84 MB), and `scripts/build-images.py`
+maps each one to its slot, caps the long edge at 1400 px, strips EXIF and writes a
+JPEG + WebP pair:
+
+    npm run images
+
+To refresh the raw exports: open the Chad Annual Report file in Figma Desktop with
+the MCP server on (`127.0.0.1:3845`), select the `Chad Annual Report Storytelling`
+frame, call `get_design_context` and download the `localhost:3845/assets/*` URLs it
+returns. The asset hashes and the Figma node name each one comes from are recorded
+in the `PHOTOS` / `BACKDROPS` / `SVGS` tables at the top of the script.
+
+Two gradients stay as images because they are mesh gradients (`hero-bg`,
+`youth-panel`); the flat chapter bands are CSS `linear-gradient`s sampled from the
+design and cost nothing.
