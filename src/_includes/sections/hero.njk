@@ -5,11 +5,13 @@
 <section class="hero" id="hero" aria-labelledby="hero-title">
   <div class="hero__photos" aria-hidden="true">
     {%- for p in en.hero.photos %}
-    <figure class="hero__photo hero__photo--{{ loop.index }}" style="--rot:{{ p.rot }}deg" data-parallax="{{ 0.08 if loop.first else -0.06 }}">
-      <picture>
-        <source srcset="{{ (p.src | replace('.jpg', '.webp')) | url }}" type="image/webp">
-        <img src="{{ p.src | url }}" width="{{ p.w }}" height="{{ p.h }}" alt="" loading="eager" decoding="async">
-      </picture>
+    <figure class="hero__photo hero__photo--{{ loop.index }}" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }}" data-parallax="stack">
+      <div class="polaroid__frame">
+        <picture>
+          <source srcset="{{ (p.src | replace('.jpg', '.webp')) | url }}" type="image/webp">
+          <img src="{{ p.src | url }}" width="{{ p.w }}" height="{{ p.h }}" alt="" loading="eager" decoding="async">
+        </picture>
+      </div>
     </figure>
     {%- endfor %}
   </div>

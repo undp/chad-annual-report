@@ -6,14 +6,17 @@
 
 {%- macro polaroids(enPhotos, trPhotos) %}
 {%- if enPhotos %}
-<div class="polaroids polaroids--{{ enPhotos[0].side }}">
+<div class="polaroids polaroids--{{ enPhotos[0].side }}{% if enPhotos | length > 1 %} polaroids--stacked{% endif %}">
   {%- for p in enPhotos %}
-  <figure class="polaroid polaroid--{{ p.side }}" style="--rot:{{ p.rot }}deg" data-anim="reveal">
-    <picture>
-      <source srcset="{{ (p.src | replace('.jpg', '.webp')) | url }}" type="image/webp">
-      <img src="{{ p.src | url }}" width="{{ p.w }}" height="{{ p.h }}"
-           alt="{{ trPhotos[loop.index0].alt | t(p.alt) }}" loading="lazy" decoding="async">
-    </picture>
+  <figure class="polaroid polaroid--{{ p.side }}" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }}"
+          data-parallax="stack">
+    <div class="polaroid__frame">
+      <picture>
+        <source srcset="{{ (p.src | replace('.jpg', '.webp')) | url }}" type="image/webp">
+        <img src="{{ p.src | url }}" width="{{ p.w }}" height="{{ p.h }}"
+             alt="{{ trPhotos[loop.index0].alt | t(p.alt) }}" loading="lazy" decoding="async">
+      </picture>
+    </div>
   </figure>
   {%- endfor %}
 </div>
@@ -22,6 +25,7 @@
 
 <section class="chapter" id="{{ enCh.id }}" data-chapter="{{ enCh.id }}" aria-labelledby="ch-{{ enCh.id }}-title">
   <div class="chapter__intro">
+    <div class="chapter__band" aria-hidden="true" data-parallax="band"></div>
     <div class="chapter__intro-text">
       <h2 class="chapter__title" id="ch-{{ enCh.id }}-title">{{ ch.title | t(enCh.title) }}</h2>
       <p class="chapter__lead" data-anim="text-reveal">{{ ch.intro | t(enCh.intro) }}</p>
@@ -33,7 +37,7 @@
   {%- set blockId = enCh.id + '-' + loop.index %}
   {%- if enB.type == "feature" %}
   <div class="block block--feature {% if enB.align == 'right' %}block--right{% endif %}" data-anim="reveal">
-    <div class="block__text">
+    <div class="block__text" data-parallax="drift">
       <h3 class="block__heading">{{ b.heading | t(enB.heading) }}</h3>
       <p class="block__body" data-anim="text-reveal">{{ b.body | t(enB.body) }}</p>
       {%- if enB.cta %}<button class="tca" type="button" data-modal="{{ blockId }}">{{ b.cta | t(enB.cta) }}</button>{% endif %}
@@ -42,7 +46,7 @@
   </div>
   {%- elif enB.type == "counters" %}
   <div class="block block--counters" data-anim="reveal">
-    <div class="block__text">
+    <div class="block__text" data-parallax="drift">
       <h3 class="block__heading">{{ b.heading | t(enB.heading) }}</h3>
       <ul class="counters" role="list">
       {%- for it in enB.items %}
@@ -58,7 +62,7 @@
   </div>
   {%- elif enB.type == "cards" %}
   <div class="block block--cards" data-anim="reveal">
-    <div class="block__text">
+    <div class="block__text" data-parallax="drift">
       <h3 class="block__heading">{{ b.heading | t(enB.heading) }}</h3>
       <ul class="cards" role="list">
       {%- for it in enB.items %}

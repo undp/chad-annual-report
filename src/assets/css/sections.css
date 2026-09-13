@@ -31,7 +31,7 @@
   position: relative; isolation: isolate; overflow: clip;
   min-height: min(100svh, 56rem);
   display: grid; align-content: center; justify-items: center;
-  padding: var(--sp-8) var(--gutter) var(--sp-7);
+  padding: clamp(3rem, 8vh, 8rem) var(--gutter) clamp(2.5rem, 6vh, 6rem);
   color: var(--color-white);
   background: #2a0f4a url('../img/hero-bg.jpg') center / cover no-repeat;
 }
@@ -41,31 +41,54 @@
 }
 .hero__title {
   font-family: var(--font-display); font-weight: 700;
-  font-size: var(--fs-display); line-height: 0.95;
+  font-size: var(--fs-display); line-height: 0.851;
   text-transform: uppercase; text-align: center;
   margin: 0; max-width: 16ch; text-wrap: balance;
 }
 .hero__title-line { display: block; }
 .hero__intro {
-  max-width: 46rem; margin-top: var(--sp-7); text-align: center;
-  font-size: var(--fs-h6); line-height: 1.4;
+  max-width: 46rem; margin-top: calc(var(--fs-display) * 0.98); text-align: center;
+  font-size: min(var(--fs-h6), 2.9vh); line-height: 1.4;
 }
 .hero__intro p + p { margin-top: var(--sp-3); }
 .hero__intro strong { font-weight: 700; }
 
-.hero__photos { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+/* The Figma hero is a 1440-square scene, and the two prints only sit correctly
+   against the headline if they keep that square's internal geometry. `--u` is
+   one design pixel of it, taken from whichever viewport axis is scarcer, and
+   the box below is that square centred in the hero: prints are then placed at
+   their literal Figma offsets. Sizing them off the viewport width alone made
+   them swell over the intro copy on a short laptop screen. */
+.hero__photos {
+  /* The square scene, centred horizontally and hung from the top of the hero.
+     Because `--u` takes the scarcer axis, the scene is never taller than the
+     viewport, so the prints keep their designed offsets from each other and
+     from the top edge without ever being cut off by it. */
+  position: absolute; z-index: -1; pointer-events: none;
+  --u: min(0.0694vw, 0.0694vh);
+  inline-size: calc(1440 * var(--u)); block-size: calc(1440 * var(--u));
+  /* Lifted 70 design-pixels: our hero is shorter than Figma's 1440 square, so
+     the copy underneath rides higher than the design puts it, and without the
+     lift the left-hand print clips the first line of the intro. */
+  inset-block-start: calc(-70 * var(--u)); inset-inline-start: 50%;
+  margin-inline-start: calc(-720 * var(--u));
+}
 .hero__photo {
-  position: absolute; margin: 0; width: clamp(190px, 31vw, 460px);
-  background: var(--color-white); padding: 8px;
+  position: absolute; margin: 0;
+  inline-size: calc(var(--fw, 560) * var(--u));
+  background: var(--color-white); padding: max(3px, calc(8.327 * var(--u)));
   box-shadow: 0 18px 44px rgb(0 0 0 / 0.32);
   rotate: var(--rot, 0deg);
 }
+.hero__photo .polaroid__frame { display: block; overflow: hidden; overflow: clip; }
 .hero__photo img { display: block; width: 100%; height: auto; }
-.hero__photo--1 { right: 2%;  top: 6%;  }  /* Échelle, +4.94deg in Figma      */
-.hero__photo--2 { left: -2%;  top: 30%; }  /* UNDP Chad 2024, -5.61deg        */
+/* Literal Figma offsets inside the scene, taken from each print's rotated
+   bounding box on the 1440 artboard. */
+.hero__photo--1 { inset-inline-start: calc(758.4 * var(--u)); inset-block-start: calc(75 * var(--u)); }
+.hero__photo--2 { inset-inline-start: calc(-8.9 * var(--u)); inset-block-start: calc(423 * var(--u)); }
 
 .hero__scroll {
-  margin-top: var(--sp-7); color: var(--color-yellow);
+  margin-top: calc(var(--fs-display) * 0.45); color: var(--color-yellow);
   display: inline-flex; line-height: 0;
   animation: hero-bob 2.4s var(--ease) infinite;
 }
@@ -88,11 +111,14 @@
 
 /* ---------- Chapters ---------- */
 .chapter { padding-block: var(--sp-7); }
-.chapter__intro { position: relative; min-height: 30rem; display: grid; align-items: end; isolation: isolate; }
-.chapter__intro::before {
-  content: ""; position: absolute; inset: 0; z-index: -1;
+.chapter__intro { position: relative; min-height: 30rem; display: grid; align-items: end; isolation: isolate; overflow: clip; }
+/* Oversized on purpose: the band is a parallax layer, and the bleed is what
+   stops its travel from exposing an edge at either end of the section. */
+.chapter__band {
+  position: absolute; inset: -16% 0; z-index: 0; pointer-events: none;
   background: linear-gradient(90deg, var(--band));
 }
+.chapter__intro-text { position: relative; z-index: 1; }
 [data-chapter="trust"]   { --band: #310c46, #241056, #141d77, #0b47a4, #087bcb; }
 [data-chapter="crises"]  { --band: #605ec1, #432d99, #401878, #4c1061, #710f59; }
 [data-chapter="climate"] { --band: #a11989, #53187b, #291976, #122179, #0a297b; }
@@ -139,19 +165,40 @@
   .block--cards:has(.polaroids) .card__value { font-size: var(--fs-h4); }
   .polaroids--left { order: -1; }
 }
+/* In Figma the prints are not one size: they run 340–648px on the 1440 artboard,
+   and that spread is a large part of how the page paces itself. `--fw` carries
+   each print's Figma width, compressed here onto 78–100% of the column — the
+   design's size hierarchy survives without the smallest print becoming a stamp.
+   The white border stays a constant width, as it is in the design, so small
+   prints read as proportionally thicker-framed. */
 .polaroid {
-  margin: 0; flex: 1 1 22rem; max-width: min(100%, 34rem);
-  background: var(--color-white); padding: 7px;
+  margin: 0;
+  inline-size: calc(78% + (var(--fw, 470) - 340) * 0.0714%);
+  max-inline-size: 100%;
+  background: var(--color-white); padding: clamp(4px, 0.52vw, 7.4px);
   box-shadow: 0 12px 34px rgb(0 0 0 / 0.18);
   rotate: var(--rot, 0deg);
 }
-.polaroids:has(.polaroid + .polaroid) .polaroid { max-width: 24rem; }
+/* The photograph is scaled and counter-moved inside this box by the parallax
+   layer; without the clip it would slide out over the white border. */
+.polaroid__frame { display: block; overflow: hidden; overflow: clip; }
 .polaroid--left  { margin-inline-end: auto; }
 .polaroid--right { margin-inline-start: auto; }
 .polaroid img { display: block; width: 100%; height: auto; }
+/* The only two-print block in the design (solar energy) has the prints
+   overlapping, not side by side. Stacking them here reproduces that, and since
+   the two carry different parallax depths they separate as the page scrolls. */
+.polaroids--stacked { display: block; position: relative; }
+.polaroids--stacked .polaroid { inline-size: calc(66% + (var(--fw, 470) - 340) * 0.0714%); }
+.polaroids--stacked .polaroid + .polaroid {
+  margin-block-start: -14%; margin-inline-start: auto; position: relative; z-index: 1;
+}
+
 .block--photos .polaroids { justify-content: center; margin-top: var(--sp-5); }
-.block--photos .polaroid { flex: 0 1 34rem; }
-.block--photos .polaroid { flex-grow: 0; }
+.block--photos .polaroid {
+  flex: 0 0 auto;
+  inline-size: clamp(220px, calc(var(--fw, 470) * 0.0694vw), calc(var(--fw, 470) * 1px));
+}
 
 /* ---------- Priorities ---------- */
 .priorities { padding-block: var(--sp-8); }

@@ -20,8 +20,8 @@
     "titleLines": [
       "Where UNDP",
       "made a",
-      "difference in",
-      "2025"
+      "difference",
+      "in 2025"
     ],
     "intro": "In 2025, Chad continued to strengthen its institutions and advance its development priorities, marking a new chapter for the country. Throughout the year, we worked with the Government, communities and development partners to strengthen institutions and improve the lives of the country's most vulnerable people.",
     "mapAlt": "Map of Chad",
@@ -32,7 +32,8 @@
         "rot": 4.94,
         "side": "right",
         "w": 1400,
-        "h": 1046
+        "h": 1046,
+        "fw": 647.7
       },
       {
         "src": "/assets/img/hero-02.jpg",
@@ -40,7 +41,8 @@
         "rot": -5.61,
         "side": "left",
         "w": 1400,
-        "h": 935
+        "h": 935,
+        "fw": 530.1
       }
     ],
     "paragraphs": [
@@ -104,7 +106,8 @@
               "rot": 4.85,
               "side": "right",
               "w": 1400,
-              "h": 933
+              "h": 933,
+              "fw": 494.1
             }
           ]
         },
@@ -125,7 +128,8 @@
               "rot": -5.9,
               "side": "left",
               "w": 933,
-              "h": 1400
+              "h": 1400,
+              "fw": 370.3
             }
           ]
         },
@@ -164,7 +168,8 @@
               "rot": 9.39,
               "side": "right",
               "w": 1400,
-              "h": 933
+              "h": 933,
+              "fw": 470.6
             }
           ]
         },
@@ -184,7 +189,8 @@
               "rot": -5.43,
               "side": "right",
               "w": 1400,
-              "h": 1024
+              "h": 1024,
+              "fw": 546.9
             }
           ]
         },
@@ -221,13 +227,14 @@
               "rot": 9.91,
               "side": "left",
               "w": 1400,
-              "h": 933
+              "h": 933,
+              "fw": 463.9
             }
           ]
         },
         {
           "type": "counters",
-          "heading": "TODO-heading (in Figma il titolo ripete \"Supporting refugees and host communities\" — da confermare con Sofia)",
+          "heading": "Turning energy into lasting opportunity",
           "items": [
             {
               "value": "1200",
@@ -245,7 +252,8 @@
               "rot": 6.03,
               "side": "right",
               "w": 960,
-              "h": 1280
+              "h": 1280,
+              "fw": 339.9
             },
             {
               "src": "/assets/img/energy-02.jpg",
@@ -253,7 +261,8 @@
               "rot": -2.59,
               "side": "right",
               "w": 1280,
-              "h": 960
+              "h": 960,
+              "fw": 470.5
             }
           ]
         }
@@ -285,7 +294,8 @@
               "rot": -3.65,
               "side": "right",
               "w": 1400,
-              "h": 933
+              "h": 933,
+              "fw": 593.4
             }
           ]
         },
@@ -312,7 +322,8 @@
               "rot": 4.96,
               "side": "left",
               "w": 1400,
-              "h": 933
+              "h": 933,
+              "fw": 554.7
             }
           ]
         }
@@ -347,7 +358,8 @@
               "rot": 7.9,
               "side": "right",
               "w": 933,
-              "h": 1400
+              "h": 1400,
+              "fw": 397.4
             }
           ]
         },
@@ -372,7 +384,8 @@
               "rot": -11.61,
               "side": "left",
               "w": 1400,
-              "h": 1125
+              "h": 1125,
+              "fw": 482.7
             }
           ]
         }
