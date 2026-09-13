@@ -1,0 +1,16 @@
+<section class="impact" aria-labelledby="impact-lead">
+  <p class="impact__context">{{ c.impact.context | t(en.impact.context) }}</p>
+  <p class="impact__lead" id="impact-lead" data-anim="text-reveal">{{ c.impact.lead | t(en.impact.lead) }}</p>
+  <ul class="impact__stats" role="list" data-anim="reveal">
+    {%- for s in (c.impact.stats if c.impact.stats[0].label else en.impact.stats) %}
+    <li class="stat">
+      <span class="stat__value" data-counter="{{ s.value }}" data-suffix="{{ s.suffix }}">{{ s.value }}{{ s.suffix }}</span>
+      <span class="stat__label">{{ s.label }}</span>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- if c.impact.cta | t(en.impact.cta) %}
+  <p><button class="tca" type="button" data-modal="impact">{{ c.impact.cta | t(en.impact.cta) }}</button></p>
+  {%- endif %}
+  <p class="impact__transition" data-anim="text-reveal">{{ c.impact.transition | t(en.impact.transition) }}</p>
+</section>

@@ -1,0 +1,11 @@
+<section class="priorities" aria-labelledby="priorities-title">
+  <h2 class="priorities__title" id="priorities-title" data-anim="text-reveal">{{ c.priorities.title | t(en.priorities.title) }}</h2>
+  <ul class="priorities__grid" role="list" data-anim="reveal">
+    {%- for p in en.priorities.items %}
+    <li class="priority">
+      <h3 class="priority__title">{{ (c.priorities.items[loop.index0].title) | t(p.title) }}</h3>
+      <p class="priority__body">{{ (c.priorities.items[loop.index0].body) | t(p.body) }}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>

@@ -1,0 +1,26 @@
+<header class="site-header" data-header>
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ ('/' + lang + '/') | url }}">
+      <img class="site-header__logo" src="{{ '/assets/img/undp-logo.svg' | url }}" alt="UNDP" width="53" height="109">
+      <span class="site-header__titles">
+        <span class="site-header__country">{{ c.header.brand | t(en.header.brand) }}</span>
+        <span class="site-header__tagline">{{ c.header.tagline | t(en.header.tagline) }}</span>
+      </span>
+    </a>
+    <nav class="site-header__nav" aria-label="{{ c.header.tagline | t(en.header.tagline) }}">
+      <a class="btn btn--ghost" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
+        {{ c.header.download | t(en.header.download) }}
+      </a>
+      <ul class="lang-switch" role="list">
+        {%- for l in site.langs %}
+        <li>
+          <a href="{{ ('/' + l + '/') | url }}" hreflang="{{ l }}" lang="{{ l }}"
+             {% if l == lang %}aria-current="true"{% endif %}>
+            {{ copy[l].header.languageLabel | t(l | upper) }}
+          </a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,16 @@
+---
+pagination:
+  data: site.langs
+  size: 1
+  alias: lang
+permalink: "/{{ lang }}/index.html"
+layout: layouts/base.njk
+---
+{% include "sections/hero.njk" %}
+{% include "sections/impact.njk" %}
+{%- for enCh in en.chapters %}
+  {%- set ch = c.chapters[loop.index0] %}
+  {% include "sections/chapter.njk" %}
+{%- endfor %}
+{% include "sections/priorities.njk" %}
+{% include "sections/closing.njk" %}

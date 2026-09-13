@@ -1,0 +1,9 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <p class="site-footer__kicker">{{ c.footer.kicker | t(en.footer.kicker) }}</p>
+    <a class="btn btn--primary site-footer__cta" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
+      {{ c.footer.cta | t(en.footer.cta) }}
+    </a>
+    <p class="site-footer__legal">{{ c.footer.copyright | t(en.footer.copyright) }}</p>
+  </div>
+</footer>

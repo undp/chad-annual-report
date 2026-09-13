@@ -1,0 +1,26 @@
+---
+permalink: /index.html
+eleventyExcludeFromCollections: true
+layout: false
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UNDP Chad — Annual Report 2025</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://annualreport.chad.undp.org/en/">
+<script>
+  // Redirect to the visitor's language when we publish it, English otherwise.
+  var supported = ['en', 'fr'];
+  var pref = (navigator.languages || [navigator.language || 'en'])
+    .map(function (l) { return String(l).slice(0, 2).toLowerCase(); })
+    .find(function (l) { return supported.indexOf(l) > -1; }) || 'en';
+  location.replace('./' + pref + '/');
+</script>
+<meta http-equiv="refresh" content="0; url=./en/">
+</head>
+<body>
+  <p>Redirecting to <a href="./en/">the English version</a> — <a href="./fr/">version française</a>.</p>
+</body>
+</html>

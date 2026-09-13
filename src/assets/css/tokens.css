@@ -1,0 +1,48 @@
+/* Design tokens — extracted from Figma "Chad Annual Report Storytelling" (frame 136:246, 1440px).
+   The file has no Figma variables: every value below was derived from the raw
+   hex codes and type sizes used in the design, then normalised into a scale. */
+:root {
+  /* Colour — the full palette of the design is 4 hues + white */
+  --color-navy:  #212e59;  /* primary text, dark sections (48 uses) */
+  --color-blue:  #2d66ab;  /* accent / links */
+  --color-slate: #54606e;  /* secondary text */
+  --color-mist:  #eff0f3;  /* light section background */
+  --color-white: #ffffff;
+  --color-overlay: rgb(255 255 255 / 0.2);
+
+  --color-text: var(--color-navy);
+  --color-bg: var(--color-white);
+
+  /* Type — Söhne Breit exists only in Fett (700) in the UNDP design system */
+  --font-display: 'Soehne Breit', 'Proxima Nova', system-ui, sans-serif;
+  --font-body: 'Proxima Nova', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Fluid scale: 375px → 1440px viewport. Desktop values are the Figma ones. */
+  --fs-display: clamp(3rem, 1.2rem + 10.7vw, 9.66rem);   /* 154.5px */
+  --fs-h1:      clamp(2.5rem, 1.4rem + 6.9vw, 6.25rem);  /* 100px */
+  --fs-h2:      clamp(2rem, 1.2rem + 4.8vw, 4.375rem);   /* 70px  */
+  --fs-h3:      clamp(1.75rem, 1.2rem + 3.8vw, 3.44rem); /* 55px  */
+  --fs-h4:      clamp(1.5rem, 1.1rem + 2.6vw, 2.34rem);  /* 37.5px */
+  --fs-h5:      clamp(1.375rem, 1.1rem + 2.4vw, 2.19rem);/* 35px  */
+  --fs-h6:      clamp(1.25rem, 1.05rem + 2.2vw, 2rem);   /* 32px  */
+  --fs-body:    clamp(1rem, 0.95rem + 0.35vw, 1.25rem);  /* 20px  */
+  --fs-small:   1rem;                                     /* 16px  */
+
+  --lh-tight: 0.94;   /* 154.5 → 107px in the hero */
+  --lh-body: 1.4;     /* 20 → 28px */
+
+  /* Spacing — 8px base */
+  --sp-1: 0.5rem;  --sp-2: 1rem;   --sp-3: 1.5rem;  --sp-4: 2rem;
+  --sp-5: 3rem;    --sp-6: 4rem;   --sp-7: 6rem;    --sp-8: 8rem;
+  --sp-9: 12rem;
+
+  /* Layout — design content column is 1440 − 144 margins */
+  --container: 72rem;    /* 1152px */
+  --container-wide: 90rem;
+  --gutter: clamp(1.25rem, 4vw, 9rem);
+
+  --radius: 0;
+  --motion-fast: 200ms;
+  --motion: 600ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}

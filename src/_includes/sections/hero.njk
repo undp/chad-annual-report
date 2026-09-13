@@ -1,0 +1,11 @@
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <div class="hero__map" aria-hidden="true" data-parallax="0.15">
+    <img src="{{ '/assets/img/chad-map.svg' | url }}" alt="" loading="eager" decoding="async">
+  </div>
+  <div class="hero__photos" aria-hidden="true">
+    <img class="hero__photo hero__photo--a" src="{{ '/assets/img/hero-01.jpg' | url }}" alt="" data-parallax="0.08">
+    <img class="hero__photo hero__photo--b" src="{{ '/assets/img/hero-02.jpg' | url }}" alt="" data-parallax="-0.06">
+  </div>
+  <h1 class="hero__title" id="hero-title">{{ c.hero.title | t(en.hero.title) }}</h1>
+  <p class="hero__intro" data-anim="text-reveal">{{ c.hero.intro | t(en.hero.intro) }}</p>
+</section>

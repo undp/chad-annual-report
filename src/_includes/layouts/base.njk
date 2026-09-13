@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="{{ c.meta.lang }}" dir="{{ c.meta.dir | t('ltr') }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ c.meta.title | t(en.meta.title) }}</title>
+  <meta name="description" content="{{ c.meta.description | t(en.meta.description) }}">
+  <link rel="canonical" href="{{ site.url }}/{{ lang }}/">
+  {%- for l in site.langs %}
+  <link rel="alternate" hreflang="{{ l }}" href="{{ site.url }}/{{ l }}/">
+  {%- endfor %}
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}/{{ site.defaultLang }}/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ c.meta.title | t(en.meta.title) }}">
+  <meta property="og:description" content="{{ c.meta.description | t(en.meta.description) }}">
+  <meta property="og:url" content="{{ site.url }}/{{ lang }}/">
+  <meta property="og:image" content="{{ site.url }}{{ c.meta.ogImage | t(en.meta.ogImage) }}">
+  <meta property="og:locale" content="{{ c.meta.locale | t('en') }}">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preload" href="{{ '/assets/fonts/soehne-breit-web-fett.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ '/assets/fonts/proximanova-regular-webfont.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ '/assets/css/tokens.css' | url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/base.css' | url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/sections.css' | url }}">
+  {%- if site.analytics.ga4 %}
+  <!-- GA4 loads only after consent — see assets/js/consent.js -->
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied'});
+  window.GA4_ID='{{ site.analytics.ga4 }}';</script>
+  {%- endif %}
+</head>
+<body class="lang-{{ lang }}">
+  <a class="skip-link" href="#main">{{ c.header.skipToContent | t(en.header.skipToContent) }}</a>
+  {% include "sections/header.njk" %}
+  <main id="main">
+    {{ content | safe }}
+  </main>
+  {% include "sections/footer.njk" %}
+  <script type="module" src="{{ '/assets/js/bundle.js' | url }}"></script>
+</body>
+</html>

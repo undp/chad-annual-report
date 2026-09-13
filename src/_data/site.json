@@ -1,0 +1,8 @@
+{
+  "name": "UNDP Chad Annual Report 2025",
+  "url": "https://annualreport.chad.undp.org",
+  "langs": ["en", "fr"],
+  "defaultLang": "en",
+  "analytics": { "ga4": "" },
+  "figma": { "file": "Chad Annual Report Storytelling", "frame": "136:246", "width": 1440 }
+}

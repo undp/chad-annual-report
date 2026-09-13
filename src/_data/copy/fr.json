@@ -1,0 +1,336 @@
+{
+  "meta": {
+    "lang": "fr",
+    "locale": "fr",
+    "dir": "ltr",
+    "title": "",
+    "description": "",
+    "ogImage": "/assets/img/og-en.jpg"
+  },
+  "header": {
+    "brand": "",
+    "tagline": "",
+    "download": "",
+    "languageLabel": "",
+    "languageSwitch": "",
+    "skipToContent": ""
+  },
+  "hero": {
+    "title": "",
+    "titleLines": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "intro": "",
+    "mapAlt": ""
+  },
+  "impact": {
+    "context": "",
+    "lead": "",
+    "stats": [
+      {
+        "value": "74",
+        "suffix": "%",
+        "label": ""
+      },
+      {
+        "value": "68",
+        "suffix": "%",
+        "label": ""
+      },
+      {
+        "value": "63",
+        "suffix": "%",
+        "label": ""
+      },
+      {
+        "value": "15000",
+        "suffix": "+",
+        "label": ""
+      },
+      {
+        "value": "2000",
+        "suffix": "+",
+        "label": ""
+      }
+    ],
+    "cta": "",
+    "transition": ""
+  },
+  "chapters": [
+    {
+      "id": "trust",
+      "title": "",
+      "intro": "",
+      "image": {
+        "src": "/assets/img/chapter-trust.jpg",
+        "alt": ""
+      },
+      "blocks": [
+        {
+          "type": "feature",
+          "heading": "",
+          "body": "",
+          "highlights": [
+            "",
+            ""
+          ],
+          "cta": ""
+        },
+        {
+          "type": "feature",
+          "heading": "",
+          "body": "",
+          "highlights": [
+            "",
+            "",
+            ""
+          ],
+          "align": "right"
+        },
+        {
+          "type": "cards",
+          "heading": "",
+          "items": [
+            {
+              "label": ""
+            },
+            {
+              "label": ""
+            },
+            {
+              "value": "950",
+              "suffix": "+",
+              "label": ""
+            }
+          ],
+          "cta": ""
+        }
+      ]
+    },
+    {
+      "id": "crises",
+      "title": "",
+      "intro": "",
+      "image": {
+        "src": "/assets/img/chapter-crises.jpg",
+        "alt": ""
+      },
+      "blocks": [
+        {
+          "type": "gallery",
+          "heading": "",
+          "items": [
+            {
+              "src": "/assets/img/lake-01.jpg",
+              "alt": "",
+              "caption": ""
+            },
+            {
+              "src": "/assets/img/lake-02.jpg",
+              "alt": "",
+              "caption": ""
+            },
+            {
+              "src": "/assets/img/lake-03.jpg",
+              "alt": "",
+              "caption": ""
+            }
+          ]
+        },
+        {
+          "type": "feature",
+          "heading": "",
+          "body": "",
+          "highlights": [
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "type": "counters",
+          "heading": "",
+          "items": [
+            {
+              "value": "40",
+              "suffix": "+",
+              "label": ""
+            },
+            {
+              "value": "500",
+              "suffix": "+",
+              "label": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "climate",
+      "title": "",
+      "intro": "",
+      "image": {
+        "src": "/assets/img/chapter-climate.jpg",
+        "alt": ""
+      },
+      "blocks": [
+        {
+          "type": "gallery",
+          "heading": "",
+          "items": [
+            {
+              "src": "/assets/img/energy-01.jpg",
+              "alt": "",
+              "caption": ""
+            },
+            {
+              "src": "/assets/img/energy-02.jpg",
+              "alt": "",
+              "caption": ""
+            }
+          ]
+        },
+        {
+          "type": "counters",
+          "heading": "",
+          "items": [
+            {
+              "value": "1200",
+              "label": ""
+            },
+            {
+              "value": "30",
+              "label": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "title": "",
+      "intro": "",
+      "image": {
+        "src": "/assets/img/chapter-health.jpg",
+        "alt": ""
+      },
+      "blocks": [
+        {
+          "type": "counters",
+          "heading": "",
+          "items": [
+            {
+              "value": "96",
+              "suffix": "%",
+              "label": ""
+            },
+            {
+              "value": "350000",
+              "label": ""
+            }
+          ]
+        },
+        {
+          "type": "feature",
+          "heading": "",
+          "body": "",
+          "highlights": [
+            ""
+          ]
+        },
+        {
+          "type": "feature",
+          "heading": "",
+          "body": "",
+          "highlights": [
+            ""
+          ],
+          "align": "right"
+        }
+      ]
+    },
+    {
+      "id": "youth",
+      "title": "",
+      "intro": "",
+      "image": {
+        "src": "/assets/img/chapter-youth.jpg",
+        "alt": ""
+      },
+      "blocks": [
+        {
+          "type": "cards",
+          "heading": "",
+          "items": [
+            {
+              "value": "1000",
+              "suffix": "+",
+              "label": ""
+            },
+            {
+              "title": "",
+              "label": ""
+            },
+            {
+              "title": ""
+            }
+          ]
+        },
+        {
+          "type": "counters",
+          "heading": "",
+          "items": [
+            {
+              "value": "7",
+              "label": ""
+            },
+            {
+              "value": "5",
+              "label": ""
+            }
+          ],
+          "cta": ""
+        }
+      ]
+    }
+  ],
+  "priorities": {
+    "title": "",
+    "items": [
+      {
+        "title": "",
+        "body": ""
+      },
+      {
+        "title": "",
+        "body": ""
+      },
+      {
+        "title": "",
+        "body": ""
+      },
+      {
+        "title": "",
+        "body": ""
+      }
+    ]
+  },
+  "closing": {
+    "body": "",
+    "highlights": [
+      "",
+      "",
+      ""
+    ],
+    "cta": ""
+  },
+  "footer": {
+    "kicker": "",
+    "cta": "",
+    "file": "/assets/files/undp-chad-annual-report-2025-en.pdf",
+    "copyright": ""
+  }
+}
