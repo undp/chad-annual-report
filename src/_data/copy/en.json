@@ -58,30 +58,34 @@
       {
         "value": "74",
         "suffix": "%",
-        "label": "benefit from economic recovery"
+        "label": "benefit from economic recovery",
+        "detail": "through Cash for Work initiatives and the provision of agricultural and fishing equipment to support livelihoods."
       },
       {
         "value": "68",
         "suffix": "%",
-        "label": "report better access to justice"
+        "label": "report better access to justice",
+        "detail": "supported by the construction of peace courts and gendarmerie posts, as well as community awareness-raising on human rights."
       },
       {
         "value": "63",
         "suffix": "%",
-        "label": "of households feel safer"
+        "label": "of households feel safer",
+        "detail": "thanks to strengthened mobility, an enhanced presence of security forces, and the installation of more than 600 solar-powered streetlights."
       },
       {
         "value": "15000",
         "suffix": "+",
-        "label": "children are learning in safer schools"
+        "label": "children are learning in safer schools",
+        "detail": "better protected against flooding in N’Djamena, thanks to the **rehabilitation of 10 schools**, including improved stormwater drainage systems."
       },
       {
         "value": "2000",
         "suffix": "+",
-        "label": "households are better protected, benefiting nearly 10,000 people"
+        "label": "households are better protected, benefiting nearly 10,000 people",
+        "detail": "through the **clearing of 9 km of drainage canals**, the **installation of 125 metres of culverts** and drainage structures, and the **distribution of 2,400 waste bins** to improve solid waste management in N’Djamena."
       }
     ],
-    "cta": "learn more",
     "transition": "Working alongside the Government, local authorities, communities and development partners, we delivered results that are improving people's lives across Chad."
   },
   "chapters": [
@@ -305,7 +309,8 @@
           "body": "100 health centres and 11 hospitals equipped with medical equipment and cold chain systems. Solar energy helps ensure continuity of essential health services.",
           "highlights": [
             "Solar energy helps ensure continuity of essential health services"
-          ]
+          ],
+          "cta": "learn more"
         },
         {
           "type": "feature",
@@ -427,5 +432,67 @@
     "cta": "Download the UNDP Chad 2025 Annual Report",
     "file": "/assets/files/undp-chad-annual-report-2025-en.pdf",
     "copyright": "© UNDP Chad 2025"
+  },
+  "modals": {
+    "trust-1": {
+      "body": "",
+      "figure": "",
+      "figureLabel": "",
+      "image": ""
+    },
+    "trust-3": {
+      "body": "",
+      "figure": "",
+      "figureLabel": "",
+      "image": ""
+    },
+    "health-2": {
+      "body": [
+        "Health facilities were strengthened through the provision of medical equipment, cold chain systems and solar energy solutions, helping improve the quality and continuity of essential health services, particularly in underserved areas."
+      ],
+      "figure": "More than 500",
+      "figureLabel": "biomedical technicians were also trained to operate and maintain the equipment, strengthening local capacity, promoting long-term sustainability and fostering national ownership.",
+      "image": ""
+    },
+    "youth-2": {
+      "body": [
+        "Through an intensive one-month AI bootcamp in Guinea and a specialized cybersecurity programme in Senegal, young Chadians strengthened practical digital skills alongside peers from across Francophone Africa, helping prepare a new generation of digital innovators."
+      ],
+      "figure": "",
+      "figureLabel": "",
+      "image": "/assets/img/youth-panel.jpg",
+      "imageAlt": "Young Chadians at the Youth Connekt Sahel gathering, 2025"
+    },
+    "closing": {
+      "body": [
+        "Behind every result in this report are strong partnerships, shared commitment and collective action. Working hand in hand with the Government and a wide range of bilateral and multilateral partners, UNDP is helping expand opportunities, reach the most vulnerable communities and advance sustainable development across Chad.",
+        "**Our partners include:** the African Development Bank, the European Union, France, the Global Environment Facility, the Global Fund, Germany, the Islamic Development Bank, Japan, the Netherlands, Slovenia, Sweden, Switzerland, the United Kingdom, the UN Peacebuilding Fund, the UNDP Funding Windows and the World Bank."
+      ],
+      "figure": "",
+      "figureLabel": "",
+      "image": ""
+    },
+    "close": "Close"
+  },
+  "undpFooter": {
+    "brandLine1": "United Nations",
+    "brandLine2": "Development Programme",
+    "logoAlt": "United Nations Development Programme",
+    "socialLabel": "UNDP on social media",
+    "links": [
+      {
+        "label": "Report Fraud, Abuse, Misconduct"
+      },
+      {
+        "label": "Submit Social or Environmental Complaint"
+      },
+      {
+        "label": "Scam Alert"
+      },
+      {
+        "label": "Terms of Use"
+      }
+    ],
+    "copyright": "© United Nations Development Programme"
   }
 }

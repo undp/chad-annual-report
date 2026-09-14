@@ -13,6 +13,33 @@ export default function (eleventyConfig) {
     return value;
   });
 
+  // Merge a translated array with its English fallback, element by element.
+  // Needed wherever the template has to *measure* the copy it is about to set
+  // — a Nunjucks {% set %} inside a loop does not survive the loop.
+  eleventyConfig.addFilter('tList', function (value, fallback) {
+    const en = fallback ?? [];
+    return en.map((f, i) => {
+      const v = Array.isArray(value) ? value[i] : undefined;
+      return v === undefined || v === null || v === '' ? f : v;
+    });
+  });
+
+  // Longest string in a list, in characters. The hero uses it to size its
+  // display type against the line that will actually be set, in any language.
+  eleventyConfig.addFilter('maxLen', function (list) {
+    return (list ?? []).reduce((n, s) => Math.max(n, String(s ?? '').length), 0);
+  });
+
+  // How wide a figure is once the counter has formatted it. "15000" renders as
+  // "15,000" and with its suffix occupies seven glyphs, not six — and it is the
+  // longest figure, not the average one, that decides whether the numeral fits
+  // its card. The template hands this to CSS so each card sizes its own numeral.
+  eleventyConfig.addFilter('figureLen', function (value, suffix) {
+    const n = Number(value);
+    const shown = Number.isFinite(n) ? n.toLocaleString('en-US') : String(value ?? '');
+    return shown.length + String(suffix ?? '').length;
+  });
+
   // Copy carries emphasis as **double asterisks** so translators edit plain text
   // and can never inject markup; everything else is escaped.
   eleventyConfig.addFilter('emph', function (value) {

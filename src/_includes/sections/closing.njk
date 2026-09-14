@@ -1,6 +1,6 @@
+{%- import "sections/modal.njk" as modal with context %}
 <section class="closing" aria-labelledby="closing-text">
   <p class="closing__text" id="closing-text" data-anim="text-reveal">{{ c.closing.body | t(en.closing.body) }}</p>
-  {%- if en.closing.cta %}
-  <button class="tca" type="button" data-modal="closing">{{ c.closing.cta | t(en.closing.cta) }}</button>
-  {%- endif %}
+  {{ modal.trigger('closing', c.closing.cta | t(en.closing.cta)) }}
+  {{ modal.dialog('closing', c.closing.body | t(en.closing.body)) }}
 </section>

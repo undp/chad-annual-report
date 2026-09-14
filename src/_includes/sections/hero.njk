@@ -16,8 +16,14 @@
     {%- endfor %}
   </div>
 
-  <h1 class="hero__title" id="hero-title">
-    {%- for line in en.hero.titleLines %}<span class="hero__title-line">{{ (c.hero.titleLines[loop.index0] if c.hero.titleLines else '') | t(line) }}</span>{% endfor %}
+  {#- The display face is wide enough that the headline, not the viewport, is
+      what limits its size on a phone. `--hero-chars` carries the length of the
+      longest line *as it will actually be set* — English here, French once the
+      translation lands — so the type shrinks to fit a longer language instead of
+      running off the screen. #}
+  {%- set titleLines = c.hero.titleLines | tList(en.hero.titleLines) %}
+  <h1 class="hero__title" id="hero-title" style="--hero-chars:{{ titleLines | maxLen }}">
+    {%- for line in titleLines %}<span class="hero__title-line">{{ line }}</span>{% endfor %}
   </h1>
 
   <div class="hero__intro" data-anim="text-reveal">

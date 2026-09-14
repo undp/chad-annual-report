@@ -1,9 +1,61 @@
-<footer class="site-footer">
-  <div class="site-footer__inner">
-    <p class="site-footer__kicker">{{ c.footer.kicker | t(en.footer.kicker) }}</p>
-    <a class="btn btn--primary site-footer__cta" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
+{# Two footers stacked, because they answer to two different owners.
+
+   The first is the report's own closing band — the download call to action the
+   Figma design ends on. The second is the institutional footer from the UNDP
+   Design System 2.0.2 (undp/design-system, Footer organism, "simple" variant),
+   which the client asked for and which has to look the same here as on every
+   other UNDP property.
+
+   The design system's *default* variant also carries four navigation columns and
+   a newsletter form. Both are left out: in the design system itself their content
+   is the placeholder "Page title", and this site has no newsletter endpoint —
+   inventing either would put dead links in a UN footer.
+
+   The four rows are siblings rather than the design system's nested
+   footer-top/footer-bottom wrappers, because the social row changes place
+   between breakpoints (beside the logo on desktop, above the copyright on
+   mobile) and one grid can move it without duplicating the markup. #}
+
+<section class="report-cta" aria-labelledby="report-cta-title">
+  <div class="report-cta__inner">
+    <p class="report-cta__kicker" id="report-cta-title">{{ c.footer.kicker | t(en.footer.kicker) }}</p>
+    <a class="btn btn--primary report-cta__btn" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
       {{ c.footer.cta | t(en.footer.cta) }}
     </a>
-    <p class="site-footer__legal">{{ c.footer.copyright | t(en.footer.copyright) }}</p>
+  </div>
+</section>
+
+{%- set uf = c.undpFooter %}
+{%- set enUf = en.undpFooter %}
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <a href="{{ site.undpFooter.logoLink }}">
+        <img src="{{ '/assets/img/undp/undp-logo-white.svg' | url }}"
+             alt="{{ uf.logoAlt | t(enUf.logoAlt) }}" width="106" height="218">
+      </a>
+      <p class="footer-logo__name">
+        <span>{{ uf.brandLine1 | t(enUf.brandLine1) }}</span>
+        <span>{{ uf.brandLine2 | t(enUf.brandLine2) }}</span>
+      </p>
+    </div>
+
+    <ul class="footer-icons" role="list" aria-label="{{ uf.socialLabel | t(enUf.socialLabel) }}">
+      {%- for s in site.undpFooter.social %}
+      <li>
+        <a href="{{ s.url }}" title="{{ s.title }}" rel="noopener" target="_blank">
+          <img src="{{ ('/assets/img/undp/' + s.name + '-white.svg') | url }}" alt="{{ s.title }}" width="20" height="20">
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+
+    <ul class="footer-lists" role="list">
+      {%- for l in enUf.links %}
+      <li><a href="{{ site.undpFooter.links[loop.index0] }}">{{ uf.links[loop.index0].label | t(l.label) }}</a></li>
+      {%- endfor %}
+    </ul>
+
+    <p class="footer-copyright">{{ uf.copyright | t(enUf.copyright) }}</p>
   </div>
 </footer>

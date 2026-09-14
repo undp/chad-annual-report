@@ -41,7 +41,8 @@ const FRAME_TRAVEL = 230;   // px a depth-1 print travels each way
 const INNER_DRIFT = 9;      // % of the photo's height, counter to its frame
 const INNER_SCALE = 1.22;   // slack for that drift: 11% spare each side against 9% used
 const SWAY = 1.2;           // deg of tilt added to the print's fixed angle
-const COPY_DRIFT = 3.2;     // % — counter to the prints, so the two separate visibly
+const COPY_DRIFT = 3.2;     // % — same direction as the prints, at a fraction of
+                            //     their speed, so the two still separate
 const BACK_TRAVEL = 11;     // % of a backdrop image's own height
 const LAG = 0.5;            // seconds of catch-up
 
@@ -56,7 +57,13 @@ const LAG = 0.5;            // seconds of catch-up
    The outline map behind the impact figures is the opposite case — a real image
    with real vertical structure — so it keeps a vertical backdrop travel, under
    the name `back` rather than sharing a kind with the gradients it has nothing
-   in common with. It moves *against* the scroll, the far-layer convention. */
+   in common with.
+
+   It used to move *against* the scroll — the far-layer convention, and a
+   downward drift. The design rule for this report is stricter than the
+   convention: every image travels upward, so that none of them can settle
+   behind a block of copy. The map now rises like everything else, just slowly
+   enough to still sit behind the figures. */
 
 /* Figma frame widths run 340–648px on the 1440 artboard. Mapped onto 0.45–1 so
    even the smallest print keeps a visible share of the motion. */
@@ -130,15 +137,18 @@ export default function initParallax() {
             const [fi, ti] = range(-INNER_DRIFT * d);
             tl.fromTo(photo, { yPercent: fi }, { yPercent: ti, ease: 'none' }, 0);
           }
-        } else if (kind === 'back') {
-          const [f, t] = range(-BACK_TRAVEL * d);
-          tl.fromTo(el, { yPercent: f }, { yPercent: t, ease: 'none' }, 0);
-        } else if (kind === 'drift') {
-          /* Negative, so the copy column recedes while the print advances. The
-             perceived depth is the *difference* between two layers, not the
-             travel of either, so opposing them buys more read than doubling
-             one — and keeps the text itself moving only a dozen pixels. */
-          const [f, t] = range(-COPY_DRIFT * d);
+        } else if (kind === 'back' || kind === 'drift') {
+          /* Both rise, like every other layer on the page. Depth is the
+             *difference* between two speeds, not the direction of either: the
+             copy column moves about a twentieth of what the print beside it
+             does, which reads as separation while keeping the text within a
+             dozen pixels of where it was typeset.
+
+             Opposing them separated the layers harder, and that is what this
+             used to do. It also meant the print climbed while the copy sank,
+             which on a stacked phone layout is two blocks converging — the one
+             thing the design asks never to happen. */
+          const [f, t] = range((kind === 'back' ? BACK_TRAVEL : COPY_DRIFT) * d);
           tl.fromTo(el, { yPercent: f }, { yPercent: t, ease: 'none' }, 0);
         }
       });

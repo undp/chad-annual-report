@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ c.meta.title | t(en.meta.title) }}</title>
   <meta name="description" content="{{ c.meta.description | t(en.meta.description) }}">
+  {#- The UNDP mark doubles as the favicon: an SVG one scales to every size the
+      browser asks for, and the .ico fallback is the only file Safari's pinned
+      tabs and old Edge will look for. Without either, every page view logs a
+      404 on /favicon.ico. #}
+  <link rel="icon" href="{{ '/assets/img/undp-logo.svg' | url }}" type="image/svg+xml">
   <link rel="canonical" href="{{ site.url }}/{{ lang }}/">
   {%- for l in site.langs %}
   <link rel="alternate" hreflang="{{ l }}" href="{{ site.url }}/{{ l }}/">

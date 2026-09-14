@@ -44,7 +44,12 @@
         "h": 935,
         "fw": 530.1
       }
-    ]
+    ],
+    "paragraphs": [
+      "",
+      ""
+    ],
+    "scrollHint": ""
   },
   "impact": {
     "context": "",
@@ -53,30 +58,34 @@
       {
         "value": "74",
         "suffix": "%",
-        "label": ""
+        "label": "",
+        "detail": ""
       },
       {
         "value": "68",
         "suffix": "%",
-        "label": ""
+        "label": "",
+        "detail": ""
       },
       {
         "value": "63",
         "suffix": "%",
-        "label": ""
+        "label": "",
+        "detail": ""
       },
       {
         "value": "15000",
         "suffix": "+",
-        "label": ""
+        "label": "",
+        "detail": ""
       },
       {
         "value": "2000",
         "suffix": "+",
-        "label": ""
+        "label": "",
+        "detail": ""
       }
     ],
-    "cta": "",
     "transition": ""
   },
   "chapters": [
@@ -300,7 +309,8 @@
           "body": "",
           "highlights": [
             ""
-          ]
+          ],
+          "cta": ""
         },
         {
           "type": "feature",
@@ -421,6 +431,68 @@
     "kicker": "",
     "cta": "",
     "file": "/assets/files/undp-chad-annual-report-2025-en.pdf",
+    "copyright": ""
+  },
+  "modals": {
+    "trust-1": {
+      "body": "",
+      "figure": "",
+      "figureLabel": "",
+      "image": ""
+    },
+    "trust-3": {
+      "body": "",
+      "figure": "",
+      "figureLabel": "",
+      "image": ""
+    },
+    "health-2": {
+      "body": [
+        ""
+      ],
+      "figure": "",
+      "figureLabel": "",
+      "image": ""
+    },
+    "youth-2": {
+      "body": [
+        ""
+      ],
+      "figure": "",
+      "figureLabel": "",
+      "image": "/assets/img/youth-panel.jpg",
+      "imageAlt": ""
+    },
+    "closing": {
+      "body": [
+        "",
+        ""
+      ],
+      "figure": "",
+      "figureLabel": "",
+      "image": ""
+    },
+    "close": ""
+  },
+  "undpFooter": {
+    "brandLine1": "",
+    "brandLine2": "",
+    "logoAlt": "",
+    "socialLabel": "",
+    "links": [
+      {
+        "label": ""
+      },
+      {
+        "label": ""
+      },
+      {
+        "label": ""
+      },
+      {
+        "label": ""
+      }
+    ],
     "copyright": ""
   }
 }

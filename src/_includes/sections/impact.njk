@@ -10,16 +10,35 @@
   </div>
   <p class="impact__context">{{ c.impact.context | t(en.impact.context) }}</p>
   <p class="impact__lead" id="impact-lead" data-anim="text-reveal">{{ c.impact.lead | t(en.impact.lead) }}</p>
+
+  {#- Each figure is a disclosure, not a static number: the Figma component ships
+      two variants — a pale card with an outlined numeral and a chevron, and a
+      yellow card with the numeral filled and the explanation underneath. The
+      chevron is the affordance, so the whole card is the button and the detail
+      is its controlled region; `hidden` keeps it out of the accessibility tree
+      and out of find-in-page until it is opened. #}
   <ul class="impact__stats" role="list" data-anim="reveal">
     {%- for s in (c.impact.stats if c.impact.stats[0].label else en.impact.stats) %}
-    <li class="stat">
-      <span class="stat__value" data-counter="{{ s.value }}" data-suffix="{{ s.suffix }}">{{ s.value }}{{ s.suffix }}</span>
-      <span class="stat__label">{{ s.label }}</span>
+    {%- set enS = en.impact.stats[loop.index0] %}
+    <li class="stat" style="--stat-chars:{{ enS.value | figureLen(enS.suffix) }}">
+      {%- if enS.detail %}
+      <button class="stat__toggle" type="button" aria-expanded="false" aria-controls="stat-{{ loop.index }}">
+        <span class="stat__value" data-counter="{{ enS.value }}" data-suffix="{{ enS.suffix }}">{{ enS.value }}{{ enS.suffix }}</span>
+        <span class="stat__label">{{ s.label | t(enS.label) }}</span>
+        <svg class="stat__chevron" viewBox="0 0 24 14" width="24" height="14" aria-hidden="true" focusable="false">
+          <path d="M2 2 12 12 22 2" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="square"/>
+        </svg>
+      </button>
+      <div class="stat__detail" id="stat-{{ loop.index }}" hidden>
+        <p>{{ s.detail | t(enS.detail) | emph | safe }}</p>
+      </div>
+      {%- else %}
+      <span class="stat__value" data-counter="{{ enS.value }}" data-suffix="{{ enS.suffix }}">{{ enS.value }}{{ enS.suffix }}</span>
+      <span class="stat__label">{{ s.label | t(enS.label) }}</span>
+      {%- endif %}
     </li>
     {%- endfor %}
   </ul>
-  {%- if c.impact.cta | t(en.impact.cta) %}
-  <p><button class="tca" type="button" data-modal="impact">{{ c.impact.cta | t(en.impact.cta) }}</button></p>
-  {%- endif %}
+
   <p class="impact__transition" data-anim="text-reveal">{{ c.impact.transition | t(en.impact.transition) }}</p>
 </section>

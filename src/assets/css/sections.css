@@ -1,7 +1,7 @@
 /* Section layout. Mobile-first: the Figma file only provides the 1440 desktop
    artboard, so every small-screen rule below is a proposal to validate with design. */
 
-.container, .impact, .chapter > .block, .priorities, .closing, .site-footer__inner, .site-header__inner {
+.container, .impact, .chapter > .block, .priorities, .closing, .report-cta__inner, .site-header__inner {
   width: min(100% - (2 * var(--gutter)), var(--container));
   margin-inline: auto;
 }
@@ -41,7 +41,18 @@
 }
 .hero__title {
   font-family: var(--font-display); font-weight: 700;
-  font-size: var(--fs-display); line-height: 0.851;
+  /* Two limits, whichever bites first. `--fs-display` is the design's own scale,
+     capped on viewport height so the hero composition stays inside a laptop
+     fold. The second term is the one that matters on a phone: Söhne Breit sets
+     at about 0.755em per character, so a ten-character line needs 7.55 times its
+     own font size in width — more than a 360px screen has at the design's size.
+     Measuring against `--hero-chars` rather than a fixed breakpoint means a
+     longer French headline shrinks to fit instead of running off the edge. */
+  font-size: min(
+    var(--fs-display),
+    (100vw - 2 * var(--gutter)) / (var(--hero-chars, 10) * 0.8)
+  );
+  line-height: 0.851;
   text-transform: uppercase; text-align: center;
   margin: 0; max-width: 16ch; text-wrap: balance;
 }
@@ -108,12 +119,63 @@
 .impact__map img { block-size: 72%; inline-size: auto; max-width: none; }
 .impact__context { font-size: var(--fs-small); color: var(--color-slate); max-width: 46rem; }
 .impact__lead { font-size: var(--fs-h4); font-weight: 600; max-width: 40rem; margin-block: var(--sp-4); }
-.impact__stats { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin-block: var(--sp-5); }
+.impact__stats { display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin-block: var(--sp-5); align-items: start; }
 .stat__value, .counter__value, .card__value {
   display: block; font-family: var(--font-display); font-weight: 700;
   font-size: var(--fs-h3); line-height: 1; color: var(--color-navy);
 }
 .stat__label, .counter__label, .card__label { display: block; margin-top: var(--sp-1); font-size: var(--fs-small); color: var(--color-slate); }
+
+/* The figure as a disclosure. Closed it is the pale card with the numeral drawn
+   as an outline; open it is the yellow card with the numeral filled in and the
+   explanation underneath. Both states come from the Figma component's two
+   variants, so the colour change is the state indicator, not decoration. */
+/* Each card is its own sizing context: the numeral is set from the card's width,
+   not the viewport's, so "15,000+" shrinks to fit while "63%" keeps the design's
+   size. Without it the longest figure simply ran out over the card edge. */
+.stat { display: flex; flex-direction: column; container-type: inline-size; }
+.stat__toggle {
+  all: unset; box-sizing: border-box; display: block; cursor: pointer;
+  background: var(--color-mist); padding: var(--sp-3);
+  transition: background-color 200ms var(--ease), color 200ms var(--ease);
+}
+.stat__toggle:focus-visible { outline: 3px solid var(--color-blue); outline-offset: 2px; }
+/* Outlined numeral. `text-stroke` is prefixed everywhere that supports it; the
+   fallback for anything that does not is simply the filled navy numeral, which
+   is legible rather than invisible — hence the paint-order of the declarations. */
+.stat__toggle .stat__value {
+  /* Söhne Breit sets at roughly 0.78em per glyph, so a seven-glyph figure needs
+     5.5 times its own size in width. The design size is the cap, the card is
+     the limit, and whichever bites first wins. */
+  font-size: min(var(--fs-h3), calc((100cqw - 2 * var(--sp-3)) / (var(--stat-chars, 4) * 0.78)));
+  -webkit-text-stroke: 1.5px var(--color-navy);
+  transition: color 200ms var(--ease);
+}
+/* A one-line label next to a two-line one leaves the closed row ragged for no
+   reason; reserving the second line costs nothing and settles the grid. */
+.stat__toggle .stat__label { min-height: 2lh; }
+@supports (-webkit-text-stroke: 1px black) {
+  .stat__toggle[aria-expanded='false'] .stat__value { color: transparent; }
+}
+.stat__chevron {
+  display: block; margin-top: var(--sp-2); color: var(--color-yellow);
+  transition: rotate 240ms var(--ease);
+}
+.stat__toggle[aria-expanded='true'] { background: var(--color-yellow); }
+.stat__toggle[aria-expanded='true'] .stat__value { color: var(--color-navy); }
+.stat__toggle[aria-expanded='true'] .stat__label { color: var(--color-navy); }
+.stat__toggle[aria-expanded='true'] .stat__chevron { color: var(--color-navy); rotate: 180deg; }
+.stat__toggle:hover { background: color-mix(in srgb, var(--color-yellow) 28%, var(--color-mist)); }
+.stat__toggle[aria-expanded='true']:hover { background: var(--color-yellow); }
+.stat__detail {
+  background: var(--color-yellow); padding: 0 var(--sp-3) var(--sp-3);
+  font-style: italic; color: var(--color-navy); font-size: var(--fs-small); line-height: 1.45;
+}
+.stat__detail p { margin: 0; }
+.stat__detail strong { font-weight: 700; font-style: italic; }
+@media (prefers-reduced-motion: reduce) {
+  .stat__toggle, .stat__chevron, .stat__toggle .stat__value { transition: none; }
+}
 .impact__transition { font-size: var(--fs-h6); max-width: 44rem; margin-top: var(--sp-6); }
 
 /* ---------- Chapters ---------- */
@@ -203,7 +265,11 @@
   margin-block-start: -14%; margin-inline-start: auto; position: relative; z-index: 1;
 }
 
-.block--photos .polaroids { justify-content: center; margin-top: var(--sp-5); }
+/* A photo-only block has no copy column beside it, so its heading does not drift
+   with the print the way a feature block's does — it stands still while the
+   print climbs into it. Measured at 1440 the climate prints were ending 23px
+   inside "Better protected against floods"; the headroom is that clearance. */
+.block--photos .polaroids { justify-content: center; margin-top: var(--sp-7); }
 .block--photos .polaroid {
   flex: 0 0 auto;
   inline-size: clamp(220px, calc(var(--fw, 470) * 0.0694vw), calc(var(--fw, 470) * 1px));
@@ -220,8 +286,174 @@
 .closing { padding-block: var(--sp-8); text-align: left; }
 .closing__text { font-size: var(--fs-h4); font-weight: 600; max-width: 32ch; }
 
-/* ---------- Footer ---------- */
-.site-footer { background: var(--color-navy); color: var(--color-white); padding-block: var(--sp-7); }
-.site-footer__kicker { font-family: var(--font-display); font-size: var(--fs-h4); }
-.site-footer__cta { margin-top: var(--sp-3); background: var(--color-white); color: var(--color-navy); border-color: var(--color-white); }
-.site-footer__legal { margin-top: var(--sp-5); font-size: var(--fs-small); opacity: 0.7; }
+/* ---------- Report download band ---------- */
+/* The page's own ending, in the report's palette — distinct from the UNDP
+   institutional footer that follows it. */
+.report-cta { background: var(--color-navy); color: var(--color-white); padding-block: var(--sp-7); }
+.report-cta__kicker { font-family: var(--font-display); font-size: var(--fs-h4); }
+.report-cta__btn { margin-top: var(--sp-3); background: var(--color-white); color: var(--color-navy); border-color: var(--color-white); }
+
+/* ---------- UNDP institutional footer ---------- */
+/* Ported from the UNDP Design System 2.0.2 (Footer organism, "simple" variant).
+   The tokens below are the design system's own compiled values, kept under their
+   own names rather than mapped onto this report's palette: this block has to go
+   on matching undp.org even if the report's colours are retuned. */
+.footer {
+  --undp-brand: #006eb5;
+  --undp-link-hover: #b5d5f5;
+  background: var(--undp-brand);
+  color: #fff;
+  padding: 48px 12px 40px;
+  font-family: var(--font-body);
+}
+.footer-inner {
+  width: min(100% - 24px, var(--container-wide));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'logo' 'links' 'social' 'copy';
+}
+.footer a { color: inherit; text-decoration: none; }
+.footer a:hover { color: var(--undp-link-hover); }
+
+.footer-logo { grid-area: logo; display: flex; align-items: flex-start; gap: 16px; }
+.footer-logo img { width: 53px; height: auto; }
+.footer-logo__name {
+  margin: 0; font-family: var(--font-display); font-size: 1rem; line-height: 1.25;
+  text-transform: uppercase; letter-spacing: 0.02em;
+}
+.footer-logo__name span { display: block; }
+
+/* Scoped under `.footer` to outrank `ul[role="list"]` in base.css: an attribute
+   selector beats a bare class, and it was silently zeroing the margins and
+   padding of both footer lists — which is what broke the rule under the first
+   row into two pieces at different heights. */
+.footer .footer-icons { grid-area: social; display: flex; flex-wrap: wrap; gap: 24px; list-style: none; margin: 32px 0 0; padding: 0; }
+.footer-icons a { display: inline-flex; padding: 4px; }
+.footer-icons img { width: 20px; height: 20px; }
+.footer-icons a:hover img { opacity: 0.7; }
+
+.footer .footer-lists { grid-area: links; list-style: none; margin: 32px 0 0; padding: 0; }
+.footer-lists li { margin-bottom: 12px; }
+.footer-lists a { font-size: 1rem; line-height: 1.4; }
+
+.footer-copyright { grid-area: copy; margin: 32px 0 0; font-size: 0.875rem; }
+
+/* The design system's `medium` breakpoint. Above it the footer is two columns:
+   logo and social share a row closed by a rule, copyright and legal links sit
+   under it. The rule is drawn on both cells rather than on a wrapper, so the
+   markup stays flat enough for the mobile reordering above. */
+@media (min-width: 48em) {
+  .footer { padding: 3.25rem 0 48px; }
+  .footer-inner {
+    width: min(100% - 2 * var(--gutter), var(--container-wide));
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'logo social' 'copy links';
+  }
+  /* The design system draws this rule on a wrapper spanning both cells. Here the
+     cells are siblings, so each draws its half — which only reads as one line if
+     they touch (no column gap) and end at the same height (both stretched, the
+     icons pushed to the bottom of their own box rather than shrinking it). */
+  .footer-logo, .footer .footer-icons {
+    border-bottom: 1px solid #fff; padding-bottom: 32px; margin-bottom: 32px;
+    align-self: stretch;
+  }
+  .footer .footer-icons { justify-content: flex-end; align-items: flex-end; margin-top: 0; padding-left: var(--sp-4); }
+  .footer .footer-lists { text-align: right; margin-top: 0; padding-left: var(--sp-4); }
+  .footer-copyright { margin: 0; font-size: 1rem; align-self: end; }
+}
+
+/* ---------- "learn more" dialogs ---------- */
+/* Geometry from the Figma artboards (Frame 4/5/6, 1920x1080): an 888px card with
+   a 35px radius, 88px of padding and 32px body copy on the navy-to-violet
+   gradient. Those four numbers are expressed as ratios of the card, not of the
+   viewport, so the card scales as one object down to a phone. */
+.modal {
+  border: 0; padding: 0; max-width: min(888px, calc(100vw - 2 * var(--gutter)));
+  width: 100%; max-height: min(90vh, 1000px);
+  background: transparent; color: #fff; overflow: visible;
+}
+.modal::backdrop { background: rgb(17 20 35 / 0.55); backdrop-filter: blur(2px); }
+.modal__box {
+  position: relative; border-radius: clamp(18px, 3.9cqw, 35px);
+  padding: clamp(1.75rem, 9.9%, 5.5rem);
+  background: linear-gradient(83.33deg, #212e59 11.19%, #7347bf 181.35%);
+  box-shadow: 0 0 12px 1px rgb(33 46 89 / 0.6);
+  max-height: min(90vh, 1000px); overflow-y: auto; overscroll-behavior: contain;
+}
+/* The design gives the dialogs no heading of their own; the block heading is
+   carried for screen readers only, so the card looks like the artboard. */
+.modal__title {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.modal__body, .modal__figure-label {
+  font-size: clamp(1rem, 0.55rem + 1.45vw, 2rem); line-height: 1.2; margin: 0;
+}
+.modal__figure { margin: clamp(1.5rem, 4vw, 3.25rem) 0 0; }
+.modal__figure-value {
+  display: block; font-family: var(--font-display); line-height: 0.8;
+  font-size: clamp(2.25rem, 1rem + 3.8vw, 5.625rem);
+}
+.modal__body + .modal__body { margin-top: 1em; }
+.modal__figure-label { display: block; margin-top: clamp(1rem, 3vw, 2.5rem); }
+.modal__image { width: 100%; height: auto; margin-top: clamp(1.5rem, 4vw, 3rem); border-radius: 8px; }
+.modal__close {
+  position: absolute; inset-block-start: clamp(0.75rem, 4%, 2.25rem);
+  inset-inline-end: clamp(0.75rem, 3.9%, 2.2rem);
+  width: clamp(38px, 6.2%, 55px); aspect-ratio: 1;
+  display: grid; place-items: center;
+  background: none; border: 2px solid currentColor; border-radius: 50%;
+  /* Yellow ring and glyph, as in the artboard — not white: on a purple box the
+     white ring reads as part of the card's border, the yellow one reads as a
+     control. */
+  color: var(--color-yellow); font-size: 1.5rem; line-height: 1; cursor: pointer;
+  transition: background var(--motion-fast) var(--ease);
+}
+.modal__close:hover { background: rgb(252 201 0 / 0.18); }
+/* Holding the page still while a dialog is open, without the sideways jump that
+   removing the scrollbar would otherwise cause. */
+html.is-modal-open { overflow: hidden; padding-inline-end: var(--scrollbar-gap, 0px); }
+
+/* ---------- Narrow screens ---------- */
+/* The Figma file is a single 1440 artboard, so everything below is a reading of
+   the design rather than a transcription of it — flagged for Sofia to confirm.
+   Each rule is here because it was measured failing on a 360x740 phone, not
+   because a breakpoint felt due. */
+
+/* A print is rotated, and a rotated box is wider than the box it was laid out
+   in: at full column width the corners of the widest prints pushed the document
+   6px past the viewport and gave the whole page a horizontal scrollbar. */
+@media (max-width: 61.99rem) {
+  .polaroid { max-inline-size: 94%; }
+  .polaroids--stacked .polaroid + .polaroid { margin-block-start: -10%; }
+  /* Half a phone screen of gradient before a word of the chapter appears is a
+     lot of nothing; the band keeps its proportions but not its desktop height. */
+  .chapter__intro { min-height: 22rem; }
+  .block { padding-block: var(--sp-5); }
+  .chapter { padding-block: var(--sp-5); }
+  /* Stacked, the print sits directly under the copy it belongs to and climbs
+     towards it: measured at 390px it was ending 21px inside the last line. The
+     headroom is the clearance for that climb, not decoration — a print must
+     never come to rest under a paragraph. */
+  .polaroids { margin-block: var(--sp-6) var(--sp-4); }
+}
+
+/* Touch targets. WCAG 2.5.8 asks for 24x24 CSS pixels; the language switch was
+   19x23, the social icons 28x28 and the legal links 23 tall. The boxes grow,
+   the type does not. */
+.lang-switch a { display: inline-block; padding: 0.5rem 0.35rem; }
+.footer-icons a { padding: 12px; margin: -12px; }
+.footer-lists a { display: inline-block; padding-block: 0.35rem; }
+.tca { padding-block: 0.5rem 0.6rem; }
+
+/* Reachability on a phone: a sticky header that takes a quarter of the screen is
+   not a header, so it gives up the strap-line and tightens the logo. */
+@media (max-width: 40rem) {
+  .site-header__inner { gap: var(--sp-2); min-height: 56px; }
+  .site-header__logo { height: 34px; }
+  .site-header__tagline { display: none; }
+  .site-header__nav .btn { padding: 0.6em 0.9em; font-size: 0.8rem; }
+  .report-cta { padding-block: var(--sp-6); }
+  .report-cta__btn { display: block; text-align: center; }
+}

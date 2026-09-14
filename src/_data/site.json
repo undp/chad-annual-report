@@ -1,8 +1,53 @@
 {
   "name": "UNDP Chad Annual Report 2025",
   "url": "https://annualreport.chad.undp.org",
-  "langs": ["en", "fr"],
+  "langs": [
+    "en",
+    "fr"
+  ],
   "defaultLang": "en",
-  "analytics": { "ga4": "" },
-  "figma": { "file": "Chad Annual Report Storytelling", "frame": "136:246", "width": 1440 }
+  "analytics": {
+    "ga4": ""
+  },
+  "figma": {
+    "file": "Chad Annual Report Storytelling",
+    "frame": "136:246",
+    "width": 1440
+  },
+  "undpFooter": {
+    "logoLink": "https://www.undp.org/chad",
+    "links": [
+      "https://www.undp.org/accountability/investigations",
+      "https://www.undp.org/accountability/secu-srm",
+      "https://www.undp.org/scam-alert",
+      "https://www.undp.org/copyright-terms-use"
+    ],
+    "social": [
+      {
+        "name": "twitter-x",
+        "title": "X",
+        "url": "https://x.com/UNDP"
+      },
+      {
+        "name": "linkedin",
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/company/undp"
+      },
+      {
+        "name": "facebook",
+        "title": "Facebook",
+        "url": "https://www.facebook.com/UNDP"
+      },
+      {
+        "name": "instagram",
+        "title": "Instagram",
+        "url": "https://www.instagram.com/UNDP"
+      },
+      {
+        "name": "youtube",
+        "title": "YouTube",
+        "url": "https://www.youtube.com/UNDP"
+      }
+    ]
+  }
 }

@@ -1,0 +1,54 @@
+{# "learn more" dialogs.
+
+   Native <dialog> rather than a hand-rolled overlay: the focus trap, the Escape
+   key, inertness of the page behind and the top-layer stacking are all browser
+   behaviour, and every one of them is a thing hand-rolled modals get wrong.
+
+   The dialog is emitted next to the button that opens it so it can borrow that
+   block's heading as its accessible name — the Figma artboards have no title of
+   their own, and a modal without an accessible name is a modal a screen reader
+   announces as nothing at all. #}
+
+{%- macro dialog(id, title) %}
+{%- set m = en.modals[id] %}
+{%- set tr = c.modals[id] %}
+{%- if m and m.body %}
+<dialog class="modal" id="modal-{{ id }}" aria-labelledby="modal-{{ id }}-title">
+  <div class="modal__box">
+    <h2 class="modal__title" id="modal-{{ id }}-title">{{ title }}</h2>
+    <button class="modal__close" type="button" data-modal-close
+            aria-label="{{ c.modals.close | t(en.modals.close) }}">&times;</button>
+    {#- The body is a list of paragraphs, not one blob: the closing dialog is two
+        in the design, and its second opens with a bold lead-in. Emphasis travels
+        as **asterisks** so a translator edits plain text and cannot inject markup. #}
+    {%- set paras = tr.body | tList(m.body) %}
+    {%- for para in paras %}
+    <p class="modal__body">{{ para | emph | safe }}</p>
+    {%- endfor %}
+    {%- if m.figure %}
+    <p class="modal__figure">
+      <span class="modal__figure-value">{{ tr.figure | t(m.figure) }}</span>
+      <span class="modal__figure-label">{{ tr.figureLabel | t(m.figureLabel) }}</span>
+    </p>
+    {%- endif %}
+    {%- if m.image %}
+    <picture>
+      <source srcset="{{ (m.image | replace('.jpg', '.webp')) | url }}" type="image/webp">
+      <img class="modal__image" src="{{ m.image | url }}" alt="{{ tr.imageAlt | t(m.imageAlt) }}"
+           width="1120" height="747" loading="lazy" decoding="async">
+    </picture>
+    {%- endif %}
+  </div>
+</dialog>
+{%- endif %}
+{%- endmacro %}
+
+{# The button, paired with the dialog above so the two can never drift apart.
+   It renders only when there is something to open: three of the six CTAs in the
+   design have no artboard yet, and a button that opens an empty box is worse
+   than a button that is not there. #}
+{%- macro trigger(id, label) %}
+{%- if en.modals[id] and en.modals[id].body %}
+<button class="tca" type="button" data-modal="{{ id }}">{{ label }}</button>
+{%- endif %}
+{%- endmacro %}
