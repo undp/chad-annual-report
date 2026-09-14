@@ -1,8 +1,12 @@
 <section class="impact" aria-labelledby="impact-lead">
   {#- In the design the outline map of Chad is the backdrop of this band, not of
       the hero: the hero's gradient covers it entirely. #}
-  <div class="impact__map" aria-hidden="true" data-parallax="band" data-depth="0.85">
-    <img src="{{ '/assets/img/chad-map.svg' | url }}" alt="" loading="lazy" decoding="async">
+  <div class="impact__map" aria-hidden="true" data-parallax="back" data-depth="0.85">
+    {#- The intrinsic size is not decoration here: without width/height this
+        lazy image has a zero-height box, never crosses the lazy-load threshold,
+        and so never loads — which is exactly what it was doing. #}
+    <img src="{{ '/assets/img/chad-map.svg' | url }}" alt="" width="3619" height="3534"
+         loading="lazy" decoding="async">
   </div>
   <p class="impact__context">{{ c.impact.context | t(en.impact.context) }}</p>
   <p class="impact__lead" id="impact-lead" data-anim="text-reveal">{{ c.impact.lead | t(en.impact.lead) }}</p>

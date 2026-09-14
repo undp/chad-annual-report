@@ -97,8 +97,15 @@
 
 /* ---------- Impact band ---------- */
 .impact { position: relative; isolation: isolate; padding-block: var(--sp-7); overflow: clip; }
-.impact__map { position: absolute; inset: -20% -25% auto; z-index: -1; opacity: 0.1; pointer-events: none; }
-.impact__map img { width: 150%; max-width: none; }
+/* Sized by height, not width: the outline is roughly square, and fitting it to
+   the band is what makes it read as a country rather than as texture. The box is
+   deliberately taller than the band so the backdrop travel never clips the
+   silhouette — 16% of bleed against ~9% of travel. */
+.impact__map {
+  position: absolute; inset: -16% 0; z-index: -1; opacity: 0.1; pointer-events: none;
+  display: grid; place-items: center;
+}
+.impact__map img { block-size: 72%; inline-size: auto; max-width: none; }
 .impact__context { font-size: var(--fs-small); color: var(--color-slate); max-width: 46rem; }
 .impact__lead { font-size: var(--fs-h4); font-weight: 600; max-width: 40rem; margin-block: var(--sp-4); }
 .impact__stats { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin-block: var(--sp-5); }
@@ -112,10 +119,12 @@
 /* ---------- Chapters ---------- */
 .chapter { padding-block: var(--sp-7); }
 .chapter__intro { position: relative; min-height: 30rem; display: grid; align-items: end; isolation: isolate; overflow: clip; }
-/* Oversized on purpose: the band is a parallax layer, and the bleed is what
-   stops its travel from exposing an edge at either end of the section. */
+/* Static backdrop. It carried a vertical parallax until the gradient was read
+   properly: a 90deg gradient is uniform down every column, so vertical travel
+   showed nothing — and with the travel gone the -16% bleed that concealed it
+   has no job either. */
 .chapter__band {
-  position: absolute; inset: -16% 0; z-index: 0; pointer-events: none;
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: linear-gradient(90deg, var(--band));
 }
 .chapter__intro-text { position: relative; z-index: 1; }

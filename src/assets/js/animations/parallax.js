@@ -27,14 +27,36 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* Motion budget, each measured across one full viewport traversal of the layer. */
-const FRAME_TRAVEL = 120;   // px a depth-1 print travels
-const INNER_DRIFT = 5;      // % of the photo's height, counter to its frame
-const INNER_SCALE = 1.14;   // slack for that drift: 7% spare each side against 5.7% used
-const SWAY = 0.6;           // deg of tilt added to the print's fixed angle
-const COPY_DRIFT = 2.4;     // % — the slowest layer, small enough not to disturb reading
-const BAND_TRAVEL = 14;     // % of the gradient band's own height
-const LAG = 0.7;            // seconds of catch-up
+/* Motion budget. Each figure is the *half* travel: a layer runs from +v to -v
+   across its trigger, sitting at its authored position when the block is
+   centred — so the composition the design fixes is exactly what you read, and
+   the motion lives in the approach and the exit.
+
+   The numbers below were raised from a first pass that measured 90-197px of
+   print travel, i.e. a 7-12% differential against the page. That is under the
+   threshold where the eye reads depth rather than just noticing nothing; the
+   prints now run at roughly a quarter of page speed, which is the range
+   editorial parallax has to reach to be legible at a normal scroll rate. */
+const FRAME_TRAVEL = 230;   // px a depth-1 print travels each way
+const INNER_DRIFT = 9;      // % of the photo's height, counter to its frame
+const INNER_SCALE = 1.22;   // slack for that drift: 11% spare each side against 9% used
+const SWAY = 1.2;           // deg of tilt added to the print's fixed angle
+const COPY_DRIFT = 3.2;     // % — counter to the prints, so the two separate visibly
+const BACK_TRAVEL = 11;     // % of a backdrop image's own height
+const LAG = 0.5;            // seconds of catch-up
+
+/* The chapter bands used to be a parallax layer too, travelling ~14% of their
+   height. They were removed rather than retuned: their fill is
+   `linear-gradient(90deg, …)`, a gradient with no vertical variation at all, so
+   every row of the band is identical and sliding it up or down is invisible by
+   construction. Five ScrollTriggers were animating a no-op — measured at ~107px
+   of travel apiece with nothing to show for it. Motion that cannot be seen is
+   not subtle, it is just cost.
+
+   The outline map behind the impact figures is the opposite case — a real image
+   with real vertical structure — so it keeps a vertical backdrop travel, under
+   the name `back` rather than sharing a kind with the gradients it has nothing
+   in common with. It moves *against* the scroll, the far-layer convention. */
 
 /* Figma frame widths run 340–648px on the 1440 artboard. Mapped onto 0.45–1 so
    even the smallest print keeps a visible share of the motion. */
@@ -108,11 +130,15 @@ export default function initParallax() {
             const [fi, ti] = range(-INNER_DRIFT * d);
             tl.fromTo(photo, { yPercent: fi }, { yPercent: ti, ease: 'none' }, 0);
           }
-        } else if (kind === 'drift') {
-          const [f, t] = range(COPY_DRIFT * d);
+        } else if (kind === 'back') {
+          const [f, t] = range(-BACK_TRAVEL * d);
           tl.fromTo(el, { yPercent: f }, { yPercent: t, ease: 'none' }, 0);
-        } else if (kind === 'band') {
-          const [f, t] = range(-BAND_TRAVEL * d);
+        } else if (kind === 'drift') {
+          /* Negative, so the copy column recedes while the print advances. The
+             perceived depth is the *difference* between two layers, not the
+             travel of either, so opposing them buys more read than doubling
+             one — and keeps the text itself moving only a dozen pixels. */
+          const [f, t] = range(-COPY_DRIFT * d);
           tl.fromTo(el, { yPercent: f }, { yPercent: t, ease: 'none' }, 0);
         }
       });
