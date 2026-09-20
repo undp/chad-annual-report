@@ -9,7 +9,7 @@
       browser asks for, and the .ico fallback is the only file Safari's pinned
       tabs and old Edge will look for. Without either, every page view logs a
       404 on /favicon.ico. #}
-  <link rel="icon" href="{{ '/assets/img/undp-logo.svg' | url }}" type="image/svg+xml">
+  <link rel="icon" href="{{ '/assets/img/undp-logo.svg' | asset }}" type="image/svg+xml">
   <link rel="canonical" href="{{ site.url }}/{{ lang }}/">
   {%- for l in site.langs %}
   <link rel="alternate" hreflang="{{ l }}" href="{{ site.url }}/{{ l }}/">
@@ -20,7 +20,7 @@
   <meta property="og:title" content="{{ c.meta.title | t(en.meta.title) }}">
   <meta property="og:description" content="{{ c.meta.description | t(en.meta.description) }}">
   <meta property="og:url" content="{{ site.url }}/{{ lang }}/">
-  <meta property="og:image" content="{{ site.url }}{{ c.meta.ogImage | t(en.meta.ogImage) }}">
+  <meta property="og:image" content="{{ site.url }}{{ (c.meta.ogImage | t(en.meta.ogImage)) | asset }}">
   <meta property="og:locale" content="{{ c.meta.locale | t('en') }}">
   <meta name="twitter:card" content="summary_large_image">
 

@@ -30,8 +30,8 @@ block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b
           data-parallax="stack">
     <div class="polaroid__frame">
       <picture>
-        <source srcset="{{ (p.src | replace('.jpg', '.webp')) | url }}" type="image/webp">
-        <img src="{{ p.src | url }}" width="{{ p.w }}" height="{{ p.h }}"
+        <source srcset="{{ (p.src | replace('.jpg', '.webp')) | asset }}" type="image/webp">
+        <img src="{{ p.src | asset }}" width="{{ p.w }}" height="{{ p.h }}"
              alt="{{ trPhotos[loop.index0].alt | t(p.alt) }}" loading="lazy" decoding="async">
       </picture>
     </div>

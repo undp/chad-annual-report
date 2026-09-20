@@ -105,8 +105,8 @@
     {%- endif %}
     {%- if m.image %}
     <picture>
-      <source srcset="{{ (m.image | replace('.jpg', '.webp')) | url }}" type="image/webp">
-      <img class="modal__image" src="{{ m.image | url }}" alt="{{ tr.imageAlt | t(m.imageAlt) }}"
+      <source srcset="{{ (m.image | replace('.jpg', '.webp')) | asset }}" type="image/webp">
+      <img class="modal__image" src="{{ m.image | asset }}" alt="{{ tr.imageAlt | t(m.imageAlt) }}"
            width="1400" height="933" loading="lazy" decoding="async">
     </picture>
     {%- endif %}

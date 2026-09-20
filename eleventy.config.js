@@ -10,10 +10,10 @@ export default function (eleventyConfig) {
 
   // Fall back to the English string when a FR translation is still missing,
   // so the site always builds even with partial content delivery.
-  /* CSS and JS are referenced with a hash of their content in the query
-     string, so every build that changes a file changes its URL and no cache —
-     browser or CDN — can serve the previous version. Images and fonts keep
-     plain URLs: they change rarely and are cached for a week by the server. */
+  /* CSS, JS and images are referenced with a hash of their content in the
+     query string, so every build that changes a file changes its URL and no
+     cache — browser or CDN — can serve the previous version. Only fonts keep
+     plain URLs: they never change and are cached for a week by the server. */
   const assetHash = new Map();
   eleventyConfig.addFilter('asset', function (path) {
     if (!assetHash.has(path)) {

@@ -40,7 +40,7 @@
   <div class="footer-inner">
     <div class="footer-logo">
       <a href="{{ site.undpFooter.logoLink }}">
-        <img src="{{ '/assets/img/undp/undp-logo-white.svg' | url }}"
+        <img src="{{ '/assets/img/undp/undp-logo-white.svg' | asset }}"
              alt="{{ uf.logoAlt | t(enUf.logoAlt) }}" width="106" height="218">
       </a>
       <p class="footer-logo__name">
@@ -53,7 +53,7 @@
       {%- for s in site.undpFooter.social %}
       <li>
         <a href="{{ s.url }}" title="{{ s.title }}" rel="noopener" target="_blank">
-          <img src="{{ ('/assets/img/undp/' + s.name + '-white.svg') | url }}" alt="{{ s.title }}" width="20" height="20">
+          <img src="{{ ('/assets/img/undp/' + s.name + '-white.svg') | asset }}" alt="{{ s.title }}" width="20" height="20">
         </a>
       </li>
       {%- endfor %}

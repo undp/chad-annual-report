@@ -75,11 +75,14 @@
   display: grid; align-content: center; justify-items: center;
   padding: clamp(3rem, 8vh, 8rem) var(--gutter) clamp(2.5rem, 6vh, 6rem);
   color: var(--color-white);
-  background: #2a0f4a url('../img/hero-bg.jpg') center / cover no-repeat;
+  /* The backdrop URLs come from the template (--hero-bg, --hero-bg-webp) so
+     they carry the content hash like every other image: swapping the file
+     changes the URL and no cache keeps the old one. */
+  background: #2a0f4a var(--hero-bg) center / cover no-repeat;
 }
 @supports (background-image: image-set(url('x.webp') type('image/webp'))) {
-  .hero { background-image: image-set(url('../img/hero-bg.webp') type('image/webp'),
-                                      url('../img/hero-bg.jpg') type('image/jpeg')); }
+  .hero { background-image: image-set(var(--hero-bg-webp) type('image/webp'),
+                                      var(--hero-bg) type('image/jpeg')); }
 }
 .hero__title {
   font-family: var(--font-display); font-weight: 700;

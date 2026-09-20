@@ -2,14 +2,15 @@
    the headline, and the oversized white display type on top — as in the Figma
    frame. The title is stored sentence-case (it feeds <title> and OG tags) and
    uppercased in CSS, so translators never deal with casing. #}
-<section class="hero" id="hero" aria-labelledby="hero-title">
+<section class="hero" id="hero" aria-labelledby="hero-title"
+         style="--hero-bg:url('{{ '/assets/img/hero-bg.jpg' | asset }}');--hero-bg-webp:url('{{ '/assets/img/hero-bg.webp' | asset }}')">
   <div class="hero__photos" aria-hidden="true">
     {%- for p in en.hero.photos %}
     <figure class="hero__photo hero__photo--{{ loop.index }}" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }}" data-parallax="stack">
       <div class="polaroid__frame">
         <picture>
-          <source srcset="{{ (p.src | replace('.jpg', '.webp')) | url }}" type="image/webp">
-          <img src="{{ p.src | url }}" width="{{ p.w }}" height="{{ p.h }}" alt="" loading="eager" decoding="async">
+          <source srcset="{{ (p.src | replace('.jpg', '.webp')) | asset }}" type="image/webp">
+          <img src="{{ p.src | asset }}" width="{{ p.w }}" height="{{ p.h }}" alt="" loading="eager" decoding="async">
         </picture>
       </div>
     </figure>

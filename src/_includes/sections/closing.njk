@@ -6,8 +6,8 @@
     <figure class="polaroid polaroid--{{ cp.side }}" style="--rot:{{ cp.rot }}deg;--fw:{{ cp.fw }}" data-parallax="stack">
       <div class="polaroid__frame">
         <picture>
-          <source srcset="{{ (cp.src | replace('.jpg', '.webp')) | url }}" type="image/webp">
-          <img src="{{ cp.src | url }}" width="{{ cp.w }}" height="{{ cp.h }}"
+          <source srcset="{{ (cp.src | replace('.jpg', '.webp')) | asset }}" type="image/webp">
+          <img src="{{ cp.src | asset }}" width="{{ cp.w }}" height="{{ cp.h }}"
                alt="{{ (c.closing.photos[0].alt if c.closing.photos else '') | t(cp.alt) }}" loading="lazy" decoding="async">
         </picture>
       </div>

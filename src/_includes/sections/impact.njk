@@ -11,7 +11,7 @@
     {#- The intrinsic size is not decoration here: without width/height this
         lazy image has a zero-height box, never crosses the lazy-load threshold,
         and so never loads — which is exactly what it was doing. #}
-    <img src="{{ '/assets/img/chad-map.svg' | url }}" alt="" width="3619" height="3534"
+    <img src="{{ '/assets/img/chad-map.svg' | asset }}" alt="" width="3619" height="3534"
          loading="lazy" decoding="async">
   </div>
   {#- The design opens on the guiding line and sets the context paragraph in
