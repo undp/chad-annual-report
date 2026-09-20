@@ -578,7 +578,11 @@
      block reserves the height of the print's bounding box (`--p-ext`) so it
      never runs into the next block's text. */
   :is(.block, .closing):has(.polaroids--placed) { display: block; position: relative; }
-  :is(.block, .closing):has(.polaroids--placed) > :not(.polaroids) { position: relative; z-index: 1; }
+  /* The dialog is excluded on purpose: it lives in the top layer, where a
+     `position: relative` becomes `absolute` against the top of the document.
+     Opening it then focuses its close button up there, and the browser
+     smooth-scrolls the whole page back to the start to show it. */
+  :is(.block, .closing):has(.polaroids--placed) > :not(.polaroids, .modal) { position: relative; z-index: 1; }
   /* The prints cross the lines in the file ("Local governments" by 68px, the
      youth print by 334) and the closing's runs down over the footer band, so
      no depth is reserved for a print on the right: the next title starts at
