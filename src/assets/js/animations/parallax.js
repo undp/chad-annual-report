@@ -37,10 +37,27 @@ gsap.registerPlugin(ScrollTrigger);
    threshold where the eye reads depth rather than just noticing nothing; the
    prints now run at roughly a quarter of page speed, which is the range
    editorial parallax has to reach to be legible at a normal scroll rate. */
-const FRAME_TRAVEL = 230;   // px a depth-1 print travels each way
-const INNER_DRIFT = 9;      // % of the photo's height, counter to its frame
-const INNER_SCALE = 1.22;   // slack for that drift: 11% spare each side against 9% used
+const FRAME_TRAVEL = 170;   // px a depth-1 print travels each way
+/* The photograph inside the frame runs the other way from the frame, and
+   further than it used to: at 9% in the frame's own direction the picture
+   shifted 36px across a whole viewport while its frame moved 300 — a 1:8
+   ratio the eye reads as nothing. At 16% against the frame the two layers
+   part company on every scroll, which is what a print in a window is for. */
+const INNER_DRIFT = 16;     // % of the photo's height, counter to its frame
+const INNER_SCALE = 1.34;   // slack for that drift: 17% spare each side against 16% used
 const SWAY = 1.2;           // deg of tilt added to the print's fixed angle
+/* Three cues the eye uses for depth, on top of speed. Each one is small; it
+   is their agreement that reads as a print lifted off the page.
+   - the print grows a little as it passes: nearer things look larger;
+   - it tips back on its horizontal axis, under a perspective set on its
+     parent, so its top edge foreshortens as it enters and its bottom as it
+     leaves — the motion of a card turning through a shaft of light;
+   - its shadow follows the tilt: longer and softer when the print is lifted
+     towards the viewer, short and tight when it lies back down. */
+const LIFT_SCALE = 0.05;    // ± scale around the print's rest size
+const LEAN = 5;             // deg of rotateX each way, at depth 1
+const SHADOW_REST = { y: 12, blur: 34, a: 0.18 };
+const SHADOW_LIFT = { y: 30, blur: 60, a: 0.28 };
 const COPY_DRIFT = 3.2;     // % — same direction as the prints, at a fraction of
                             //     their speed, so the two still separate
 const BACK_TRAVEL = 11;     // % of a backdrop image's own height
@@ -128,14 +145,42 @@ export default function initParallax() {
         if (kind === 'stack') {
           const [fy, ty] = range(FRAME_TRAVEL * d);
           const [fr, tr] = range(SWAY * d);
+          const [fl, tl_] = range(LEAN * d);
           const tilt = tiltOf(el);
-          tl.fromTo(el, { y: fy, rotation: tilt + fr }, { y: ty, rotation: tilt + tr, ease: 'none' }, 0);
+          /* Enters small and leaning back, passes at rest size and flat, leaves
+             larger and leaning the other way: one curve through the viewport,
+             with its middle — where the reader looks — at the design's own
+             geometry. The shadow is keyed to the same curve. */
+          const shadow = (t) => {
+            const k = Math.abs(t);
+            const y = SHADOW_REST.y + (SHADOW_LIFT.y - SHADOW_REST.y) * k;
+            const b = SHADOW_REST.blur + (SHADOW_LIFT.blur - SHADOW_REST.blur) * k;
+            const a = SHADOW_REST.a + (SHADOW_LIFT.a - SHADOW_REST.a) * k;
+            return `0 ${y}px ${b}px rgb(0 0 0 / ${a.toFixed(3)})`;
+          };
+          const from = anchored ? 0 : -1, to = 1;
+          const scaleAt = (t) => 1 + LIFT_SCALE * d * t;
+          tl.fromTo(el,
+            { y: fy, rotation: tilt + fr, rotateX: fl, scale: scaleAt(from) },
+            { y: ty, rotation: tilt + tr, rotateX: tl_, scale: scaleAt(to), ease: 'none' }, 0);
+          /* The shadow is not a straight line through the run: long and soft
+             at both ends, where the print is lifted and turned, short and
+             tight in the middle, where it lies flat. Two halves, so it
+             passes through rest at the point the reader looks. */
+          if (anchored) {
+            tl.fromTo(el, { boxShadow: shadow(0) }, { boxShadow: shadow(to), ease: 'none' }, 0);
+          } else {
+            tl.fromTo(el, { boxShadow: shadow(from) }, { boxShadow: shadow(0), ease: 'none', duration: 0.5 }, 0)
+              .to(el, { boxShadow: shadow(to), ease: 'none', duration: 0.5 }, 0.5);
+          }
 
           const photo = el.querySelector('img');
           if (photo) {
             gsap.set(photo, { scale: INNER_SCALE, transformOrigin: '50% 50%' });
-            const [fi, ti] = range(-INNER_DRIFT * d);
-            tl.fromTo(photo, { yPercent: fi }, { yPercent: ti, ease: 'none' }, 0);
+            /* Opposite sign to the frame's travel: the frame rises through
+               the viewport, the picture inside it sinks. */
+            const [fi, ti] = range(INNER_DRIFT * d);
+            tl.fromTo(photo, { yPercent: -fi }, { yPercent: -ti, ease: 'none' }, 0);
           }
         } else if (kind === 'back' || kind === 'drift') {
           /* Both rise, like every other layer on the page. Depth is the

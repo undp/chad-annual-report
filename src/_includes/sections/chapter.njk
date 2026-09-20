@@ -6,11 +6,27 @@
 
 {%- import "sections/modal.njk" as modal with context %}
 
+{#- Every block in the file has its own geometry, drawn by hand on the 1152
+    column: where the text starts, how wide it runs, where the figures or cards
+    sit. `col` and `span` are those two numbers, in px on the 1440 artboard; the
+    CSS turns them into percentages of the column so they hold on resize. They
+    are structure, so the translation sheet never sees them. #}
+{%- macro geom(b) -%}
+{%- if b.col is defined %}--col:{{ b.col }};{% endif %}{% if b.span %}--span:{{ b.span }};{% endif %}
+{%- if b.figs %}--fig-col:{{ b.figs.col }};--fig-w:{{ b.figs.w }};{% if b.figs.step %}--fig-step:{{ b.figs.step }};{% endif %}{% endif %}
+{%- if b.cards %}--card-col:{{ b.cards.col }};--card-w:{{ b.cards.w }};--card-step:{{ b.cards.step }};{% endif %}
+{%- if b.photos %}{% set ext = b.photos | photoExtent %}--p-col:{{ b.photos[0].col }};--p-dy:{{ b.photos[0].dy }};--p-fw:{{ b.photos[0].fw }};--p-ext:{{ ext }};{% endif %}
+{%- if b.cols %}--tracks:{% for cg in b.cols %}{% if not loop.first %} {{ cg.col - (b.cols[loop.index0 - 1].col + b.cols[loop.index0 - 1].w) }}fr{% endif %} {{ cg.w }}fr{% endfor %}{% set last = b.cols[b.cols | length - 1] %}{% if last.col + last.w < b.span %} {{ b.span - last.col - last.w }}fr{% endif %};{% endif %}
+{%- endmacro %}
+{%- macro blockClass(b, kind) -%}
+block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b.size %} block--{{ b.size }}{% endif %}{% if b.col is defined %} block--placed{% endif %}
+{%- endmacro %}
+
 {%- macro polaroids(enPhotos, trPhotos) %}
 {%- if enPhotos %}
-<div class="polaroids polaroids--{{ enPhotos[0].side }}{% if enPhotos | length > 1 %} polaroids--stacked{% endif %}">
+<div class="polaroids polaroids--{{ enPhotos[0].side }}{% if enPhotos | length > 1 %} polaroids--stacked{% endif %}{% if enPhotos[0].col is defined %} polaroids--placed{% endif %}">
   {%- for p in enPhotos %}
-  <figure class="polaroid polaroid--{{ p.side }}" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }}"
+  <figure class="polaroid polaroid--{{ p.side }}" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }};{% if p.col is defined %}--p-col:{{ p.col }};--p-dy:{{ p.dy }};--p-by:{{ p.by }};--p-bh:{{ p.bh }};{% endif %}"
           data-parallax="stack">
     <div class="polaroid__frame">
       <picture>
@@ -22,6 +38,34 @@
   </figure>
   {%- endfor %}
 </div>
+{%- endif %}
+{%- endmacro %}
+
+{#- The five expandable figures. They live in `impact.stats` — that is the
+    address the translation sheet already carries — but the design places them
+    inside the chapters they belong to: three under "Restoring hope around Lake
+    Chad Basin", two beside "Better protected against floods". A block names the
+    ones it shows by index, so the copy keeps its key and only the layout moves. #}
+{%- macro statcards(refs, layout) %}
+{%- if refs %}
+<ul class="statcards statcards--{{ layout }}" role="list" data-anim="reveal">
+  {%- for i in refs %}
+  {%- set enS = en.impact.stats[i] %}
+  {%- set trS = c.impact.stats[i] if c.impact.stats else none %}
+  <li class="stat" style="--fig-em:{{ enS.value | figureWidth(enS.suffix) }}">
+    <button class="stat__toggle" type="button" aria-expanded="false" aria-controls="stat-{{ i }}">
+      <span class="stat__value" data-counter="{{ enS.value }}" data-suffix="{{ enS.suffix }}">{{ enS.value }}{{ enS.suffix }}</span>
+      <span class="stat__label">{{ (trS.label if trS else '') | t(enS.label) }}</span>
+      <svg class="stat__chevron" viewBox="0 0 24 14" width="24" height="14" aria-hidden="true" focusable="false">
+        <path d="M2 2 12 12 22 2" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="square"/>
+      </svg>
+    </button>
+    <div class="stat__detail" id="stat-{{ i }}" hidden>
+      <p>{{ (trS.detail if trS else '') | t(enS.detail) | emph | safe }}</p>
+    </div>
+  </li>
+  {%- endfor %}
+</ul>
 {%- endif %}
 {%- endmacro %}
 
@@ -37,22 +81,31 @@
   {%- for enB in enCh.blocks %}
   {%- set b = ch.blocks[loop.index0] %}
   {%- set blockId = enCh.id + '-' + loop.index %}
+  {%- if enB.rule %}<hr class="block-rule" aria-hidden="true">{% endif %}
   {%- if enB.type == "feature" %}
-  <div class="block block--feature {% if enB.align == 'right' %}block--right{% endif %}" data-anim="reveal">
+  <div class="{{ blockClass(enB, 'feature') }}" style="{{ geom(enB) }}" data-anim="reveal">
     <div class="block__text" data-parallax="drift">
       <h3 class="block__heading">{{ b.heading | t(enB.heading) }}</h3>
-      <p class="block__body" data-anim="text-reveal">{{ b.body | t(enB.body) }}</p>
+      {#- The file sets these bodies as separate paragraphs with Extrabold runs,
+          and the docx carries the same breaks and the same bold: both travel as
+          blank lines and **asterisks**, so the translator edits plain text. #}
+      <div class="block__body" data-anim="text-reveal">
+        {%- for para in (b.body | t(enB.body)).split('\n\n') %}
+        <p>{{ para | emph | safe }}</p>
+        {%- endfor %}
+      </div>
       {%- if enB.cta %}{{ modal.trigger(blockId, b.cta | t(enB.cta)) }}{{ modal.dialog(blockId, b.heading | t(enB.heading)) }}{% endif %}
     </div>
     {{ polaroids(enB.photos, b.photos) }}
   </div>
   {%- elif enB.type == "counters" %}
-  <div class="block block--counters" data-anim="reveal">
+  <div class="{{ blockClass(enB, 'counters') }}" style="{{ geom(enB) }}" data-anim="reveal">
     <div class="block__text" data-parallax="drift">
       <h3 class="block__heading">{{ b.heading | t(enB.heading) }}</h3>
       <ul class="counters" role="list">
       {%- for it in enB.items %}
-      <li class="counter">
+      {%- set colG = enB.cols[loop.index0] if enB.cols else none %}
+      <li class="counter{% if it.outline %} counter--outline{% endif %}" style="--fig-em:{{ it.value | figureWidth(it.suffix) }};{% if colG %}--track:{{ loop.index * 2 - 1 }};{% endif %}">
         <span class="counter__value" data-counter="{{ it.value }}" data-suffix="{{ it.suffix }}">{{ it.value }}{{ it.suffix }}</span>
         <span class="counter__label">{{ b.items[loop.index0].label | t(it.label) }}</span>
       </li>
@@ -63,12 +116,13 @@
     {{ polaroids(enB.photos, b.photos) }}
   </div>
   {%- elif enB.type == "cards" %}
-  <div class="block block--cards" data-anim="reveal">
+  <div class="{{ blockClass(enB, 'cards') }}" style="{{ geom(enB) }}" data-anim="reveal">
     <div class="block__text" data-parallax="drift">
       <h3 class="block__heading">{{ b.heading | t(enB.heading) }}</h3>
       <ul class="cards" role="list">
       {%- for it in enB.items %}
-      <li class="card">
+      {%- set colG = enB.cols[loop.index0] if enB.cols else none %}
+      <li class="card{% if it.outline %} card--outline{% endif %}{% if not it.value and not it.label %} card--bare{% endif %}" style="{% if it.value %}--fig-em:{{ it.value | figureWidth(it.suffix) }};{% endif %}{% if colG %}--track:{{ loop.index * 2 - 1 }};{% endif %}">
         {%- if it.value %}<span class="card__value" data-counter="{{ it.value }}" data-suffix="{{ it.suffix }}">{{ it.value }}{{ it.suffix }}</span>{% endif %}
         {%- if it.title %}<span class="card__title">{{ b.items[loop.index0].title | t(it.title) }}</span>{% endif %}
         {%- if it.label %}<span class="card__label">{{ b.items[loop.index0].label | t(it.label) }}</span>{% endif %}
@@ -80,9 +134,18 @@
     {{ polaroids(enB.photos, b.photos) }}
   </div>
   {%- elif enB.type == "photos" %}
-  <div class="block block--photos" data-anim="reveal">
+  <div class="block block--photos{% if enB.statsRef %} block--photos-stats{% endif %}" data-anim="reveal">
+    {%- if enB.statsLayout == "beside" %}
+    {{ polaroids(enB.photos, b.photos) }}
+    <div class="block__split">
+      <h3 class="block__heading">{{ b.heading | t(enB.heading) }}</h3>
+      {{ statcards(enB.statsRef, "beside") }}
+    </div>
+    {%- else %}
     <h3 class="block__heading">{{ b.heading | t(enB.heading) }}</h3>
     {{ polaroids(enB.photos, b.photos) }}
+    {{ statcards(enB.statsRef, "row") }}
+    {%- endif %}
   </div>
   {%- endif %}
   {%- endfor %}

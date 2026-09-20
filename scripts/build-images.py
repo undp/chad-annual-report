@@ -27,13 +27,13 @@ PHOTOS = {
     "health-02":  "f3dec83e724999749ac4b1da1ef868d754dcaa93.png",  # Protection contre le paludisme (3)
     "youth-01":   "698da4eb91fc2e634c322a74871dcb9100cebc20.png",  # YouthConnekt Sahel © PNUD-2025 (15)
     "youth-02":   "1e74c8cbab759e7a105f39ea17f6a83b96692946.png",  # UK-LAC-21 Mai
+    "youth-panel": "3c467fc6537ff5596480e59286e6670f86f72918.png", # YouthConnekt Sahel © PNUD-2025 (16), Frame 14
 }
 # Full-bleed mesh gradients from the design. They are smooth, so they survive a
 # hard downscale and land in the tens of KB — but they are not reproducible as a
 # CSS gradient, unlike the flat chapter bands.
 BACKDROPS = {
     "hero-bg":     "d27374ef9016740658a13eb8a425ec5e6f546f1b.png",  # Background-4 copia
-    "youth-panel": "27c4c3e0c766becf19e382d8bdd4c326aeb7b87b.png",  # Union
 }
 BACKDROP_EDGE = 1800
 

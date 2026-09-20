@@ -1,44 +1,66 @@
-<section class="impact" aria-labelledby="impact-lead">
+{%- import "sections/modal.njk" as modal with context -%}
+{%- set hl = c.impact.highlight if c.impact.highlight and c.impact.highlight.potential else en.impact.highlight -%}
+<section class="impact" id="impact" aria-labelledby="impact-lead" data-impact>
   {#- In the design the outline map of Chad is the backdrop of this band, not of
       the hero: the hero's gradient covers it entirely. #}
-  <div class="impact__map" aria-hidden="true" data-parallax="back" data-depth="0.85">
+  {#- The map moves with the page, but less than any other backdrop: in the
+      file the dark Chad ends 60px above the "learn more", and the link does not
+      move. At depth 0.85 the map travelled ±96px and the silhouette ran over
+      the link on every scroll. 0.4 is ±45 — inside the file's 60. #}
+  <div class="impact__map" aria-hidden="true" data-parallax="back" data-depth="0.4">
     {#- The intrinsic size is not decoration here: without width/height this
         lazy image has a zero-height box, never crosses the lazy-load threshold,
         and so never loads — which is exactly what it was doing. #}
     <img src="{{ '/assets/img/chad-map.svg' | url }}" alt="" width="3619" height="3534"
          loading="lazy" decoding="async">
   </div>
+  {#- The design opens on the guiding line and sets the context paragraph in
+      under it, at 415px — which is what leaves the left margin free for the
+      outline of Chad. Reversed, as this was, the silhouette lands on the
+      headline instead of beside the paragraph. #}
+  <p class="impact__lead" id="impact-lead">
+    {%- if site.components -%}
+    {{ (c.impact.lead | t(en.impact.lead)) | markHalves(hl) | safe }}
+    {%- else -%}
+    {{ (c.impact.lead | t(en.impact.lead)) | outlinePhrase(hl) | safe }}
+    {%- endif -%}
+  </p>
+
+  {#- Base page: the sentence, the paragraph under it, the link, the transition.
+      `Component 9` in the file is an instance in its Default state — one frame,
+      1242×491, holding the title and this paragraph and nothing else. The three
+      variants (neither half lit → three figures → four figures) are the
+      component, and they arrive behind `site.components`: one grid area for the
+      paragraph and both card groups, because in the file they start at the same
+      y and only one is ever on show. #}
+  <div class="impact__figures">
   <p class="impact__context">{{ c.impact.context | t(en.impact.context) }}</p>
-  <p class="impact__lead" id="impact-lead" data-anim="text-reveal">{{ c.impact.lead | t(en.impact.lead) }}</p>
-
-  {#- Each figure is a disclosure, not a static number: the Figma component ships
-      two variants — a pale card with an outlined numeral and a chevron, and a
-      yellow card with the numeral filled and the explanation underneath. The
-      chevron is the affordance, so the whole card is the button and the detail
-      is its controlled region; `hidden` keeps it out of the accessibility tree
-      and out of find-in-page until it is opened. #}
-  <ul class="impact__stats" role="list" data-anim="reveal">
-    {%- for s in (c.impact.stats if c.impact.stats[0].label else en.impact.stats) %}
-    {%- set enS = en.impact.stats[loop.index0] %}
-    <li class="stat" style="--stat-chars:{{ enS.value | figureLen(enS.suffix) }}">
-      {%- if enS.detail %}
-      <button class="stat__toggle" type="button" aria-expanded="false" aria-controls="stat-{{ loop.index }}">
-        <span class="stat__value" data-counter="{{ enS.value }}" data-suffix="{{ enS.suffix }}">{{ enS.value }}{{ enS.suffix }}</span>
-        <span class="stat__label">{{ s.label | t(enS.label) }}</span>
-        <svg class="stat__chevron" viewBox="0 0 24 14" width="24" height="14" aria-hidden="true" focusable="false">
-          <path d="M2 2 12 12 22 2" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="square"/>
-        </svg>
-      </button>
-      <div class="stat__detail" id="stat-{{ loop.index }}" hidden>
-        <p>{{ s.detail | t(enS.detail) | emph | safe }}</p>
-      </div>
-      {%- else %}
-      <span class="stat__value" data-counter="{{ enS.value }}" data-suffix="{{ enS.suffix }}">{{ enS.value }}{{ enS.suffix }}</span>
-      <span class="stat__label">{{ s.label | t(enS.label) }}</span>
+  {%- if site.components %}
+  {%- for half in ['potential', 'challenges'] %}
+  {%- set cards = en.impact[half] %}
+  {%- set tr = c.impact[half] %}
+  <div class="impact__cards" id="impact-panel-{{ half }}" aria-labelledby="impact-half-{{ half }}"
+       data-half="{{ half }}" data-count="{{ cards.length }}">
+    {%- for card in cards %}
+    {%- set t = tr[loop.index0] if tr else null %}
+    <div class="indicator">
+      <span class="indicator__label">{{ (t.label if t else null) | t(card.label) }}</span>
+      <span class="indicator__value">{{ card.value }}</span>
+      {%- if card.note %}
+      <span class="indicator__note">{{ (t.note if t else null) | t(card.note) }}</span>
       {%- endif %}
-    </li>
+    </div>
     {%- endfor %}
-  </ul>
+  </div>
+  {%- endfor %}
+  {%- endif %}
+  </div>
 
-  <p class="impact__transition" data-anim="text-reveal">{{ c.impact.transition | t(en.impact.transition) }}</p>
+  {#- The table of national indicators sits behind this, exactly as the design's
+      "learn more" does: the seven figures above are the story, the sixteen
+      behind it are the evidence for anyone who wants it. #}
+  <div class="impact__more">{{ modal.trigger('indicators', c.impact.cta | t(en.impact.cta)) }}</div>
+  {{ modal.dialog('indicators', en.modals.indicators.title if not c.modals.indicators.title else c.modals.indicators.title) }}
+
+  <p class="impact__transition" data-anim="text-reveal">{{ (c.impact.transition | t(en.impact.transition)) | emph | safe }}</p>
 </section>

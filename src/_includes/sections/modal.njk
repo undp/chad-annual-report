@@ -12,18 +12,41 @@
 {%- macro dialog(id, title) %}
 {%- set m = en.modals[id] %}
 {%- set tr = c.modals[id] %}
-{%- if m and m.body %}
-<dialog class="modal" id="modal-{{ id }}" aria-labelledby="modal-{{ id }}-title">
+{%- if m and (m.body or m.groups) %}
+<dialog class="modal{% if m.groups %} modal--table{% endif %}" id="modal-{{ id }}" aria-labelledby="modal-{{ id }}-title">
+  {#- The close button is a child of the dialog, not of the box: the box is the
+      scrolling element, and a button inside it scrolls away exactly when the
+      reader is deepest into a long dialog and most likely to want out. #}
+  <button class="modal__close" type="button" data-modal-close
+          aria-label="{{ c.modals.close | t(en.modals.close) }}">&times;</button>
   <div class="modal__box">
-    <h2 class="modal__title" id="modal-{{ id }}-title">{{ title }}</h2>
-    <button class="modal__close" type="button" data-modal-close
-            aria-label="{{ c.modals.close | t(en.modals.close) }}">&times;</button>
+  <div class="modal__scroll">
+    <h2 class="modal__title" id="modal-{{ id }}-title">{{ title | plain }}</h2>
     {#- The body is a list of paragraphs, not one blob: the closing dialog is two
         in the design, and its second opens with a bold lead-in. Emphasis travels
         as **asterisks** so a translator edits plain text and cannot inject markup. #}
     {%- set paras = tr.body | tList(m.body) %}
+    {#- Some artboards carry several figures, and their place is inside the prose,
+        not after it: the four representation percentages read as the evidence for
+        the paragraph above them. `figuresAfter` is the index of the paragraph they
+        follow; without it they close the dialog. #}
+    {%- set figAfter = m.figuresAfter if m.figuresAfter is number else (paras.length - 1) %}
+    {#- Some artboards set one paragraph in the display face, 35px on the
+        1240 card: the sentence that carries the dialog. `leads` lists those
+        indexes — numbers, so the translation sheet never sees them. #}
     {%- for para in paras %}
-    <p class="modal__body">{{ para | emph | safe }}</p>
+    <p class="modal__body{% if m.leads and loop.index0 in m.leads %} modal__lead{% endif %}">{{ para | emph | safe }}</p>
+    {%- if m.figures and loop.index0 == figAfter %}
+    <div class="modal__figures">
+      {%- for f in m.figures %}
+      {%- set trf = tr.figures[loop.index0] if tr.figures else null %}
+      <p class="modal__figure">
+        <span class="modal__figure-value">{{ f.value }}</span>
+        <span class="modal__figure-label">{{ (trf.label if trf else null) | t(f.label) }}</span>
+      </p>
+      {%- endfor %}
+    </div>
+    {%- endif %}
     {%- endfor %}
     {%- if m.figure %}
     <p class="modal__figure">
@@ -31,13 +54,63 @@
       <span class="modal__figure-label">{{ tr.figureLabel | t(m.figureLabel) }}</span>
     </p>
     {%- endif %}
+    {%- if m.groups %}
+    {#- One table per group rather than one table with six sections: the design's
+        artboard is 1240 wide and 678 tall, which sixteen rows in a single column
+        do not fit. Each group keeps its own caption, so the grouping survives
+        for a screen reader as well as for the eye.
+
+        The three columns are declared, not balanced. The file puts specific
+        groups in specific columns and gives the third a different treatment
+        altogether — two figures set large rather than a table of rows — which
+        no column-balancing algorithm would ever arrive at on its own. `column`
+        and `figures` are numbers and booleans, so the translation sheet, which
+        only ever collects strings, never sees them. #}
+    <div class="modal__tables">
+      {%- for col in [1, 2, 3] %}
+      <div class="modal__col">
+        {%- for g in m.groups %}
+        {%- if (g.column or 1) == col %}
+        {%- set trg = tr.groups[loop.index0] if tr.groups else null %}
+        {%- if g.figures %}
+        <div class="modal__stats">
+          <p class="modal__stats-caption">{{ (trg.name if trg else null) | t(g.name) }}</p>
+          {%- for row in g.rows %}
+          {%- set trr = trg.rows[loop.index0] if trg and trg.rows else null %}
+          <p class="modal__stat">
+            <span class="modal__stat-value">{{ row.value }}</span>
+            <span class="modal__stat-label">{{ (trr.label if trr else null) | t(row.label) }}</span>
+          </p>
+          {%- endfor %}
+        </div>
+        {%- else %}
+        <table class="modal__table">
+          <caption>{{ (trg.name if trg else null) | t(g.name) }}</caption>
+          <tbody>
+            {%- for row in g.rows %}
+            {%- set trr = trg.rows[loop.index0] if trg and trg.rows else null %}
+            <tr>
+              <th scope="row">{{ (trr.label if trr else null) | t(row.label) }}</th>
+              <td>{{ row.value }}</td>
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+        {%- endif %}
+        {%- endif %}
+        {%- endfor %}
+      </div>
+      {%- endfor %}
+    </div>
+    {%- endif %}
     {%- if m.image %}
     <picture>
       <source srcset="{{ (m.image | replace('.jpg', '.webp')) | url }}" type="image/webp">
       <img class="modal__image" src="{{ m.image | url }}" alt="{{ tr.imageAlt | t(m.imageAlt) }}"
-           width="1120" height="747" loading="lazy" decoding="async">
+           width="1400" height="933" loading="lazy" decoding="async">
     </picture>
     {%- endif %}
+  </div>
   </div>
 </dialog>
 {%- endif %}
@@ -48,7 +121,7 @@
    design have no artboard yet, and a button that opens an empty box is worse
    than a button that is not there. #}
 {%- macro trigger(id, label) %}
-{%- if en.modals[id] and en.modals[id].body %}
+{%- if en.modals[id] and (en.modals[id].body or en.modals[id].groups) %}
 <button class="tca" type="button" data-modal="{{ id }}">{{ label }}</button>
 {%- endif %}
 {%- endmacro %}

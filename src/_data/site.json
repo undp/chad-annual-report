@@ -6,6 +6,7 @@
     "fr"
   ],
   "defaultLang": "en",
+  "components": false,
   "analytics": {
     "ga4": ""
   },

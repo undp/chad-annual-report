@@ -1,3 +1,10 @@
+{# Header, 109px tall as in the Figma frame: the UNDP mark runs the full height,
+   the country line sits under its own rule, and both controls on the right are
+   type in UNDP blue with an icon — no button boxes.
+
+   The language control is a <details>: the design draws a chevron, which
+   promises a menu, and <details> is a menu the browser already knows how to
+   open, close on Escape and reach from the keyboard. No script. #}
 <header class="site-header" data-header>
   <div class="site-header__inner">
     <a class="site-header__brand" href="{{ ('/' + lang + '/') | url }}">
@@ -8,19 +15,48 @@
       </span>
     </a>
     <nav class="site-header__nav" aria-label="{{ c.header.tagline | t(en.header.tagline) }}">
-      <a class="btn btn--ghost" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
+      {%- if assets.reportPdf %}
+      <a class="header-link" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
+      {%- else %}
+      <span class="header-link header-link--pending" title="{{ c.header.downloadPending | t(en.header.downloadPending) }}">
+      {%- endif %}
         {{ c.header.download | t(en.header.download) }}
-      </a>
-      <ul class="lang-switch" role="list">
-        {%- for l in site.langs %}
-        <li>
-          <a href="{{ ('/' + l + '/') | url }}" hreflang="{{ l }}" lang="{{ l }}"
-             {% if l == lang %}aria-current="true"{% endif %}>
-            {{ copy[l].header.languageLabel | t(l | upper) }}
-          </a>
-        </li>
-        {%- endfor %}
-      </ul>
+        <svg class="header-link__icon" viewBox="0 0 16 19" width="16" height="19" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-linecap="round">
+            <path d="M4.11 6.68 7.8 10.37 11.5 6.68" stroke-width="1.22"/>
+            <path d="M7.73 10.38V.61" stroke-width="1.22"/>
+            <path d="M.41 12.41v3.66a1.63 1.63 0 0 0 1.63 1.63h11.39a1.63 1.63 0 0 0 1.63-1.63v-3.66" stroke-width=".81"/>
+          </g>
+        </svg>
+      {%- if assets.reportPdf %}</a>{% else %}</span>{% endif %}
+
+      <details class="lang-switch">
+        <summary class="lang-switch__current">
+          <svg class="lang-switch__icon" viewBox="0 0 23 24" width="23" height="24" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="currentColor" stroke-width=".96">
+              <path d="M17.27 17.75H.48V.48h22.07v15.35"/>
+              <path d="M16.79 17.75c.16 1.28-.96 3.84-1.92 5.28-1.33 2 7.68-4.32 7.68-7.68"/>
+              <path d="M7.2 2.88v2.88M2.88 6.24h7.68"/>
+              <path d="M2.88 12.47c2.08-.16 6.24-1.63 6.24-6.24M10.56 12.47c-1.74-.16-5.42-1.25-6.24-4.32"/>
+              <path d="M13.92 9.6h3.84M12.47 12.95l3.36-7.68 3.36 7.68"/>
+            </g>
+          </svg>
+          <span>{{ copy[lang].header.languageLabel | t(lang | upper) }}</span>
+          <svg class="lang-switch__chevron" viewBox="0 0 13 8" width="13" height="8" aria-hidden="true" focusable="false">
+            <path d="M.4.5 6.5 6.6 12.6.5" fill="none" stroke="currentColor" stroke-width="1.92"/>
+          </svg>
+        </summary>
+        <ul class="lang-switch__menu" role="list">
+          {%- for l in site.langs %}
+          <li>
+            <a href="{{ ('/' + l + '/') | url }}" hreflang="{{ l }}" lang="{{ l }}"
+               {% if l == lang %}aria-current="true"{% endif %}>
+              {{ copy[l].header.languageLabel | t(l | upper) }}
+            </a>
+          </li>
+          {%- endfor %}
+        </ul>
+      </details>
     </nav>
   </div>
 </header>

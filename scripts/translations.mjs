@@ -20,7 +20,17 @@ const EN = 'src/_data/copy/en.json';
 const FR = 'src/_data/copy/fr.json';
 const DEFAULT_OUT = 'translations/undp-chad-report_EN-FR.csv';
 
-const STRUCTURAL = new Set(['id', 'type', 'src', 'value', 'suffix', 'align', 'file', 'image', 'ogImage', 'lang', 'locale', 'dir', 'side', 'rot', 'fw', 'w', 'h']);
+const STRUCTURAL = new Set(['id', 'type', 'src', 'value', 'suffix', 'align', 'file', 'image', 'ogImage', 'lang', 'locale', 'dir', 'side', 'rot', 'fw', 'w', 'h', 'statsLayout', 'layout', 'size', 'col', 'span', 'dy', 'by', 'bh']);
+
+/* Il nome di ogni lingua nel selettore è il suo endonimo, non una traduzione:
+   la voce francese dice "Français", non "Anglais". Fuori dal foglio, quindi —
+   in fr.json è già scritta e sync-fr.mjs la conserva. */
+/* Keys no template renders. `hero.intro` was superseded by `hero.paragraphs`;
+   the hero prints and the map are decorative (`alt=""`, `aria-hidden`) and
+   carry their description for the content model only; `footer.copyright` is
+   overridden by the UNDP footer's own line. A row for any of these would be
+   work with nothing on the page to show for it. */
+const NOT_TRANSLATED = new Set(['header.languageLabel', 'hero.intro', 'hero.mapAlt', 'hero.photos[0].alt', 'hero.photos[1].alt', 'footer.copyright']);
 
 /* ---------- walking en.json ---------- */
 
@@ -41,8 +51,13 @@ function sectionOf(path, en) {
   const ch = path.match(/^chapters\[(\d+)\]/);
   if (ch) return `Chapter ${+ch[1] + 1} — ${en.chapters[+ch[1]].title}`;
   if (path === 'modals.close') return 'Interface';
+  if (path.startsWith('modals.indicators')) return 'Popup — Key Development Indicators (table)';
   const modal = path.match(/^modals\.([\w-]+)/);
   if (modal) return `Popup — ${modal[1]}`;
+  /* The opening block is three sections of copy in one object: the sentence,
+     the two halves that light up inside it, and the seven figures of context. */
+  if (/^impact\.(cta|potential|challenges)/.test(path)) return 'Opening block — context indicators';
+  if (path.startsWith('impact.highlight')) return 'Opening block — highlighted halves';
   return {
     meta: 'Page metadata (search engines, social sharing)',
     header: 'Header',
@@ -67,12 +82,17 @@ function noteOf(path, key, kind, value) {
   if (kind === 'alt text') return 'Describes the photo for blind readers and for search engines. Never appears on screen.';
   if (path === 'meta.title') return 'Browser tab and Google result. Aim for 60 characters or fewer.';
   if (path === 'meta.description') return 'Google result and link previews. Aim for 155 characters or fewer.';
-  if (path.startsWith('hero.titleLines')) return 'One line of the cover headline, set in the wide display face: going much longer than the English forces the whole title down a size.';
   if (path.startsWith('undpFooter.')) return 'UNDP institutional footer — UNDP publishes official wording for these in French; please reuse it verbatim rather than translating.';
+  if (path === 'impact.lead') return 'Opening sentence. The two phrases in the next two rows are highlighted inside it: their French must appear in this sentence exactly as written there, character for character.';
+  if (path === 'impact.highlight.potential' || path === 'impact.highlight.challenges') return 'One of the two highlighted phrases of the opening sentence — must match, character for character, the words used inside the French of impact.lead.';
+  if (/^impact\.(potential|challenges)\[/.test(path)) return 'Not shown on the demo today: label of the interactive version of the opening block (the seven context figures), kept ready for when it goes live.';
+  if (path.startsWith('hero.titleLines')) return 'One line of the cover headline, set in the wide display face: going much longer than the English forces the whole title down a size.';
   if (kind === 'heading') return `Heading — the layout was drawn around ${value.length} characters.`;
   if (key === 'cta') return 'Button label. Kept lowercase by the design.';
-  if (value.includes('**')) return 'The **double asterisks** mark bold words — keep them around the equivalent French words.';
-  return '';
+  const notes = [];
+  if (value.includes('\n\n')) notes.push('A blank line separates paragraphs — keep the same number of paragraphs, in the same order.');
+  if (value.includes('**')) notes.push('The **double asterisks** mark bold words — keep them around the equivalent French words.');
+  return notes.join(' ');
 }
 
 /* ---------- CSV ---------- */
@@ -120,7 +140,7 @@ if (cmd === 'export') {
   /* Keys that exist but have no English yet (the three popups whose Figma
      artboard is still missing) are held back: an empty row is not a task, it is
      a question, and it belongs in the hand-off note rather than the sheet. */
-  const rows = leaves(en).filter((l) => l.value.trim()).map((l) => {
+  const rows = leaves(en).filter((l) => l.value.trim() && !NOT_TRANSLATED.has(l.path)).map((l) => {
     const kind = kindOf(l.path, l.key, l.value);
     return csvRow([l.path, sectionOf(l.path, en), kind, l.value.length, l.value,
       frLeaves.get(l.path) ?? '', noteOf(l.path, l.key, kind, l.value)]);

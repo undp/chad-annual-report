@@ -11,7 +11,8 @@
     "brand": "",
     "tagline": "",
     "download": "",
-    "languageLabel": "",
+    "downloadPending": "",
+    "languageLabel": "Français",
     "languageSwitch": "",
     "skipToContent": ""
   },
@@ -54,6 +55,50 @@
   "impact": {
     "context": "",
     "lead": "",
+    "highlight": {
+      "potential": "",
+      "challenges": ""
+    },
+    "potential": [
+      {
+        "label": "",
+        "value": "53.7%",
+        "note": ""
+      },
+      {
+        "label": "",
+        "value": "92.66%",
+        "note": ""
+      },
+      {
+        "label": "",
+        "value": "4.0%",
+        "note": ""
+      }
+    ],
+    "challenges": [
+      {
+        "label": "",
+        "value": "44.8%",
+        "note": ""
+      },
+      {
+        "label": "",
+        "value": "11%",
+        "note": ""
+      },
+      {
+        "label": "",
+        "value": "48.2%",
+        "note": ""
+      },
+      {
+        "label": "",
+        "value": "0.416",
+        "note": ""
+      }
+    ],
+    "cta": "",
     "stats": [
       {
         "value": "74",
@@ -111,9 +156,15 @@
               "side": "",
               "w": 1400,
               "h": 933,
-              "fw": 494.1
+              "fw": 494.1,
+              "col": 759.3,
+              "dy": -141,
+              "bh": 370,
+              "by": -162
             }
-          ]
+          ],
+          "col": 0,
+          "span": 672
         },
         {
           "type": "feature",
@@ -124,7 +175,6 @@
             "",
             ""
           ],
-          "align": "right",
           "photos": [
             {
               "src": "/assets/img/trust-02.jpg",
@@ -133,9 +183,16 @@
               "side": "",
               "w": 933,
               "h": 1400,
-              "fw": 370.3
+              "fw": 370.3,
+              "col": -79.4,
+              "dy": -85,
+              "bh": 591,
+              "by": -102
             }
-          ]
+          ],
+          "col": 376,
+          "span": 734,
+          "rule": true
         },
         {
           "type": "cards",
@@ -150,10 +207,20 @@
             {
               "value": "950",
               "suffix": "+",
-              "label": ""
+              "label": "",
+              "outline": true
             }
           ],
-          "cta": ""
+          "cta": "",
+          "layout": "aside",
+          "col": 0,
+          "span": 253,
+          "cards": {
+            "col": 270,
+            "w": 297,
+            "step": 315
+          },
+          "rule": true
         }
       ]
     },
@@ -175,7 +242,13 @@
               "h": 933,
               "fw": 470.6
             }
-          ]
+          ],
+          "statsRef": [
+            2,
+            1,
+            0
+          ],
+          "statsLayout": "row"
         },
         {
           "type": "feature",
@@ -194,9 +267,16 @@
               "side": "",
               "w": 1400,
               "h": 1024,
-              "fw": 546.9
+              "fw": 546.9,
+              "col": 669.7,
+              "dy": -74,
+              "bh": 450,
+              "by": -99
             }
-          ]
+          ],
+          "rule": true,
+          "col": 0,
+          "span": 574
         },
         {
           "type": "counters",
@@ -205,14 +285,26 @@
             {
               "value": "40",
               "suffix": "+",
-              "label": ""
+              "label": "",
+              "outline": true
             },
             {
               "value": "500",
               "suffix": "+",
-              "label": ""
+              "label": "",
+              "outline": true
             }
-          ]
+          ],
+          "layout": "centred",
+          "col": 155,
+          "span": 841,
+          "size": "xl",
+          "figs": {
+            "col": 166,
+            "w": 401,
+            "step": 419
+          },
+          "rule": true
         }
       ]
     },
@@ -234,7 +326,12 @@
               "h": 933,
               "fw": 463.9
             }
-          ]
+          ],
+          "statsRef": [
+            4,
+            3
+          ],
+          "statsLayout": "beside"
         },
         {
           "type": "counters",
@@ -257,7 +354,11 @@
               "side": "",
               "w": 960,
               "h": 1280,
-              "fw": 339.9
+              "fw": 339.9,
+              "col": 806.3,
+              "dy": -133,
+              "bh": 486,
+              "by": -150
             },
             {
               "src": "/assets/img/energy-02.jpg",
@@ -266,9 +367,16 @@
               "side": "",
               "w": 1280,
               "h": 960,
-              "fw": 470.5
+              "fw": 470.5,
+              "col": 622.7,
+              "dy": 241,
+              "bh": 374,
+              "by": 231
             }
-          ]
+          ],
+          "rule": true,
+          "col": 0,
+          "span": 574
         }
       ]
     },
@@ -291,6 +399,23 @@
               "label": ""
             }
           ],
+          "layout": "beside",
+          "col": 1,
+          "span": 409,
+          "figs": {
+            "col": 480,
+            "w": 574
+          }
+        },
+        {
+          "type": "feature",
+          "heading": "",
+          "body": "",
+          "highlights": [
+            ""
+          ],
+          "cta": "",
+          "rule": true,
           "photos": [
             {
               "src": "/assets/img/health-01.jpg",
@@ -299,9 +424,15 @@
               "side": "",
               "w": 1400,
               "h": 933,
-              "fw": 593.4
+              "fw": 593.4,
+              "col": 662,
+              "dy": -82,
+              "bh": 433,
+              "by": -100
             }
-          ]
+          ],
+          "col": 0,
+          "span": 574
         },
         {
           "type": "feature",
@@ -310,16 +441,6 @@
           "highlights": [
             ""
           ],
-          "cta": ""
-        },
-        {
-          "type": "feature",
-          "heading": "",
-          "body": "",
-          "highlights": [
-            ""
-          ],
-          "align": "right",
           "photos": [
             {
               "src": "/assets/img/health-02.jpg",
@@ -328,9 +449,16 @@
               "side": "",
               "w": 1400,
               "h": 933,
-              "fw": 554.7
+              "fw": 554.7,
+              "col": -117.1,
+              "dy": -124,
+              "bh": 416,
+              "by": -148
             }
-          ]
+          ],
+          "col": 480,
+          "span": 540,
+          "rule": true
         }
       ]
     },
@@ -346,7 +474,8 @@
             {
               "value": "1000",
               "suffix": "+",
-              "label": ""
+              "label": "",
+              "outline": true
             },
             {
               "title": "",
@@ -364,7 +493,28 @@
               "side": "",
               "w": 933,
               "h": 1400,
-              "fw": 397.4
+              "fw": 397.4,
+              "col": 1006.1,
+              "dy": 155,
+              "bh": 564,
+              "by": 171
+            }
+          ],
+          "layout": "columns",
+          "col": 0,
+          "span": 1085,
+          "cols": [
+            {
+              "col": 0,
+              "w": 357
+            },
+            {
+              "col": 375,
+              "w": 357
+            },
+            {
+              "col": 777,
+              "w": 308
             }
           ]
         },
@@ -374,25 +524,31 @@
           "items": [
             {
               "value": "7",
-              "label": ""
+              "label": "",
+              "outline": true
             },
             {
               "value": "5",
-              "label": ""
+              "label": "",
+              "outline": true
             }
           ],
           "cta": "",
-          "photos": [
+          "layout": "columns",
+          "col": 0,
+          "span": 841,
+          "size": "xl",
+          "cols": [
             {
-              "src": "/assets/img/youth-02.jpg",
-              "alt": "",
-              "rot": -11.61,
-              "side": "",
-              "w": 1400,
-              "h": 1125,
-              "fw": 482.7
+              "col": 0,
+              "w": 285
+            },
+            {
+              "col": 375,
+              "w": 357
             }
-          ]
+          ],
+          "rule": true
         }
       ]
     }
@@ -416,16 +572,27 @@
         "title": "",
         "body": ""
       }
-    ]
+    ],
+    "rule": true
   },
   "closing": {
     "body": "",
-    "highlights": [
-      "",
-      "",
-      ""
-    ],
-    "cta": ""
+    "cta": "",
+    "photos": [
+      {
+        "src": "/assets/img/youth-02.jpg",
+        "alt": "",
+        "rot": -11.61,
+        "side": "",
+        "w": 1400,
+        "h": 1125,
+        "fw": 482.7,
+        "col": -166.9,
+        "dy": 15,
+        "bh": 477,
+        "by": -30
+      }
+    ]
   },
   "footer": {
     "kicker": "",
@@ -434,16 +601,157 @@
     "copyright": ""
   },
   "modals": {
+    "indicators": {
+      "title": "",
+      "groups": [
+        {
+          "column": 1,
+          "name": "",
+          "rows": [
+            {
+              "label": "",
+              "value": "1 284 000 km²"
+            },
+            {
+              "label": "",
+              "value": "19.3 million"
+            }
+          ]
+        },
+        {
+          "column": 1,
+          "name": "",
+          "rows": [
+            {
+              "label": "",
+              "value": "CFAF 616 645"
+            },
+            {
+              "label": "",
+              "value": "4.1%"
+            }
+          ]
+        },
+        {
+          "column": 1,
+          "name": "",
+          "rows": [
+            {
+              "label": "",
+              "value": "85.42%"
+            },
+            {
+              "label": "",
+              "value": "99.84%"
+            },
+            {
+              "label": "",
+              "value": "8 of 23"
+            }
+          ]
+        },
+        {
+          "column": 2,
+          "name": "",
+          "rows": [
+            {
+              "label": "",
+              "value": "55 years"
+            },
+            {
+              "label": "",
+              "value": "24,188"
+            },
+            {
+              "label": "",
+              "value": "15 km"
+            },
+            {
+              "label": "",
+              "value": "60 km"
+            }
+          ]
+        },
+        {
+          "column": 2,
+          "name": "",
+          "rows": [
+            {
+              "label": "",
+              "value": "48.4%"
+            },
+            {
+              "label": "",
+              "value": "3.08%"
+            },
+            {
+              "label": "",
+              "value": "23.3%"
+            }
+          ]
+        },
+        {
+          "column": 3,
+          "figures": true,
+          "name": "",
+          "rows": [
+            {
+              "label": "",
+              "value": "0.416"
+            },
+            {
+              "label": "",
+              "value": "0.787"
+            }
+          ]
+        }
+      ]
+    },
     "trust-1": {
-      "body": "",
-      "figure": "",
-      "figureLabel": "",
+      "body": [
+        "",
+        "",
+        ""
+      ],
+      "figures": [
+        {
+          "value": "500,000",
+          "label": ""
+        },
+        {
+          "value": "68 years",
+          "label": ""
+        }
+      ],
+      "figuresAfter": 2,
       "image": ""
     },
     "trust-3": {
-      "body": "",
-      "figure": "",
-      "figureLabel": "",
+      "body": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "figures": [
+        {
+          "value": "27%",
+          "label": ""
+        },
+        {
+          "value": "34%",
+          "label": ""
+        },
+        {
+          "value": "37.7%",
+          "label": ""
+        },
+        {
+          "value": "34%",
+          "label": ""
+        }
+      ],
+      "figuresAfter": 0,
       "image": ""
     },
     "health-2": {

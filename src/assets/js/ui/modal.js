@@ -32,6 +32,7 @@ export default function initModals() {
     btn.addEventListener('click', () => {
       dialog.showModal();
       lock();
+      dialog.querySelector('.modal__scroll')?.dispatchEvent(new Event('scroll'));
     });
   });
 
@@ -48,6 +49,17 @@ export default function initModals() {
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog) dialog.close();
     });
-    dialog.querySelector('.modal__box')?.addEventListener('click', (e) => e.stopPropagation());
+    const box = dialog.querySelector('.modal__box');
+    box?.addEventListener('click', (e) => e.stopPropagation());
+    /* The fade at the card's foot says "more below"; it goes when there is
+       none — at the end, or when the card never needed to scroll. */
+    const scroller = dialog.querySelector('.modal__scroll');
+    if (scroller) {
+      const box = scroller;
+      const atEnd = () => box.toggleAttribute('data-at-end', box.scrollTop + box.clientHeight >= box.scrollHeight - 2);
+      box.addEventListener('scroll', atEnd, { passive: true });
+      new ResizeObserver(atEnd).observe(box);
+      atEnd();
+    }
   });
 }

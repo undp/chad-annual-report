@@ -16,12 +16,21 @@
    between breakpoints (beside the logo on desktop, above the copyright on
    mobile) and one grid can move it without duplicating the markup. #}
 
+{#- The download band carries the same gradient and the same indent as a chapter
+    opening: kicker on the column edge, the line that follows set in at 415px.
+    The design gives the download no button box — the sentence is the link. #}
 <section class="report-cta" aria-labelledby="report-cta-title">
   <div class="report-cta__inner">
     <p class="report-cta__kicker" id="report-cta-title">{{ c.footer.kicker | t(en.footer.kicker) }}</p>
-    <a class="btn btn--primary report-cta__btn" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
+    {%- if assets.reportPdf %}
+    <a class="report-cta__link" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
       {{ c.footer.cta | t(en.footer.cta) }}
     </a>
+    {%- else %}
+    <span class="report-cta__link report-cta__link--pending" title="{{ c.header.downloadPending | t(en.header.downloadPending) }}">
+      {{ c.footer.cta | t(en.footer.cta) }}
+    </span>
+    {%- endif %}
   </div>
 </section>
 

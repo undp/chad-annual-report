@@ -10,7 +10,7 @@ const en = JSON.parse(readFileSync(EN, 'utf8'));
 const fr = existsSync(FR) ? JSON.parse(readFileSync(FR, 'utf8')) : {};
 
 // Keys that carry structure, not copy: they are always taken from en.json.
-const STRUCTURAL = new Set(['id', 'type', 'src', 'value', 'suffix', 'align', 'file', 'image', 'ogImage', 'lang', 'locale', 'dir']);
+const STRUCTURAL = new Set(['id', 'type', 'src', 'value', 'suffix', 'align', 'file', 'image', 'ogImage', 'lang', 'locale', 'dir', 'statsLayout', 'layout', 'size']);
 
 function merge(enNode, frNode, key) {
   if (Array.isArray(enNode)) {

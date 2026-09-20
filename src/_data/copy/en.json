@@ -9,8 +9,9 @@
   },
   "header": {
     "brand": "CHAD",
-    "tagline": "Annual Report 2026",
+    "tagline": "Annual Report 2025",
     "download": "download report",
+    "downloadPending": "The PDF will be available when the report is published.",
     "languageLabel": "English",
     "languageSwitch": "Français",
     "skipToContent": "Skip to content"
@@ -54,6 +55,50 @@
   "impact": {
     "context": "Between 2024 and 2025, Chad continued to face persistent economic, social, climate and institutional challenges, against a backdrop of rapid population growth and significant demand for basic services. At the same time, the country holds considerable potential, driven by a predominantly young population and opportunities for structural transformation still to be realized.",
     "lead": "Chad's future is shaped by both immense potential and significant challenges.",
+    "highlight": {
+      "potential": "immense potential",
+      "challenges": "significant challenges"
+    },
+    "potential": [
+      {
+        "label": "A young population",
+        "value": "53.7%",
+        "note": "under 15"
+      },
+      {
+        "label": "Strong school enrolment",
+        "value": "92.66%",
+        "note": ""
+      },
+      {
+        "label": "A growing economy",
+        "value": "4.0%",
+        "note": "Real GDP growth"
+      }
+    ],
+    "challenges": [
+      {
+        "label": "Poverty",
+        "value": "44.8%",
+        "note": ""
+      },
+      {
+        "label": "Limited access to electricity",
+        "value": "11%",
+        "note": ""
+      },
+      {
+        "label": "Low literacy, especially for women",
+        "value": "48.2%",
+        "note": ""
+      },
+      {
+        "label": "Human Development",
+        "value": "0.416",
+        "note": "HDI"
+      }
+    ],
+    "cta": "learn more",
     "stats": [
       {
         "value": "74",
@@ -76,17 +121,17 @@
       {
         "value": "15000",
         "suffix": "+",
-        "label": "children are learning in safer schools",
+        "label": "children learning in safer schools",
         "detail": "better protected against flooding in N’Djamena, thanks to the **rehabilitation of 10 schools**, including improved stormwater drainage systems."
       },
       {
         "value": "2000",
         "suffix": "+",
-        "label": "households are better protected, benefiting nearly 10,000 people",
+        "label": "households better protected, benefiting nearly 10,000 people",
         "detail": "through the **clearing of 9 km of drainage canals**, the **installation of 125 metres of culverts** and drainage structures, and the **distribution of 2,400 waste bins** to improve solid waste management in N’Djamena."
       }
     ],
-    "transition": "Working alongside the Government, local authorities, communities and development partners, we delivered results that are improving people's lives across Chad."
+    "transition": "Working alongside the Government, local authorities, communities and development partners, **we delivered results that are improving people's lives across Chad.**"
   },
   "chapters": [
     {
@@ -97,7 +142,7 @@
         {
           "type": "feature",
           "heading": "Strengthening transparency and public accountability",
-          "body": "A new national digital platform supports more effective monitoring of government performance, enabling better-informed decision-making. Legal and regulatory texts dating back to 1954 are now publicly accessible through the Official Gazette digital platform.",
+          "body": "A new **national digital platform** supports more effective monitoring of government performance, enabling better-informed decision-making.\n\nLegal and regulatory texts dating back to 1954 are now publicly accessible through the **Official Gazette digital platform**.",
           "highlights": [
             "national digital platform",
             "Official Gazette digital platform"
@@ -111,20 +156,25 @@
               "side": "right",
               "w": 1400,
               "h": 933,
-              "fw": 494.1
+              "fw": 494.1,
+              "col": 759.3,
+              "dy": -141,
+              "bh": 370,
+              "by": -162
             }
-          ]
+          ],
+          "col": 0,
+          "span": 672
         },
         {
           "type": "feature",
           "heading": "Local governments growing into drivers of development",
-          "body": "A National Seminar on Decentralization, chaired by the President of the Republic, brought together more than 300 stakeholders. 10-year National Decentralization Roadmap adopted and disseminated nationwide. A shared national framework is now helping place local governments at the heart of development.",
+          "body": "A National Seminar on Decentralization, chaired by the President of the Republic, brought together **more than 300 stakeholders.**\n\n**10-year National Decentralization Roadmap** adopted and disseminated nationwide.\n\nA **shared national framework** is now helping place local governments at the heart of development.",
           "highlights": [
             "more than 300 stakeholders.",
             "10-year National Decentralization Roadmap",
             "shared national framework"
           ],
-          "align": "right",
           "photos": [
             {
               "src": "/assets/img/trust-02.jpg",
@@ -133,9 +183,16 @@
               "side": "left",
               "w": 933,
               "h": 1400,
-              "fw": 370.3
+              "fw": 370.3,
+              "col": -79.4,
+              "dy": -85,
+              "bh": 591,
+              "by": -102
             }
-          ]
+          ],
+          "col": 376,
+          "span": 734,
+          "rule": true
         },
         {
           "type": "cards",
@@ -150,10 +207,20 @@
             {
               "value": "950",
               "suffix": "+",
-              "label": "detainees received legal aid through mobile court hearings"
+              "label": "detainees received legal aid through mobile court hearings",
+              "outline": true
             }
           ],
-          "cta": "learn more"
+          "cta": "learn more",
+          "layout": "aside",
+          "col": 0,
+          "span": 253,
+          "cards": {
+            "col": 270,
+            "w": 297,
+            "step": 315
+          },
+          "rule": true
         }
       ]
     },
@@ -175,12 +242,18 @@
               "h": 933,
               "fw": 470.6
             }
-          ]
+          ],
+          "statsRef": [
+            2,
+            1,
+            0
+          ],
+          "statsLayout": "row"
         },
         {
           "type": "feature",
           "heading": "Supporting refugees and host communities",
-          "body": "3,000 people now have access to safe drinking water in Iriba. Communities in Adré have improved access to education and essential community services through new public facilities. More than 1,000 women strengthened their livelihoods through targeted income-generating support.",
+          "body": "3,000 people now have **access to safe drinking water** in Iriba.\n\nCommunities in Adré have improved **access to education and essential community services** through new public facilities.\n\nMore than 1,000 women strengthened their livelihoods through **targeted income-generating support**.",
           "highlights": [
             "access to safe drinking water",
             "access to education and essential community services",
@@ -194,9 +267,16 @@
               "side": "right",
               "w": 1400,
               "h": 1024,
-              "fw": 546.9
+              "fw": 546.9,
+              "col": 669.7,
+              "dy": -74,
+              "bh": 450,
+              "by": -99
             }
-          ]
+          ],
+          "rule": true,
+          "col": 0,
+          "span": 574
         },
         {
           "type": "counters",
@@ -205,14 +285,26 @@
             {
               "value": "40",
               "suffix": "+",
-              "label": "Peace Committees established"
+              "label": "Peace Committees established",
+              "outline": true
             },
             {
               "value": "500",
               "suffix": "+",
-              "label": "conflicts prevented or resolved locally"
+              "label": "conflicts prevented or resolved locally",
+              "outline": true
             }
-          ]
+          ],
+          "layout": "centred",
+          "col": 155,
+          "span": 841,
+          "size": "xl",
+          "figs": {
+            "col": 166,
+            "w": 401,
+            "step": 419
+          },
+          "rule": true
         }
       ]
     },
@@ -234,11 +326,16 @@
               "h": 933,
               "fw": 463.9
             }
-          ]
+          ],
+          "statsRef": [
+            4,
+            3
+          ],
+          "statsLayout": "beside"
         },
         {
           "type": "counters",
-          "heading": "Turning energy into lasting opportunity",
+          "heading": "Turning clean energy into opportunity",
           "items": [
             {
               "value": "1200",
@@ -257,7 +354,11 @@
               "side": "right",
               "w": 960,
               "h": 1280,
-              "fw": 339.9
+              "fw": 339.9,
+              "col": 806.3,
+              "dy": -133,
+              "bh": 486,
+              "by": -150
             },
             {
               "src": "/assets/img/energy-02.jpg",
@@ -266,9 +367,16 @@
               "side": "right",
               "w": 1280,
               "h": 960,
-              "fw": 470.5
+              "fw": 470.5,
+              "col": 622.7,
+              "dy": 241,
+              "bh": 374,
+              "by": 231
             }
-          ]
+          ],
+          "rule": true,
+          "col": 0,
+          "span": 574
         }
       ]
     },
@@ -291,6 +399,23 @@
               "label": "children monitored digitally through the DHIS2 platform during the SMC campaign"
             }
           ],
+          "layout": "beside",
+          "col": 1,
+          "span": 409,
+          "figs": {
+            "col": 480,
+            "w": 574
+          }
+        },
+        {
+          "type": "feature",
+          "heading": "Health facilities better equipped to deliver care",
+          "body": "100 health centres and 11 hospitals equipped with medical equipment and cold chain systems\n\nSolar energy helps ensure continuity of essential health services",
+          "highlights": [
+            "Solar energy helps ensure continuity of essential health services"
+          ],
+          "cta": "learn more",
+          "rule": true,
           "photos": [
             {
               "src": "/assets/img/health-01.jpg",
@@ -299,27 +424,23 @@
               "side": "right",
               "w": 1400,
               "h": 933,
-              "fw": 593.4
+              "fw": 593.4,
+              "col": 662.0,
+              "dy": -82,
+              "bh": 433,
+              "by": -100
             }
-          ]
-        },
-        {
-          "type": "feature",
-          "heading": "Health facilities better equipped to deliver care",
-          "body": "100 health centres and 11 hospitals equipped with medical equipment and cold chain systems. Solar energy helps ensure continuity of essential health services.",
-          "highlights": [
-            "Solar energy helps ensure continuity of essential health services"
           ],
-          "cta": "learn more"
+          "col": 0,
+          "span": 574
         },
         {
           "type": "feature",
           "heading": "Smarter medicine supply systems",
-          "body": "Pharmaceutical supply chain fully digitalized. Digital tools improved stock management and medicine distribution.",
+          "body": "Pharmaceutical supply chain fully digitalized\n\nDigital tools improved stock management and medicine distribution",
           "highlights": [
             "Digital tools improved stock management and medicine distribution"
           ],
-          "align": "right",
           "photos": [
             {
               "src": "/assets/img/health-02.jpg",
@@ -328,9 +449,16 @@
               "side": "left",
               "w": 1400,
               "h": 933,
-              "fw": 554.7
+              "fw": 554.7,
+              "col": -117.1,
+              "dy": -124,
+              "bh": 416,
+              "by": -148
             }
-          ]
+          ],
+          "col": 480,
+          "span": 540,
+          "rule": true
         }
       ]
     },
@@ -346,7 +474,8 @@
             {
               "value": "1000",
               "suffix": "+",
-              "label": "young people gathered in N'Djamena for the second YouthConnekt Sahel Forum"
+              "label": "young people gathered in N'Djamena for the second YouthConnekt Sahel Forum",
+              "outline": true
             },
             {
               "title": "Direct dialogue",
@@ -364,7 +493,28 @@
               "side": "right",
               "w": 933,
               "h": 1400,
-              "fw": 397.4
+              "fw": 397.4,
+              "col": 1006.1,
+              "dy": 155,
+              "bh": 564,
+              "by": 171
+            }
+          ],
+          "layout": "columns",
+          "col": 0,
+          "span": 1085,
+          "cols": [
+            {
+              "col": 0,
+              "w": 357
+            },
+            {
+              "col": 375,
+              "w": 357
+            },
+            {
+              "col": 777,
+              "w": 308
             }
           ]
         },
@@ -374,25 +524,31 @@
           "items": [
             {
               "value": "7",
-              "label": "young Chadian innovators trained in practical AI applications in Guinea"
+              "label": "young Chadian innovators trained in practical AI applications in Guinea",
+              "outline": true
             },
             {
               "value": "5",
-              "label": "young Chadians earned cybersecurity certification through the Tech4Peace initiative in Senegal"
+              "label": "young Chadians earned cybersecurity certification through the Tech4Peace initiative in Senegal",
+              "outline": true
             }
           ],
           "cta": "learn more",
-          "photos": [
+          "layout": "columns",
+          "col": 0,
+          "span": 841,
+          "size": "xl",
+          "cols": [
             {
-              "src": "/assets/img/youth-02.jpg",
-              "alt": "Women in brightly coloured dress gather at a community event in the Lac province.",
-              "rot": -11.61,
-              "side": "left",
-              "w": 1400,
-              "h": 1125,
-              "fw": 482.7
+              "col": 0,
+              "w": 285
+            },
+            {
+              "col": 375,
+              "w": 357
             }
-          ]
+          ],
+          "rule": true
         }
       ]
     }
@@ -416,16 +572,27 @@
         "title": "Youth and innovation",
         "body": "Creating opportunities for young people to build digital skills, drive innovation and shape Chad's future."
       }
-    ]
+    ],
+    "rule": true
   },
   "closing": {
-    "body": "This is what lasting transformation looks like: working alongside the Government, local governments, development partners, civil society and the private sector. Together. So that women, men and communities can shape their own future.",
-    "highlights": [
-      "This is what lasting transformation looks like:",
-      "Together.",
-      "can shape their own future."
-    ],
-    "cta": "learn more"
+    "body": "**This is what lasting transformation looks like:** working alongside the Government, local governments, development partners, civil society and the private sector. **Together.**\n\n**So that women, men and communities can shape their own future.**",
+    "cta": "learn more",
+    "photos": [
+      {
+        "src": "/assets/img/youth-02.jpg",
+        "alt": "Women in brightly coloured dress gather at a community event in the Lac province.",
+        "rot": -11.61,
+        "side": "left",
+        "w": 1400,
+        "h": 1125,
+        "fw": 482.7,
+        "col": -166.9,
+        "dy": 15,
+        "bh": 477,
+        "by": -30
+      }
+    ]
   },
   "footer": {
     "kicker": "explore the full story",
@@ -434,17 +601,164 @@
     "copyright": "© UNDP Chad 2025"
   },
   "modals": {
+    "indicators": {
+      "title": "Key Development Indicators (2024–2025)",
+      "groups": [
+        {
+          "column": 1,
+          "name": "Population and territory",
+          "rows": [
+            {
+              "label": "Area",
+              "value": "1 284 000 km²"
+            },
+            {
+              "label": "Total population",
+              "value": "19.3 million"
+            }
+          ]
+        },
+        {
+          "column": 1,
+          "name": "Economy",
+          "rows": [
+            {
+              "label": "GDP per capita",
+              "value": "CFAF 616 645"
+            },
+            {
+              "label": "Inflation rate",
+              "value": "4.1%"
+            }
+          ]
+        },
+        {
+          "column": 1,
+          "name": "Education",
+          "rows": [
+            {
+              "label": "Primary school enrolment – girls",
+              "value": "85.42%"
+            },
+            {
+              "label": "Primary school enrolment – boys",
+              "value": "99.84%"
+            },
+            {
+              "label": "Provinces above national average enrolment",
+              "value": "8 of 23"
+            }
+          ]
+        },
+        {
+          "column": 2,
+          "name": "Access to services and health",
+          "rows": [
+            {
+              "label": "Life expectancy at birth",
+              "value": "55 years"
+            },
+            {
+              "label": "Population per physician",
+              "value": "24,188"
+            },
+            {
+              "label": "Average distance to a health centre",
+              "value": "15 km"
+            },
+            {
+              "label": "Average distance to a hospital",
+              "value": "60 km"
+            }
+          ]
+        },
+        {
+          "column": 2,
+          "name": "Employment",
+          "rows": [
+            {
+              "label": "Employment-to-population ratio",
+              "value": "48.4%"
+            },
+            {
+              "label": "Unemployment rate (ILO)",
+              "value": "3.08%"
+            },
+            {
+              "label": "Expanded unemployment rate",
+              "value": "23.3%"
+            }
+          ]
+        },
+        {
+          "column": 3,
+          "figures": true,
+          "name": "Human development and gender",
+          "rows": [
+            {
+              "label": "Human Development Index (HDI)",
+              "value": "0.416"
+            },
+            {
+              "label": "Gender Development Index (GDI)",
+              "value": "0.787"
+            }
+          ]
+        }
+      ]
+    },
     "trust-1": {
-      "body": "",
-      "figure": "",
-      "figureLabel": "",
-      "image": ""
+      "body": [
+        "For the first time, Government performance is monitored through a structured digital system, enabling more informed decision-making through real-time data.",
+        "This is made possible through a digital platform managed by the General Secretariat of the Government that centralizes performance data and supports evidence-based decision-making at the highest level.",
+        "Citizens and public institutions can now access Chad's Official Gazette and legal texts dating back to 1954 through a dedicated digital platform."
+      ],
+      "figures": [
+        {
+          "value": "500,000",
+          "label": "official documents digitized and publicly accessible"
+        },
+        {
+          "value": "68 years",
+          "label": "of institutional memory now accessible through the Official Gazette digital platform"
+        }
+      ],
+      "figuresAfter": 2,
+      "image": "",
+      "leads": [
+        1
+      ]
     },
     "trust-3": {
-      "body": "",
-      "figure": "",
-      "figureLabel": "",
-      "image": ""
+      "body": [
+        "The legislative and local elections held in December 2024 marked Chad's return to constitutional order and resulted in a significant increase in women's representation across elected institutions.",
+        "We supported national and local institutions in promoting the rights of persons with disabilities.",
+        "In Hadjer Lamis, 100 persons with disabilities received mobility aids, including wheelchairs and walking canes, helping them regain mobility, independence and dignity.",
+        "Mobile court hearings reduced prison overcrowding by 10% and enabled 956 detainees – including women and minors – to receive legal aid. Four correctional facilities were equipped with new water infrastructure, improving hygiene, health and overall detention conditions."
+      ],
+      "figures": [
+        {
+          "value": "27%",
+          "label": "women in Provincial Councils"
+        },
+        {
+          "value": "34%",
+          "label": "in the National Assembly"
+        },
+        {
+          "value": "37.7%",
+          "label": "in the Senate"
+        },
+        {
+          "value": "34%",
+          "label": "in municipal councils"
+        }
+      ],
+      "figuresAfter": 0,
+      "image": "",
+      "leads": [
+        1
+      ]
     },
     "health-2": {
       "body": [
