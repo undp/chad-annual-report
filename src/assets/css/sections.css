@@ -1161,6 +1161,13 @@
   container-type: inline-size;
   --card: 732;                       /* the file's width for this dialog */
   --art: calc(100cqw / var(--card)); /* one pixel of that card */
+  --radius: max(12px, calc(23.742 * var(--art)));
+  /* The file's 111px head and foot, kept as long as the window is tall enough
+     to hold them. On a laptop the card would otherwise reach the 90vh ceiling
+     and scroll on 20-50px of head and foot alone, with the copy itself fitting
+     comfortably. Below roughly 1000px of window the head gives way before the
+     text does. */
+  --head: clamp(max(1.75rem, var(--radius)), calc(111 * var(--art)), 9vh);
   border: 0; padding: 0;
   max-width: min(calc(var(--card) * 1px), calc(100vw - 2 * var(--gutter)));
   width: 100%; max-height: min(90vh, 1000px);
@@ -1187,14 +1194,14 @@
    only while scrolling: there the rules below are simply what that overlay
    looks like when it appears. */
 .modal__box {
-  position: relative; border-radius: max(12px, calc(23.742 * var(--art)));
+  position: relative; border-radius: var(--radius);
   background: linear-gradient(82.85deg, #212e59 11.19%, #7347bf 181.35%);
   box-shadow: 0 0 max(4px, calc(8.14 * var(--art))) calc(0.678 * var(--art)) rgb(33 46 89 / 0.6);
   max-height: min(90vh, 1000px); display: grid; grid-template-rows: minmax(0, 1fr);
   overflow: hidden;
   /* The card's corner radius, kept clear above and below the scroll lane so
      the thumb never enters the curve. */
-  padding-block: max(12px, calc(23.742 * var(--art)));
+  padding-block: var(--radius);
 }
 /* The wide card's gradient runs at a shallower angle across its longer side. */
 .modal--wide .modal__box, .modal--table .modal__box {
@@ -1205,7 +1212,7 @@
 .modal__scroll {
   overflow-y: auto; overscroll-behavior: contain; min-height: 0;
   padding-inline: max(1.25rem, calc(64 * var(--art)));
-  padding-block: calc(max(1.75rem, calc(111 * var(--art))) - max(12px, calc(23.742 * var(--art))));
+  padding-block: calc(var(--head) - var(--radius));
   scrollbar-width: thin;
   scrollbar-color: rgb(252 201 0 / 0.55) transparent;
   scrollbar-gutter: stable;
@@ -1337,7 +1344,7 @@
    names — not at the page's heading size, and not in white. */
 .modal--table .modal__scroll {
   padding-inline: max(1.25rem, calc(52 * var(--art)));
-  padding-block: calc(max(1.25rem, calc(31.88 * var(--art))) - max(12px, calc(23.742 * var(--art))));
+  padding-block: calc(clamp(var(--radius), calc(31.88 * var(--art)), 9vh) - var(--radius));
 }
 .modal--table .modal__title {
   position: static; width: auto; height: auto; margin: 0; overflow: visible;
