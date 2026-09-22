@@ -184,6 +184,19 @@
 .hero__photo--1 { --px: 800.1; --py: 85.75;  --dx: -433.9; --dy: 167.95; }
 .hero__photo--2 { --px: -8.96; --py: 485.94; --dx: 433.9;  --dy: -167.95; }
 
+/* The header's one scroll effect: the two prints ride the wheel at different
+   speeds, so the pair opens as the reader moves while the headline stays where
+   it was typeset. The larger print on the right is the near one and runs at
+   roughly twice the far one on the left — that difference is what the eye reads
+   as depth; a single speed would read as the page simply scrolling.
+
+   `--travel` is each print's half-travel as a share of its own height, read by
+   parallax.js, so the numbers hold at every width. Two knobs: raise both for
+   more motion, widen the gap between them for more separation, 0 to stand a
+   print still. Nothing else in the header is tied to the scroll. */
+.hero__photo--1 { --travel: 66; }
+.hero__photo--2 { --travel: 34; }
+
 /* The veil between the prints and the words.
 
    White display type over a photograph of a man dressed in white cannot be

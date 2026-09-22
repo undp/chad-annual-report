@@ -104,6 +104,19 @@ function depthOf(el) {
   return 0.45 + 0.55 * Math.min(1, Math.max(0, (fw - FW_MIN) / FW_SPAN));
 }
 
+/* A print's travel normally comes from its size, above: a large print is a near
+   print. The hero is the one composition where the design asks for a stated
+   separation instead — two prints in the same frame, either side of the
+   headline, that have to part company inside the first screen of scroll.
+   `--travel` names that half-travel directly, as a percentage of the print's
+   own height, so one number holds from the 1440 frame down to a phone where the
+   print is a quarter the size. Absent, nothing changes and the size-derived
+   budget applies. */
+function travelOf(el) {
+  const t = parseFloat(getComputedStyle(el).getPropertyValue('--travel'));
+  return Number.isNaN(t) ? null : t;
+}
+
 export default function initParallax() {
   /* Mobile browsers fire a resize every time their chrome hides; refreshing on
      each one is both expensive and visibly jumpy. */
@@ -143,7 +156,12 @@ export default function initParallax() {
         moved.push(el);
 
         if (kind === 'stack') {
-          const [fy, ty] = range(FRAME_TRAVEL * d);
+          /* Either the stated travel, in percent of the print's own height, or
+             the size-derived one in pixels. `axis` carries the choice of unit
+             into the tween. */
+          const stated = travelOf(el);
+          const axis = stated === null ? 'y' : 'yPercent';
+          const [fy, ty] = range(stated === null ? FRAME_TRAVEL * d : stated * k);
           const [fr, tr] = range(SWAY * d);
           const [fl, tl_] = range(LEAN * d);
           const tilt = tiltOf(el);
@@ -161,8 +179,8 @@ export default function initParallax() {
           const from = anchored ? 0 : -1, to = 1;
           const scaleAt = (t) => 1 + LIFT_SCALE * d * t;
           tl.fromTo(el,
-            { y: fy, rotation: tilt + fr, rotateX: fl, scale: scaleAt(from) },
-            { y: ty, rotation: tilt + tr, rotateX: tl_, scale: scaleAt(to), ease: 'none' }, 0);
+            { [axis]: fy, rotation: tilt + fr, rotateX: fl, scale: scaleAt(from) },
+            { [axis]: ty, rotation: tilt + tr, rotateX: tl_, scale: scaleAt(to), ease: 'none' }, 0);
           /* The shadow is not a straight line through the run: long and soft
              at both ends, where the print is lifted and turned, short and
              tight in the middle, where it lies flat. Two halves, so it
