@@ -9,6 +9,8 @@
   --color-mist:  #eff0f3;  /* light section background */
   --color-white: #ffffff;
   --color-yellow: #fcc900; /* scroll cue in the hero */
+  --color-clay:  #dc4f3a;  /* the chevron of the "learn more" component */
+  --tca-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8.31679 14.53738'%3E%3Cpath d='M0.52405 14.01333 7.26869 7.26869 0.52405 0.52405' fill='none' stroke='%23000' stroke-width='1.48224'/%3E%3C/svg%3E");
   --color-overlay: rgb(255 255 255 / 0.2);
 
   --color-text: var(--color-navy);

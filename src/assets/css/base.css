@@ -69,36 +69,45 @@ a { color: inherit; }
 .btn--primary:hover { background: var(--color-blue); border-color: var(--color-blue); }
 .btn--ghost:hover { background: var(--color-overlay); }
 
-/* "learn more" — the TCA component of the design system, at its own values:
-   Proxima Nova Bold 16px, leading 0.8, navy, 90px of text and a chevron after
-   it. No rule under the words: the component does not draw one.
+/* "learn more" — the TCA component of the design system, at the file's own
+   values: Proxima Nova Bold 16px, leading 0.8, navy letters, a clay chevron
+   after them. No rule under the words: the component does not draw one.
+
+   The file's ten letters occupy 90px. The webfont we were given carries them
+   in 78.09, so the component's own tracking — 1.19px at 16, 0.0744em — brings
+   the word back to the file's width and the chevron back to the file's x.
 
    Block-level rather than inline, so the gap a block sets above it is a block
    margin and collapses with what comes before, as the file's 50px does. */
 .tca {
-  display: flex; width: fit-content; align-items: center;
-  /* 10.25px from the last word to the chevron's frame in the file, less the
-     1.98px the turned square below hangs over its own layout box. */
-  gap: 8.27px;
+  display: block; width: fit-content; white-space: nowrap;
   background: none; border: 0; padding: 0;
   font-family: var(--font-body); font-size: var(--fs-small);
-  font-weight: 700; line-height: 0.8; letter-spacing: normal;
+  font-weight: 700; line-height: 0.8; letter-spacing: 0.0744em;
   text-transform: lowercase; color: inherit; cursor: pointer;
 }
-/* The chevron is the file's `Rectangle 8`: a 9.54px square showing two of its
-   sides, turned -135° so the corner points at the reader. Turned it measures
-   13.49px across, which is the height of the TCA frame. */
+/* The chevron is the file's `Rectangle 8`, drawn as the vector it is rather
+   than as two borders: an open path over two sides of a 9.53835px square,
+   stroke 1.48224, turned -135° so the corner points at the reader. Turned and
+   stroked it inks 8.3168 x 14.5374, and its foot falls 2.77px under the
+   baseline of the word. As a mask the stroke keeps its 1.48224 on a retina
+   screen and on a single-density monitor alike; as a border it became 1.5 on
+   one and 1 on the other. */
 .tca::after {
-  content: ''; flex: none; box-sizing: border-box;
-  width: 9.54px; height: 9.54px;
-  border-left: 1.48px solid currentColor;
-  border-bottom: 1.48px solid currentColor;
-  transform: rotate(-135deg);
+  content: ''; display: inline-block;
+  width: 0.5198em; height: 0.9086em;
+  /* 9.72px from the right edge of the 90px word to the chevron's first ink,
+     and a foot 2.77px under the baseline of that word. */
+  margin-inline-start: 0.6078em; vertical-align: -0.1728em;
+  background: var(--color-clay);
+  -webkit-mask: var(--tca-chevron) no-repeat center / 100% 100%;
+  mask: var(--tca-chevron) no-repeat center / 100% 100%;
   transition: transform var(--motion-fast) var(--ease);
 }
 /* The shift is written before the turn so it reads as rightwards on screen, in
    the page's axis rather than the chevron's own. */
-.tca:hover::after { transform: translateX(4px) rotate(-135deg); }
+.tca:hover::after { transform: translateX(4px); }
+
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
