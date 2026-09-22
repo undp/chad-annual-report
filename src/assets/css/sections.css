@@ -164,9 +164,55 @@
 .hero__photo .polaroid__frame { display: block; overflow: hidden; overflow: clip; }
 .hero__photo img { display: block; width: 100%; height: auto; }
 /* Literal Figma offsets, taken from each print's rotated bounding box on the
-   frame and resolved back to the unrotated box CSS lays out. */
-.hero__photo--1 { inset-inline-start: calc(800.1 * var(--u)); inset-block-start: calc(85.75 * var(--u)); }
-.hero__photo--2 { inset-inline-start: calc(-8.96 * var(--u)); inset-block-start: calc(485.94 * var(--u)); }
+   frame and resolved back to the unrotated box CSS lays out — `--px` / `--py` —
+   with each print's distance from the midpoint between the two, `--dx` / `--dy`,
+   carried alongside so the pair can be drawn closer together.
+
+   `--spread` is that distance as a fraction of the file's own. The file hangs
+   the prints 336px apart down a 1457px frame; a laptop shows a little over half
+   that frame at once, so the two never meet in one screen and the composition
+   arrives in pieces. At 0.45 they keep their angles, their sizes and their
+   place either side of the headline, and the whole scene lands inside the first
+   screen — on a laptop and, scaled by `--u`, on a phone. Horizontally they stay
+   where the file puts them: that is what holds the print against the right edge
+   of the page and the other against the left. */
+.hero { --spread-x: 1; --spread-y: 0.38; }
+.hero__photo {
+  inset-inline-start: calc((var(--px) + var(--dx) * (1 - var(--spread-x))) * var(--u));
+  inset-block-start:  calc((var(--py) + var(--dy) * (1 - var(--spread-y))) * var(--u));
+}
+.hero__photo--1 { --px: 800.1; --py: 85.75;  --dx: -433.9; --dy: 167.95; }
+.hero__photo--2 { --px: -8.96; --py: 485.94; --dx: 433.9;  --dy: -167.95; }
+
+/* The veil between the prints and the words.
+
+   White display type over a photograph of a man dressed in white cannot be
+   read, and the closer the prints sit to the headline the more of it they
+   cover. So a violet wash of the backdrop's own colour lies over the prints and
+   under the type: light at rest, where the photographs still have to read as
+   photographs, and drawn up as the reader scrolls towards the paragraph, whose
+   32px copy needs the contrast far more than the 154px headline does.
+
+   `--scrim` is the strength of that wash. The value here is its resting state
+   and the one a reader keeps if the bundle never arrives; `hero-intro.js`
+   writes it inline from there up to 1 over the first screen of scroll. */
+.hero { --scrim: 0.6; }
+@media (prefers-reduced-motion: reduce) { .hero { --scrim: 0.86; } }
+.hero::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  /* An ellipse centred on the headline — on the headline itself, through
+     `--hero-top` and `--title-h`, not on a fixed fraction of the section, so it
+     follows the type up a short window instead of staying where a 1457px frame
+     would have put it — and a fall towards the foot of the frame, where the
+     paragraph and the arrow sit. Both die out before the edges, so the wash
+     never draws a border of its own around the section. */
+  background:
+    radial-gradient(132% calc(var(--title-h) * 1.35)
+                    at 50% calc(var(--hero-top) + var(--title-h) * 0.5),
+                    rgb(26 9 50 / 0.90) 0%, rgb(26 9 50 / 0.62) 52%, rgb(26 9 50 / 0) 88%),
+    linear-gradient(180deg, rgb(26 9 50 / 0) 44%, rgb(26 9 50 / 0.52) 80%, rgb(26 9 50 / 0.66) 100%);
+  opacity: var(--scrim);
+}
 
 .hero__scroll {
   margin-top: calc(var(--fs-display) * 0.45); color: var(--color-yellow);
@@ -224,17 +270,14 @@
 .js-hero .hero__scroll { opacity: 0; }
 .hero.is-open .hero__scroll { opacity: 1; transition: opacity 0.6s var(--ease) 1.75s; }
 
-/* The paragraph's opacity is handed to the scroll link in JS; this is only its
-   resting state before that link is made. */
+/* The paragraph's resting state before JavaScript takes it over. */
 .js-hero .hero__intro { opacity: 0; }
-/* Unless the paragraph starts inside the first screen — a phone, a tall
-   monitor — where there is nothing to scroll towards and the scroll link is
-   never made. Then it is the third beat of the opening, between the headline
-   and the arrow. Opacity only: the scroll link writes `transform`, and leaving
-   a translate here would offset the paragraph for good on the other route. */
-.hero.is-open.hero--intro-on-load .hero__intro {
-  opacity: 1; transition: opacity 0.7s var(--ease) 1.5s;
-}
+/* Once it has: the block itself is simply present, and what arrives is the
+   words inside it, one after the other — tied to the wheel on a laptop, where
+   the paragraph is below the fold, and played as the third beat of the opening
+   where it is not. `hero-intro.js` sets the word opacities; this rule only
+   hands the block over, with no transition of its own to fight them. */
+.hero.hero--intro-words .hero__intro { opacity: 1; }
 
 
 /* ---------- Impact band ---------- */

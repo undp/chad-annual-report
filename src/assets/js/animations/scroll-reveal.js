@@ -11,7 +11,10 @@ gsap.registerPlugin(ScrollTrigger);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const WORD_CLS = 'tr-word';
 
-function wrapWords(root) {
+/* Shared with the hero: splits the text nodes under `root` into one span per
+   word, leaving the markup between them — the `<strong>` of an emphasis — where
+   it is, and returns the spans in reading order. */
+export function wrapWords(root) {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode: (n) => (n.nodeValue && n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT),
   });
