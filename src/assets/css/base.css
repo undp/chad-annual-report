@@ -73,9 +73,13 @@ a { color: inherit; }
    values: Proxima Nova Bold 16px, leading 0.8, navy letters, a clay chevron
    after them. No rule under the words: the component does not draw one.
 
-   The file's ten letters occupy 90px. The webfont we were given carries them
-   in 78.09, so the component's own tracking — 1.19px at 16, 0.0744em — brings
-   the word back to the file's width and the chevron back to the file's x.
+   The words run in capitals, as the design system draws them: `.cta__link` in
+   @undp/design-system 2.0.2 (docs/css/components/cta-link.min.css) is 16px,
+   weight 700, `text-transform: uppercase`, `letter-spacing: .03em`. The Figma
+   file sets the same component in lowercase over 90px; where the two disagree
+   the system wins, and its tracking comes with it — the 0.0744em that used to
+   sit here only existed to stretch those ten lowercase letters to the file's
+   90px, a measure capitals no longer have.
 
    Block-level rather than inline, so the gap a block sets above it is a block
    margin and collapses with what comes before, as the file's 50px does. */
@@ -83,8 +87,8 @@ a { color: inherit; }
   display: block; width: fit-content; white-space: nowrap;
   background: none; border: 0; padding: 0;
   font-family: var(--font-body); font-size: var(--fs-small);
-  font-weight: 700; line-height: 0.8; letter-spacing: 0.0744em;
-  text-transform: lowercase; color: inherit; cursor: pointer;
+  font-weight: 700; line-height: 0.8; letter-spacing: 0.03em;
+  text-transform: uppercase; color: inherit; cursor: pointer;
 }
 /* The chevron is the file's `Rectangle 8`, drawn as the vector it is rather
    than as two borders: an open path over two sides of a 9.53835px square,

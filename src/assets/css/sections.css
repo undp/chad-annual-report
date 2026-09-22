@@ -1010,7 +1010,7 @@
 .priorities__grid {
   position: relative; isolation: isolate;
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr;
-  gap: 20px; margin-top: var(--sp-6);
+  gap: 20px;
   background-image: linear-gradient(90deg, #177dca, #1648a6, #1c2585, #241265, #3e0b48);
 }
 .priorities__grid::before {
@@ -1022,6 +1022,23 @@
 .priority { position: relative; z-index: 2; color: var(--color-white); padding: 50px 43px; }
 .priority__title { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h5); line-height: 1.15; margin-bottom: var(--sp-4); }
 .priority__body { font-size: var(--fs-h6); font-weight: 500; line-height: 1.2; margin: 0; }
+
+/* The air between the title and the panels. It belongs on a selector heavier
+   than `ul[role="list"] { margin: 0 }` in base.css — an attribute outweighs a
+   lone class, which is why the gap written on `.priorities__grid` alone never
+   reached the page and the two sat 16px apart, on the title's margin alone.
+
+   The file measures 210.76 from the baseline of the title to the top of the
+   panels, and spends 110 of them on a centred mark — the same 81.52 x 40.76
+   vector it repeats at y=1333.56 and y=2408 — which this page does not draw.
+   Without the mark the panels take the file's own unit of air for this stretch,
+   the 100 that also separates the panels from the closing text and the closing
+   text from its link. Draw the mark and the number goes back to 210.76.
+
+   Below the desktop breakpoint the file says nothing: 64px is a proposal, to
+   validate with design. */
+.priorities .priorities__grid { margin-top: var(--sp-6); }
+@media (min-width: 62rem) { .priorities .priorities__grid { margin-top: 6.25rem; } }
 
 /* One column on a phone: the cross has nothing to split, so the gutters go and
    each panel carries the ramp itself. */
