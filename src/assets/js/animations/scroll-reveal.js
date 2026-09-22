@@ -41,9 +41,14 @@ export default function initScrollReveal() {
 
   document.querySelectorAll('[data-anim="reveal"]').forEach((el) => {
     const children = el.querySelectorAll(':scope > *');
+    /* At 95% a block began arriving while it was still off the bottom edge, in
+       0.6s, so the entry was over before the reader reached it. It now starts
+       with the block properly on screen and takes long enough to be seen: the
+       travel is still translate-only, and the stagger lets a row of figures
+       arrive one after the other rather than as a slab. */
     gsap.from(children.length ? children : [el], {
-      y: 24, duration: 0.6, ease: 'power2.out', stagger: 0.08,
-      scrollTrigger: { trigger: el, start: 'top 95%', toggleActions: 'play none none none' },
+      y: 32, duration: 0.9, ease: 'power3.out', stagger: 0.12,
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
     });
   });
 

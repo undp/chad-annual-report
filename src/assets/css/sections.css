@@ -290,6 +290,14 @@
   display: block; font-family: var(--font-display); font-weight: 700;
   font-size: var(--fs-h2); line-height: 1; color: var(--color-navy);
 }
+/* While a figure counts it borrows the font's tabular figures, so the digits
+   stop shifting sideways from one frame to the next; at rest it returns to the
+   proportional set the design is drawn with, which is the set the cell is
+   measured against. */
+.stat__value.is-counting, .counter__value.is-counting, .card__value.is-counting {
+  font-variant-numeric: tabular-nums;
+}
+
 /* 20px navy, leading 1.2, 22–24px under the numeral: the same label under
    every figure in the file, expandable or not. */
 .stat__label, .counter__label, .card__label { display: block; margin-top: var(--sp-3); font-size: var(--fs-body); line-height: 1.2; color: var(--color-navy); }
