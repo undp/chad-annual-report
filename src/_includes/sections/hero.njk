@@ -2,8 +2,12 @@
    the headline, and the oversized white display type on top — as in the Figma
    frame. The title is stored sentence-case (it feeds <title> and OG tags) and
    uppercased in CSS, so translators never deal with casing. #}
+{%- set titleLines = c.hero.titleLines | tList(en.hero.titleLines) %}
+{#- `--hero-chars` and `--hero-lines` describe the headline as it will actually
+    be set — English here, French once the translation lands — so the layout can
+    size it and then make room for it. #}
 <section class="hero" id="hero" aria-labelledby="hero-title"
-         style="--hero-bg:url('{{ '/assets/img/hero-bg.jpg' | asset }}');--hero-bg-webp:url('{{ '/assets/img/hero-bg.webp' | asset }}')">
+         style="--hero-bg:url('{{ '/assets/img/hero-bg.jpg' | asset }}');--hero-bg-webp:url('{{ '/assets/img/hero-bg.webp' | asset }}');--hero-chars:{{ titleLines | maxLen }};--hero-lines:{{ titleLines | length }}">
   <div class="hero__photos" aria-hidden="true">
     {%- for p in en.hero.photos %}
     <figure class="hero__photo hero__photo--{{ loop.index }}" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }}" data-parallax="stack">
@@ -17,25 +21,26 @@
     {%- endfor %}
   </div>
 
-  {#- The display face is wide enough that the headline, not the viewport, is
-      what limits its size on a phone. `--hero-chars` carries the length of the
-      longest line *as it will actually be set* — English here, French once the
-      translation lands — so the type shrinks to fit a longer language instead of
-      running off the screen. #}
-  {%- set titleLines = c.hero.titleLines | tList(en.hero.titleLines) %}
-  <h1 class="hero__title" id="hero-title" style="--hero-chars:{{ titleLines | maxLen }}">
-    {%- for line in titleLines %}<span class="hero__title-line">{{ line }}</span>{% endfor %}
+  <h1 class="hero__title" id="hero-title">
+    {#- Each line carries its index so the opening can set them one after the
+        other, and an inner span so the entry moves the letters without moving
+        the line box the next line is measured from. #}
+    {%- for line in titleLines %}<span class="hero__title-line" style="--i:{{ loop.index0 }}"><span>{{ line }}</span></span>{% endfor %}
   </h1>
 
-  <div class="hero__intro" data-anim="text-reveal">
+  {#- The paragraph is tied to the scroll, not to the load: `hero-intro.js`
+      brings it in over the first turn of the wheel. #}
+  <div class="hero__intro" data-hero-intro>
     {%- for para in en.hero.paragraphs %}
     <p>{{ (c.hero.paragraphs[loop.index0] if c.hero.paragraphs else '') | t(para) | emph | safe }}</p>
     {%- endfor %}
   </div>
 
   <a class="hero__scroll" href="#impact" aria-label="{{ c.hero.scrollHint | t(en.hero.scrollHint) }}">
-    <svg viewBox="0 0 48 26" width="48" height="26" aria-hidden="true" focusable="false">
-      <path d="M2 2 24 24 46 2" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="square"/>
+    {#- 81.5 x 40.8 on the 1440 frame, with a floor so it stays a target on a
+        phone. #}
+    <svg viewBox="0 0 82 41" width="82" height="41" aria-hidden="true" focusable="false">
+      <path d="M4 4 41 37 78 4" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="square"/>
     </svg>
   </a>
 </section>

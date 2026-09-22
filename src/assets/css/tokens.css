@@ -19,11 +19,12 @@
   --font-body: 'Proxima Nova', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Fluid scale: 375px → 1440px viewport. Desktop values are the Figma ones. */
-  /* The Figma hero is a 1440x1440 scene: headline, intro and scroll cue together
-     stand ~9.2x the type size tall. Capping on viewport height as well as width
-     keeps that whole composition inside the fold on a laptop, and still resolves
-     to exactly 154.5px at the design's own 1440 square. */
-  --fs-display: clamp(3rem, min(1.2rem + 10.7vw, 10.2vh), 9.66rem);   /* 154.5px */
+  /* The hero headline is 154.524px on the file's 1440 frame, and it is now that
+     size on a 1440 window: the cap on viewport height that used to hold it —
+     put there to keep the whole hero inside the first screen — is gone, because
+     the hero is no longer asked to fit inside the first screen. The floor is the
+     largest size the longest line still fits on a 375px phone. */
+  --fs-display: clamp(2.5rem, 10.73vw, 9.658rem);   /* 154.5px at 1440 */
   --fs-h1:      clamp(2.5rem, 1.4rem + 6.9vw, 6.25rem);  /* 100px */
   --fs-h2:      clamp(2rem, 1.2rem + 4.8vw, 4.375rem);   /* 70px  */
   --fs-h3:      clamp(1.75rem, 1.2rem + 3.8vw, 3.44rem); /* 55px  */

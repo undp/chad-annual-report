@@ -1,6 +1,7 @@
 import initCounters from './animations/counter.js';
 import initScrollReveal from './animations/scroll-reveal.js';
 import initParallax from './animations/parallax.js';
+import initHeroIntro from './animations/hero-intro.js';
 import initModals from './ui/modal.js';
 import initDisclosures from './ui/disclosure.js';
 import initImpactStates from './ui/impact-states.js';
@@ -10,6 +11,7 @@ const start = () => {
   initCounters(document.documentElement.lang);
   initScrollReveal();
   initParallax();
+  initHeroIntro();
   initModals();
   initDisclosures();
   initImpactStates();

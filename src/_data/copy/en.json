@@ -723,15 +723,17 @@
           "label": "official documents digitized and publicly accessible"
         },
         {
-          "value": "68 years",
-          "label": "of institutional memory now accessible through the Official Gazette digital platform"
+          "value": "68",
+          "label": "years of institutional memory now accessible through the Official Gazette digital platform"
         }
       ],
-      "figuresAfter": 2,
-      "image": "",
       "leads": [
         1
-      ]
+      ],
+      "wide": true,
+      "split": 2,
+      "figuresColumn": "right",
+      "figureCols": 1
     },
     "trust-3": {
       "body": [
@@ -758,19 +760,20 @@
           "label": "in municipal councils"
         }
       ],
-      "figuresAfter": 0,
-      "image": "",
       "leads": [
         1
-      ]
+      ],
+      "wide": true,
+      "split": 1,
+      "figuresColumn": "left",
+      "figureCols": 2
     },
     "health-2": {
       "body": [
         "Health facilities were strengthened through the provision of medical equipment, cold chain systems and solar energy solutions, helping improve the quality and continuity of essential health services, particularly in underserved areas."
       ],
       "figure": "More than 500",
-      "figureLabel": "biomedical technicians were also trained to operate and maintain the equipment, strengthening local capacity, promoting long-term sustainability and fostering national ownership.",
-      "image": ""
+      "figureLabel": "biomedical technicians were also trained to operate and maintain the equipment, strengthening local capacity, promoting long-term sustainability and fostering national ownership."
     },
     "youth-2": {
       "body": [
@@ -785,10 +788,7 @@
       "body": [
         "Behind every result in this report are strong partnerships, shared commitment and collective action. Working hand in hand with the Government and a wide range of bilateral and multilateral partners, UNDP is helping expand opportunities, reach the most vulnerable communities and advance sustainable development across Chad.",
         "**Our partners include:** the African Development Bank, the European Union, France, the Global Environment Facility, the Global Fund, Germany, the Islamic Development Bank, Japan, the Netherlands, Slovenia, Sweden, Switzerland, the United Kingdom, the UN Peacebuilding Fund, the UNDP Funding Windows and the World Bank."
-      ],
-      "figure": "",
-      "figureLabel": "",
-      "image": ""
+      ]
     },
     "close": "Close"
   },

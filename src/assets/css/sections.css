@@ -66,14 +66,45 @@
 .lang-switch__menu a[aria-current='true'] { color: var(--color-navy); }
 
 /* ---------- Hero ---------- */
-/* Full-bleed mesh gradient, prints behind the type, oversized white display
-   headline — the Figma hero frame. The map is NOT here: in the design it sits
-   behind the impact band that follows. */
+/* The file's hero is frame 142:2870, 1440 x 1457: two prints in the upper half,
+   the display headline across the middle at 154.524px, the intro paragraph at
+   1039 and the scroll arrow at 1333. The frame is taller than a laptop screen
+   on purpose — the paragraph is something the reader arrives at, not something
+   they land on — so nothing below is fitted to the window. The map is NOT here:
+   in the design it sits behind the impact band that follows. */
 .hero {
+  /* One design pixel of that frame. It stops growing at 1440: past that width
+     the window gets more backdrop, not a larger composition. */
+  --u: min(0.06944vw, 1px);
+  --hero-h: calc(1457 * var(--u));
+  /* The headline's size, hoisted out of the h1 so the layout can measure it.
+     `--hero-chars` and `--hero-lines` come from the template: the length of the
+     longest line as it will actually be set, and how many lines there are. */
+  --hero-fs: min(
+    var(--fs-display),
+    (100vw - 2 * var(--gutter)) / (var(--hero-chars, 10) * 0.8)
+  );
+  --title-h: calc(var(--hero-lines, 4) * 0.851 * var(--hero-fs));
+  /* The file starts the headline 383px down its 1457px frame. That is where it
+     starts here too, unless the window is too short to hold the whole headline
+     under the header — then it starts as far down as it can and still finish
+     inside the first screen. A headline cut across its last line is the one
+     thing an opening cannot do, and it is what a 1440x900 laptop would get at
+     the file's own offset. */
+  --hero-top: clamp(
+    calc(40 * var(--u)),
+    calc(100svh - var(--header-h) - var(--title-h) - 6svh),
+    calc(383 * var(--u))
+  );
   position: relative; isolation: isolate; overflow: clip;
-  min-height: min(100svh, 56rem);
-  display: grid; align-content: center; justify-items: center;
-  padding: clamp(3rem, 8vh, 8rem) var(--gutter) clamp(2.5rem, 6vh, 6rem);
+  /* The frame's own height, and only that. Stretching the hero to a window
+     taller than 1457 would put the empty gradient back under the arrow, which
+     is the space the file does not have and the reader should not see. On a
+     very tall screen the band that follows simply starts to show, which is what
+     a document does. */
+  min-height: var(--hero-h);
+  display: grid; align-content: start; justify-items: center;
+  padding: var(--hero-top) var(--gutter) calc(83 * var(--u));
   color: var(--color-white);
   /* The backdrop URLs come from the template (--hero-bg, --hero-bg-webp) so
      they carry the content hash like every other image: swapping the file
@@ -86,47 +117,41 @@
 }
 .hero__title {
   font-family: var(--font-display); font-weight: 700;
-  /* Two limits, whichever bites first. `--fs-display` is the design's own scale,
-     capped on viewport height so the hero composition stays inside a laptop
-     fold. The second term is the one that matters on a phone: Söhne Breit sets
-     at about 0.755em per character, so a ten-character line needs 7.55 times its
-     own font size in width — more than a 360px screen has at the design's size.
-     Measuring against `--hero-chars` rather than a fixed breakpoint means a
-     longer French headline shrinks to fit instead of running off the edge. */
-  font-size: min(
-    var(--fs-display),
-    (100vw - 2 * var(--gutter)) / (var(--hero-chars, 10) * 0.8)
-  );
+  /* Two limits on the size, whichever bites first, both set on the section.
+     `--fs-display` is the file's own. The second is the one that matters on a
+     phone: Söhne Breit sets at about 0.755em per character, so a ten-character
+     line needs 7.55 times its own font size in width — more than a 360px screen
+     has at the design's size. Measuring against `--hero-chars` rather than a
+     fixed breakpoint means a longer French headline shrinks to fit instead of
+     running off the edge. */
+  font-size: var(--hero-fs);
+  /* 107.248px of leading plus 24.285px between lines on a 154.524px face. */
   line-height: 0.851;
   text-transform: uppercase; text-align: center;
   margin: 0; max-width: 16ch; text-wrap: balance;
 }
 .hero__title-line { display: block; }
+.hero__title-line > span { display: block; }
+/* 1030 of the frame's 1440, set at 32px — the file's measure and the file's
+   size. Held to 46rem it read as a caption under a headline instead of the
+   second voice of the opening. */
 .hero__intro {
-  max-width: 46rem; margin-top: calc(var(--fs-display) * 0.98); text-align: center;
-  font-size: min(var(--fs-h6), 2.9vh); line-height: 1.4;
+  inline-size: min(100%, calc(1030 * var(--u)));
+  margin-top: calc(var(--fs-display) * 0.98); text-align: center;
+  font-size: max(1rem, calc(32 * var(--u))); line-height: 1.2;
 }
-.hero__intro p + p { margin-top: var(--sp-3); }
-.hero__intro strong { font-weight: 700; }
+.hero__intro p + p { margin-top: calc(21.5 * var(--u)); }
+.hero__intro strong { font-weight: 800; }
 
-/* The Figma hero is a 1440-square scene, and the two prints only sit correctly
-   against the headline if they keep that square's internal geometry. `--u` is
-   one design pixel of it, taken from whichever viewport axis is scarcer, and
-   the box below is that square centred in the hero: prints are then placed at
-   their literal Figma offsets. Sizing them off the viewport width alone made
-   them swell over the intro copy on a short laptop screen. */
+/* The prints keep the frame's own geometry: `--u` is one of its pixels, the
+   scene is the 1440 x 1457 frame centred in the hero and anchored to its
+   bottom edge — the same edge the copy hangs from — and each print sits at the
+   offset the file gives it. The right-hand print runs off the right edge of the
+   page in the file, and does here. */
 .hero__photos {
-  /* The square scene, centred horizontally and hung from the top of the hero.
-     Because `--u` takes the scarcer axis, the scene is never taller than the
-     viewport, so the prints keep their designed offsets from each other and
-     from the top edge without ever being cut off by it. */
   position: absolute; z-index: -1; pointer-events: none;
-  --u: min(0.0694vw, 0.0694vh);
-  inline-size: calc(1440 * var(--u)); block-size: calc(1440 * var(--u));
-  /* Lifted 70 design-pixels: our hero is shorter than Figma's 1440 square, so
-     the copy underneath rides higher than the design puts it, and without the
-     lift the left-hand print clips the first line of the intro. */
-  inset-block-start: calc(-70 * var(--u)); inset-inline-start: 50%;
+  inline-size: calc(1440 * var(--u)); block-size: var(--hero-h);
+  inset-block-start: 0; inset-inline-start: 50%;
   margin-inline-start: calc(-720 * var(--u));
 }
 .hero__photo {
@@ -138,18 +163,79 @@
 }
 .hero__photo .polaroid__frame { display: block; overflow: hidden; overflow: clip; }
 .hero__photo img { display: block; width: 100%; height: auto; }
-/* Literal Figma offsets inside the scene, taken from each print's rotated
-   bounding box on the 1440 artboard. */
-.hero__photo--1 { inset-inline-start: calc(758.4 * var(--u)); inset-block-start: calc(75 * var(--u)); }
-.hero__photo--2 { inset-inline-start: calc(-8.9 * var(--u)); inset-block-start: calc(423 * var(--u)); }
+/* Literal Figma offsets, taken from each print's rotated bounding box on the
+   frame and resolved back to the unrotated box CSS lays out. */
+.hero__photo--1 { inset-inline-start: calc(800.1 * var(--u)); inset-block-start: calc(85.75 * var(--u)); }
+.hero__photo--2 { inset-inline-start: calc(-8.96 * var(--u)); inset-block-start: calc(485.94 * var(--u)); }
 
 .hero__scroll {
   margin-top: calc(var(--fs-display) * 0.45); color: var(--color-yellow);
   display: inline-flex; line-height: 0;
   animation: hero-bob 2.4s var(--ease) infinite;
 }
+.hero__scroll svg { inline-size: calc(81.5 * var(--u)); block-size: auto; min-inline-size: 42px; }
 @keyframes hero-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 0.5rem; } }
 @media (prefers-reduced-motion: reduce) { .hero__scroll { animation: none; } }
+
+/* ---------- Hero: the opening ---------- */
+/* Three beats, in the order the eye should take them. The prints arrive first,
+   one after the other, out of focus and settling into the angle the file gives
+   them. The headline sets itself line by line over the top of them. The
+   paragraph is not part of the load at all: it belongs to the scroll, and
+   `hero-intro.js` ties it to the first turn of the wheel.
+
+   The hidden state below is written only under `.js-hero`, a class the inline
+   script in the head adds when animation is both possible and wanted. Without
+   JavaScript, or with prefers-reduced-motion set, the hero is simply there —
+   and the same script drops the class after six seconds, so a bundle that
+   never arrives leaves a readable page rather than an empty one.
+
+   The entry uses the standalone `translate`, `scale` and `filter` properties.
+   The scroll parallax that follows writes to `transform`, and the two compose
+   instead of overwriting each other: the print can be arriving and drifting at
+   the same time without either animation knowing about the other. */
+.js-hero .hero__photo {
+  opacity: 0; filter: blur(16px);
+  translate: var(--in-x, 0) var(--in-y, 0); scale: 1.06;
+}
+.hero.is-open .hero__photo {
+  opacity: 1; filter: blur(0); translate: 0 0; scale: 1;
+  transition:
+    opacity 0.8s var(--ease) var(--in-delay, 0s),
+    filter 0.9s var(--ease) var(--in-delay, 0s),
+    scale 1.25s var(--ease) var(--in-delay, 0s),
+    translate 1.25s var(--ease) var(--in-delay, 0s);
+}
+.hero__photo--1 { --in-x: calc(96 * var(--u)); --in-y: calc(-62 * var(--u)); --in-delay: 0.10s; }
+.hero__photo--2 { --in-x: calc(-88 * var(--u)); --in-y: calc(74 * var(--u)); --in-delay: 0.30s; }
+
+/* The headline starts after the first print has landed, a line at a time. No
+   clipping mask: at 0.851 leading the capitals overflow their own line box, and
+   a mask would shave them. */
+.js-hero .hero__title-line > span { opacity: 0; translate: 0 0.42em; }
+.hero.is-open .hero__title-line > span {
+  opacity: 1; translate: 0 0;
+  transition: opacity 0.7s var(--ease), translate 0.85s var(--ease);
+  transition-delay: calc(0.9s + var(--i, 0) * 0.11s);
+}
+
+/* The arrow last: it is the instruction, and it should arrive once there is
+   something to scroll away from. */
+.js-hero .hero__scroll { opacity: 0; }
+.hero.is-open .hero__scroll { opacity: 1; transition: opacity 0.6s var(--ease) 1.75s; }
+
+/* The paragraph's opacity is handed to the scroll link in JS; this is only its
+   resting state before that link is made. */
+.js-hero .hero__intro { opacity: 0; }
+/* Unless the paragraph starts inside the first screen — a phone, a tall
+   monitor — where there is nothing to scroll towards and the scroll link is
+   never made. Then it is the third beat of the opening, between the headline
+   and the arrow. Opacity only: the scroll link writes `transform`, and leaving
+   a translate here would offset the paragraph for good on the other route. */
+.hero.is-open.hero--intro-on-load .hero__intro {
+  opacity: 1; transition: opacity 0.7s var(--ease) 1.5s;
+}
+
 
 /* ---------- Impact band ---------- */
 /* Full width, unlike every other section: the map behind it is measured on the
@@ -401,12 +487,15 @@
   padding: 0.02em 0.1em;
   background-image: linear-gradient(var(--color-yellow), var(--color-yellow));
   background-repeat: no-repeat; background-size: 0% 100%;
-  transition: background-size 520ms var(--ease), background-color 280ms var(--ease), color 280ms var(--ease);
+  transition: background-size 520ms var(--ease), color 280ms var(--ease);
 }
 .impact__mark[data-lit] { background-size: 100% 100%; color: var(--color-navy); }
+/* Il giallo su queste due metà dice a che punto è la sequenza, non dove sta il
+   mouse: la mano che passa sopra la frase lascia il segno fermo. Restano il
+   cursore e il focus visibile, che sono l'unico avviso di cui la tastiera e lo
+   screen reader hanno bisogno. */
 .impact__mark:focus-visible { outline: 3px solid var(--color-blue); outline-offset: 3px; }
 .impact__mark:disabled { cursor: auto; }
-.impact__mark:enabled:hover { background-color: color-mix(in srgb, var(--color-yellow) 32%, transparent); }
 
 /* Il paragrafo sotto la frase nomina le stesse due idee che la frase separa in
    due metà: i problemi e il potenziale. Mentre il lettore attraversa il primo
@@ -505,7 +594,15 @@
 
 
 /* ---------- Chapters ---------- */
-.chapter { padding-block: var(--sp-7); }
+/* Two of the chapter prints run off the edge of the canvas in the file — one
+   to the left, one to the right — and they do here too. Off the canvas is not
+   the same as off the page: at 1440, the width the file is drawn at, the
+   right-hand print put 147px of empty page beyond the window and a horizontal
+   scrollbar under it. Clipped on x only, so the same prints still climb over
+   the band above without being cut. `clip` rather than `hidden`: it trims the
+   overflow without making the chapter a scroll container, which `hidden` would
+   do and which would break any sticky element placed inside it later. */
+.chapter { padding-block: var(--sp-7); overflow-x: clip; }
 /* No minimum height. With one, and the text resting on the band's lower edge,
    every extra line of title ate the space above it: the three-line chapters
    opened 60px higher than the one-line ones. The band now takes its height from
@@ -1005,21 +1102,29 @@
 }
 
 /* ---------- "learn more" dialogs ---------- */
-/* Geometry from the Figma artboards (Frame 4/5/6, 1920x1080): an 888px card with
-   a 35px radius, 88px of padding on the navy-to-violet gradient. Those numbers
-   are expressed as ratios of the card, not of the viewport, so the card scales
-   as one object down to a phone.
+/* Geometry from the file's own dialog frames — 158:3620 and 387:27, 387:120,
+   387:203, 387:227, 387:236, drawn after the page and at the page's scale.
+   There are two cards, not one: a 1240 x 678 card that sets its copy in two
+   500px columns, and a 732 card with a single 604 column. Both have a 23.742px
+   radius and the same shadow, and both hold their copy 111px below the top edge
+   and 64px in from the left.
 
-   The type is the one thing that cannot come across at face value. The dialogs
-   are drawn on a 1920 artboard and the page on 1440: 32px body copy there is
-   24px here, and everything around it was already at the page's scale — which
-   is what made the text in the dialogs read large. The three sizes below are
-   the artboard's own, times 1440/1920. */
+   Every number below is `--art`, one pixel of the card it is on, so the card
+   scales as one object down to a phone and the type keeps the ratio the file
+   draws it at. The previous reading of these dialogs came from the 1920
+   artboards that preceded them (95:626, 95:729, 95:985), where the body is
+   32px; on the frames that replaced them it is 20px on 28px of leading. */
 .modal {
-  border: 0; padding: 0; max-width: min(888px, calc(100vw - 2 * var(--gutter)));
+  container-type: inline-size;
+  --card: 732;                       /* the file's width for this dialog */
+  --art: calc(100cqw / var(--card)); /* one pixel of that card */
+  border: 0; padding: 0;
+  max-width: min(calc(var(--card) * 1px), calc(100vw - 2 * var(--gutter)));
   width: 100%; max-height: min(90vh, 1000px);
   background: transparent; color: #fff; overflow: visible;
 }
+/* The two-column card, and the table of indicators, which is drawn on it. */
+.modal--wide, .modal--table { --card: 1240; }
 .modal::backdrop { background: rgb(17 20 35 / 0.55); backdrop-filter: blur(2px); }
 /* The box is the card — gradient, rounded corners, shadow — and it is also
    the element that scrolls. A system scrollbar drawn on it cut straight
@@ -1039,25 +1144,32 @@
    only while scrolling: there the rules below are simply what that overlay
    looks like when it appears. */
 .modal__box {
-  position: relative; border-radius: clamp(18px, 3.9cqw, 35px);
-  background: linear-gradient(83.33deg, #212e59 11.19%, #7347bf 181.35%);
-  box-shadow: 0 0 12px 1px rgb(33 46 89 / 0.6);
+  position: relative; border-radius: max(12px, calc(23.742 * var(--art)));
+  background: linear-gradient(82.85deg, #212e59 11.19%, #7347bf 181.35%);
+  box-shadow: 0 0 max(4px, calc(8.14 * var(--art))) calc(0.678 * var(--art)) rgb(33 46 89 / 0.6);
   max-height: min(90vh, 1000px); display: grid; grid-template-rows: minmax(0, 1fr);
   overflow: hidden;
   /* The card's corner radius, kept clear above and below the scroll lane so
      the thumb never enters the curve. */
-  padding-block: clamp(18px, 3.9cqw, 35px);
+  padding-block: max(12px, calc(23.742 * var(--art)));
 }
+/* The wide card's gradient runs at a shallower angle across its longer side. */
+.modal--wide .modal__box, .modal--table .modal__box {
+  background: linear-gradient(80.27deg, #212e59 11.19%, #7347bf 181.35%);
+}
+/* 111px down and 64px in from the card's edge, which is where the file puts
+   the first line of every dialog. The foot mirrors the head. */
 .modal__scroll {
   overflow-y: auto; overscroll-behavior: contain; min-height: 0;
-  padding-inline: clamp(1.75rem, 9.9%, 5.5rem);
-  padding-block: calc(clamp(1.75rem, 9.9%, 5.5rem) - clamp(18px, 3.9cqw, 35px));
+  padding-inline: max(1.25rem, calc(64 * var(--art)));
+  padding-block: calc(max(1.75rem, calc(111 * var(--art))) - max(12px, calc(23.742 * var(--art))));
   scrollbar-width: thin;
   scrollbar-color: rgb(252 201 0 / 0.55) transparent;
   scrollbar-gutter: stable;
   /* The lane sits a little in from the card's edge, under the close button. */
-  margin-inline-end: clamp(0.6rem, 2.2%, 1.25rem);
+  margin-inline-end: max(0.5rem, calc(16 * var(--art)));
 }
+.modal--wide .modal__scroll { padding-inline: max(1.25rem, calc(64 * var(--art))) max(1.25rem, calc(89 * var(--art))); }
 .modal__scroll:hover, .modal__scroll:focus-within { scrollbar-color: rgb(252 201 0 / 0.9) transparent; }
 @supports not (scrollbar-color: red blue) {
   .modal__scroll::-webkit-scrollbar { width: 10px; }
@@ -1074,46 +1186,100 @@
    cue that reads without a scrollbar at all, which is what a phone gives. */
 .modal__scroll { mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), rgb(0 0 0 / 0.35)); }
 .modal__scroll[data-at-end] { mask-image: none; }
-/* The design gives the dialogs no heading of their own; the block heading is
-   carried for screen readers only, so the card looks like the artboard. */
+/* The prose dialogs carry no heading of their own in the file; the block
+   heading is kept for screen readers only, so the card looks like the frame. */
 .modal__title {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
+
+/* ---------- The two-column card ---------- */
+/* 500 + 87 + 500 of the card's 1240. Which paragraphs go left, which go right
+   and which side carries the figures are in the copy file, because the file
+   draws them differently in each dialog: 387:27 sets its display sentence on
+   the left and its two figures on the right, 387:120 does the opposite. */
+.modal__cols {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: calc(87 * var(--art));
+}
+@media (max-width: 62rem) { .modal__cols { grid-template-columns: minmax(0, 1fr); row-gap: calc(44 * var(--art)); } }
+
+/* ---------- Type ---------- */
+/* 20px on 28px, the file's body. The floor is the smallest size worth reading
+   on a phone, where the card is a third of the width it is drawn at. */
 .modal__body, .modal__figure-label {
-  font-size: clamp(1rem, 0.824rem + 0.75vw, 1.5rem); line-height: 1.2; margin: 0;
+  font-size: max(1rem, calc(20 * var(--art))); line-height: 1.4; margin: 0;
 }
-.modal__figure { margin: clamp(1.5rem, 4vw, 3.25rem) 0 0; }
-/* A group of figures reads as one evidence block: the first keeps the gap that
-   separates it from the prose, the others sit close enough to be read together. */
-.modal__figures { margin: clamp(1.5rem, 4vw, 3.25rem) 0 clamp(1rem, 3vw, 2rem); }
-.modal__figures .modal__figure { margin-top: 0; }
-.modal__figures .modal__figure + .modal__figure { margin-top: clamp(1rem, 2.5vw, 2rem); }
-.modal__figures .modal__figure-label { margin-top: clamp(0.35rem, 1vw, 0.75rem); }
-.modal__figure-value {
-  display: block; font-family: var(--font-display); line-height: 0.8;
-  font-size: clamp(2.25rem, 1.557rem + 2.96vw, 4.219rem);
-}
-.modal__body + .modal__body { margin-top: 1em; }
-/* The sentence set in the display face on the artboard: 35px there, 26.25px
-   here, solid leading, same colour. Its own size rather than a multiple of the
-   inherited body: the dialog's body is not the page's. */
+.modal__body + .modal__body { margin-top: max(1.25rem, calc(44 * var(--art))); }
+/* The sentence the file sets in the display face: 35px, solid leading. Its own
+   size rather than a multiple of the body — the dialog's body is not the
+   page's. */
 .modal__lead {
   font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(1.094rem, 0.901rem + 0.82vw, 1.641rem); line-height: 1;
+  font-size: max(1.375rem, calc(35 * var(--art))); line-height: 1;
 }
-.modal__lead + .modal__body, .modal__body + .modal__lead { margin-top: 0.75em; }
-.modal__figure-label { display: block; margin-top: clamp(1rem, 3vw, 2.5rem); }
-.modal__image { width: 100%; height: auto; margin-top: clamp(1.5rem, 4vw, 3rem); border-radius: 8px; }
+.modal__lead + .modal__body, .modal__body + .modal__lead,
+.modal__lead + .modal__lead { margin-top: max(1.25rem, calc(44 * var(--art))); }
+
+/* ---------- Figures ---------- */
+/* 70px in the display face with the name under it, indented 17px inside the
+   column the file puts them in, and a rule between the rows. */
+.modal__figures {
+  margin-top: max(1.25rem, calc(44 * var(--art)));
+  margin-inline-start: calc(17 * var(--art));
+  display: grid; grid-template-columns: repeat(var(--fig-cols, 1), minmax(0, 1fr));
+  column-gap: calc(66 * var(--art)); row-gap: max(1rem, calc(51 * var(--art)));
+}
+.modal__figures .modal__rule {
+  grid-column: 1 / -1; margin: 0; border: 0; height: 1px;
+  background: rgb(255 255 255 / 0.55);
+}
+/* The single figure of a one-column dialog is set in the flow of the prose and
+   the file keeps it on one line. Söhne Breit Fett runs about 0.66em per
+   character, so a string too long for the measure takes the size the measure
+   allows instead of breaking in two — the same rule the hero headline uses.
+   The measure is 573 and not the column's 604: the card spends 31 of its own
+   pixels on the lane its scrollbar runs down. */
+.modal__figure {
+  margin: max(1.25rem, calc(44 * var(--art))) 0 0;
+  --fig-fit: calc(573 * var(--art) / (var(--fig-chars, 10) * 0.66));
+}
+.modal__figures .modal__figure { margin: 0; }
+.modal__figure-value {
+  display: block; font-family: var(--font-display); font-weight: 700; line-height: 0.8;
+  font-size: max(2.25rem, min(calc(70 * var(--art)), var(--fig-fit, 100vw)));
+}
+.modal__figure-label { display: block; margin-top: max(0.75rem, calc(22 * var(--art))); }
+/* In the two-column card the name under a figure is a label and is set in
+   semibold; in the single-column card the line under the figure is a sentence
+   and stays in the body weight, as the file sets it. */
+.modal--wide .modal__figure-label { font-weight: 600; }
+
+/* ---------- The print inside a dialog ---------- */
+/* 387:227 does not place a plain picture: it places a print, white-bordered and
+   tipped 5.5°, like every other photograph in the report. 504.6 of the 604
+   column, centred. */
+.modal__print {
+  margin: max(1.25rem, calc(44 * var(--art))) auto 0;
+  inline-size: 83.5%;
+  background: var(--color-white); padding: calc(10 * var(--art));
+  box-shadow: 0 14px 38px rgb(0 0 0 / 0.3);
+  rotate: 5.5deg;
+}
+.modal__print .polaroid__frame { display: block; overflow: hidden; overflow: clip; }
+.modal__image { display: block; width: 100%; height: auto; }
+
 .modal__close {
-  /* Ancorato al <dialog>, che il browser posiziona: resta fermo mentre la
-     scheda scorre sotto. */
-  position: absolute; z-index: 1; inset-block-start: clamp(0.75rem, 4%, 2.25rem);
-  inset-inline-end: clamp(0.75rem, 3.9%, 2.2rem);
-  width: clamp(38px, 6.2%, 55px); aspect-ratio: 1;
+  /* Anchored to the <dialog>, which the browser positions: it stays put while
+     the card scrolls under it. 37.3px across, 24.42 down, 23.74 in — the card's
+     own radius. */
+  position: absolute; z-index: 1;
+  inset-block-start: max(0.75rem, calc(24.42 * var(--art)));
+  inset-inline-end: max(0.75rem, calc(23.74 * var(--art)));
+  width: max(36px, calc(37.309 * var(--art))); aspect-ratio: 1;
   display: grid; place-items: center;
   background: none; border: 2px solid currentColor; border-radius: 50%;
-  /* Yellow ring and glyph, as in the artboard — not white: on a purple box the
+  /* Yellow ring and glyph, as in the frame — not white: on a purple card the
      white ring reads as part of the card's border, the yellow one reads as a
      control. */
   color: var(--color-yellow); font-size: 1.5rem; line-height: 1; cursor: pointer;
@@ -1121,34 +1287,44 @@
 }
 .modal__close:hover { background: rgb(252 201 0 / 0.18); }
 
-/* The table of national indicators. Wider than the prose dialogs because the
-   design's artboard is — sixteen rows of label and value need the room — and
-   the only dialog whose heading is drawn rather than carried for screen
-   readers, because here the title is what tells you what the sixteen rows are. */
-.modal--table { max-width: min(1240px, calc(100vw - 2 * var(--gutter))); }
+/* ---------- The table of national indicators (158:3620) ---------- */
+/* The one dialog whose heading is drawn rather than carried for screen readers,
+   because here the title is what tells you what the sixteen rows are. The file
+   sets it at 24px in the display face, in the same yellow as the six group
+   names — not at the page's heading size, and not in white. */
+.modal--table .modal__scroll {
+  padding-inline: max(1.25rem, calc(52 * var(--art)));
+  padding-block: calc(max(1.25rem, calc(31.88 * var(--art))) - max(12px, calc(23.742 * var(--art))));
+}
 .modal--table .modal__title {
   position: static; width: auto; height: auto; margin: 0; overflow: visible;
   clip-path: none; white-space: normal;
   font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
-  font-size: var(--fs-h5); line-height: 1.05;
+  color: var(--color-yellow);
+  font-size: max(1rem, calc(24 * var(--art))); line-height: 0.8;
 }
 /* Three columns, in the proportions the file draws them: 411, 464 and 291 of
    the 1166 inside the card. Declared rather than balanced, because the third
    holds two figures set large instead of a table and no balancing algorithm
    would put them there. Two columns, then one, as the room goes. */
 .modal__tables {
-  margin-top: var(--sp-4);
+  margin-top: calc(87 * var(--art));
   display: grid; grid-template-columns: 1.41fr 1.59fr 1fr; column-gap: var(--sp-5);
 }
 .modal__col > * + * { margin-top: var(--sp-5); }
 .modal__table { width: 100%; table-layout: fixed; border-collapse: collapse; }
-.modal__table caption {
+/* The group names are Proxima Nova Extrabold at 16px in the file — sentence
+   case, no tracking. They were being set in the display face, uppercased and
+   spaced out, which is the page's treatment and not the table's. */
+.modal__table caption, .modal__stats-caption {
   text-align: start; padding-bottom: 0.5em; border-bottom: 1px solid var(--color-yellow);
-  color: var(--color-yellow); font-family: var(--font-display); font-weight: 700;
-  font-size: var(--fs-small); text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--color-yellow); font-family: var(--font-body); font-weight: 800;
+  font-size: max(0.875rem, calc(16 * var(--art))); line-height: 1.2;
 }
+.modal__stats-caption { margin: 0; }
 .modal__table th, .modal__table td {
-  text-align: start; font-weight: 400; font-size: var(--fs-small); line-height: 1.35;
+  text-align: start; font-weight: 400; line-height: 1.2;
+  font-size: max(0.875rem, calc(16 * var(--art)));
   padding: 0.62em 0; border-bottom: 1px solid rgb(255 255 255 / 0.16);
 }
 /* The value starts at a column of its own — 70% across, as in the file — rather
@@ -1163,19 +1339,14 @@
 /* The third column. Two indices, not two rows: the file sets them at 70px with
    their names under them, the same weight it gives the seven figures in the
    opening band. */
-.modal__stats-caption {
-  margin: 0; padding-bottom: 0.5em; border-bottom: 1px solid var(--color-yellow);
-  color: var(--color-yellow); font-family: var(--font-display); font-weight: 700;
-  font-size: var(--fs-small); text-transform: uppercase; letter-spacing: 0.05em;
-}
 .modal__stat { margin: var(--sp-4) 0 0; }
 .modal__stat-value {
   display: block; font-family: var(--font-display); font-weight: 700; line-height: 0.8;
-  font-size: clamp(2rem, 1rem + 3vw, 4.375rem);
+  font-size: max(2rem, calc(70 * var(--art)));
 }
 .modal__stat-label {
   display: block; margin-top: var(--sp-2);
-  font-size: var(--fs-body); font-weight: 600; line-height: 1.2;
+  font-size: max(1rem, calc(20 * var(--art))); font-weight: 600; line-height: 1.2;
 }
 
 @media (max-width: 62rem) {
@@ -1226,4 +1397,20 @@ html.is-modal-open { overflow: hidden; padding-inline-end: var(--scrollbar-gap, 
   .site-header__tagline { display: none; }
   .site-header__nav .btn { padding: 0.6em 0.9em; font-size: 0.8rem; }
   .report-cta { padding-block: var(--sp-6); }
+}
+
+/* ---------- Hero on narrow screens ---------- */
+/* The frame's proportions stop being usable long before the phone does: at
+   375px the whole 1457 scene is 379px tall. The composition is kept but
+   re-hung — the prints at the top, where the design puts them relative to the
+   type, and the copy centred in what is left of the first screen. */
+@media (max-width: 64rem) {
+  .hero {
+    min-height: 100svh; align-content: center;
+    padding-block: calc(var(--header-h) + 2rem) 3rem;
+  }
+  .hero__photos {
+    block-size: calc(1440 * var(--u));
+    inset-block-start: calc(56 * var(--u));
+  }
 }

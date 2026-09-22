@@ -35,6 +35,21 @@
   gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied'});
   window.GA4_ID='{{ site.analytics.ga4 }}';</script>
   {%- endif %}
+  {#- The hero opens with an animation, and an animation needs a hidden state to
+      open from. That state is written in CSS under `.js-hero`, and the class is
+      set here rather than by the bundle so it is in place before the first
+      paint — a hero that appears and then hides itself is worse than one that
+      never animates. It is set only when motion is wanted, and dropped after
+      six seconds regardless — past the end of the longest beat: if the bundle
+      never arrives, the reader gets a still hero instead of an empty one. #}
+  <script>
+    (function () {
+      var d = document.documentElement;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      d.classList.add('js-hero');
+      setTimeout(function () { d.classList.remove("js-hero"); }, 6000);
+    }());
+  </script>
 </head>
 <body class="lang-{{ lang }}">
   <a class="skip-link" href="#main">{{ c.header.skipToContent | t(en.header.skipToContent) }}</a>

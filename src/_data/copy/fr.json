@@ -723,12 +723,10 @@
           "label": ""
         },
         {
-          "value": "68 years",
+          "value": "68",
           "label": ""
         }
-      ],
-      "figuresAfter": 2,
-      "image": ""
+      ]
     },
     "trust-3": {
       "body": [
@@ -754,9 +752,7 @@
           "value": "34%",
           "label": ""
         }
-      ],
-      "figuresAfter": 0,
-      "image": ""
+      ]
     },
     "health-2": {
       "body": [
