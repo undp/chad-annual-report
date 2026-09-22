@@ -288,7 +288,7 @@
 .statcards--beside { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 19px; margin-block: 0; }
 .stat__value, .counter__value, .card__value {
   display: block; font-family: var(--font-display); font-weight: 700;
-  font-size: var(--fs-h3); line-height: 1; color: var(--color-navy);
+  font-size: var(--fs-h2); line-height: 1; color: var(--color-navy);
 }
 /* 20px navy, leading 1.2, 22–24px under the numeral: the same label under
    every figure in the file, expandable or not. */
@@ -315,7 +315,7 @@
   /* `--fig-em` is the figure's real advance width in ems, measured glyph by
      glyph in the template. The design size is the cap, the card is the limit,
      and whichever bites first wins. */
-  font-size: min(var(--fs-h3), calc((100cqw - 2 * var(--sp-3)) / var(--fig-em, 4)));
+  font-size: min(var(--fs-h2), calc((100cqw - 2 * var(--sp-3)) / var(--fig-em, 4)));
   -webkit-text-stroke: 1.5px var(--color-navy);
   transition: color 200ms var(--ease);
 }
@@ -337,7 +337,7 @@
 .stat__toggle[aria-expanded='true']:hover { background: var(--color-yellow); }
 .stat__detail {
   background: var(--color-yellow); padding: 0 var(--sp-3) var(--sp-3);
-  font-style: italic; color: var(--color-navy); font-size: var(--fs-small); line-height: 1.45;
+  font-style: italic; color: var(--color-navy); font-size: var(--fs-body); line-height: 1.45;
 }
 .stat__detail p { margin: 0; }
 .stat__detail strong { font-weight: 700; font-style: italic; }
@@ -493,7 +493,11 @@
 
 /* ---------- Chapters ---------- */
 .chapter { padding-block: var(--sp-7); }
-.chapter__intro { position: relative; min-height: 30rem; display: grid; align-items: end; isolation: isolate; overflow: clip; }
+/* No minimum height. With one, and the text resting on the band's lower edge,
+   every extra line of title ate the space above it: the three-line chapters
+   opened 60px higher than the one-line ones. The band now takes its height from
+   its own text, so the 100px over the title is the same on all five. */
+.chapter__intro { position: relative; display: grid; isolation: isolate; overflow: clip; }
 /* Static backdrop. It carried a vertical parallax until the gradient was read
    properly: a 90deg gradient is uniform down every column, so vertical travel
    showed nothing — and with the travel gone the -16% bleed that concealed it
@@ -515,10 +519,18 @@
      the edge of the gradient, on every chapter. At an even padding the
      paragraph sat 43px lower, and the prints that climb into the band from the
      blocks below — chapters 2 and 3 — arrived on top of it. */
-  padding-block: var(--sp-5) max(var(--sp-5), 7.43vw);
-  text-shadow: 0 1px 24px rgb(0 0 0 / 0.45);
+  padding-block: max(var(--sp-5), 6.94vw) max(var(--sp-5), 7.43vw);
 }
-.chapter__title { font-family: var(--font-display); font-size: var(--fs-h3); max-width: 18ch; text-transform: uppercase; }
+/* 100px from the title to the paragraph in the file (142:2944 → 142:2943),
+   against the 16px a heading carries by default. */
+.chapter__title {
+  font-family: var(--font-display); font-size: var(--fs-h3);
+  text-transform: uppercase; margin-bottom: max(var(--sp-4), 6.94vw);
+  /* 1057 of the 1152 column, as the file draws it (142:2944). The 18-character
+     measure it had instead is what broke three of the five titles onto a third
+     line in the first place. */
+  max-width: 91.75%;
+}
 .chapter__lead { font-size: var(--fs-h6); font-weight: 500; line-height: 1.2; max-width: 42rem; }
 /* The indent is the design's own: title on the column edge, paragraph set in to
    415px of the 1440 artboard and 820 wide. Below the two-column breakpoint the
@@ -541,7 +553,17 @@
 }
 /* Söhne Breit Fett 35px in the design — the twelve block titles were the one
    place where the display face had been left as body type. */
-.block__heading { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h5); max-width: 24ch; }
+/* 50px from the title to whatever follows it — paragraph, figures or cards
+   (136:255 → 136:275, 136:262 → 136:285). The default 16px is what made the
+   twelve blocks read as one paragraph with a bold first line. */
+.block__heading {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h5);
+  max-width: 24ch; margin-bottom: calc(50 * var(--art));
+}
+/* And 50px again from the last line to the link (136:275 → 136:294), measured
+   in the file to the cap line: the touch target's own padding comes off it.
+   Three blocks out of four had the link against the text. */
+.block__text > .tca { margin-block-start: calc(50 * var(--art) - 0.5rem); }
 .block__body { max-width: 40rem; }
 /* Paragraphs inside a body: 21.5px apart at 20px in the file, 1.075em. */
 .block__body p { margin: 0; }
@@ -615,13 +637,13 @@
     grid-template-columns: calc(var(--span, 253) * var(--art)) minmax(0, 1fr);
     column-gap: calc((var(--card-col, 270) - var(--span, 253)) * var(--art));
   }
-  .block--aside .block__heading { grid-column: 1; grid-row: 1; }
+  .block--aside .block__heading { grid-column: 1; grid-row: 1; margin-bottom: 0; }
   .block--aside .cards {
     grid-column: 2; grid-row: 1; margin-block: calc(-23 * var(--art)) 0;
     grid-template-columns: repeat(3, calc(var(--card-w, 297) / (1152 - var(--card-col, 270)) * 100%));
     column-gap: calc((var(--card-step, 315) - var(--card-w, 297)) / (1152 - var(--card-col, 270)) * 100%);
   }
-  .block--aside .tca { grid-column: 1 / -1; grid-row: 2; justify-self: start; margin-block-start: calc(40 * var(--art)); }
+  .block--aside .tca { grid-column: 1 / -1; grid-row: 2; justify-self: start; margin-block-start: calc(40 * var(--art) - 0.5rem); }
 }
 
 /* Centred block ("Preventing conflict"): the title is set centred over 841px,
@@ -649,7 +671,7 @@
     column-gap: calc((var(--fig-col, 480) - var(--span, 409)) * var(--art));
     width: 100%;
   }
-  .block--beside .block__heading { grid-column: 1; }
+  .block--beside .block__heading { grid-column: 1; margin-bottom: 0; }
   .block--beside .counters { grid-column: 2; grid-row: 1; margin-block: 0; grid-template-columns: minmax(0, 1fr); gap: var(--sp-5); }
 }
 
@@ -853,14 +875,13 @@
 @media (min-width: 62rem) {
   .priorities { padding-block-end: 0; }
   .closing { padding-block: 6.25rem 5.5rem; --pad-top: 6.25rem; }
-  .closing .tca { margin-block-start: calc(100 * var(--art) - 0.875rem); }
+  .closing .tca { margin-block-start: calc(100 * var(--art) - 0.5rem); }
 }
 .closing__text strong { font-weight: 800; }
 /* The closing sits in from the column edge in the design, like the chapter
    openings — and its "learn more" sits on the same line of the indent. */
 @media (min-width: 62rem) {
   .closing__text, .closing .tca { margin-inline-start: 32.55%; }
-  .closing .tca { display: inline-flex; }
 }
 @media (max-width: 61.99rem) { .closing__text { max-width: none; } }
 
@@ -872,7 +893,10 @@
 .report-cta {
   color: var(--color-white);
   background-image: linear-gradient(90deg, #063b91, #0b47a4, #1c389b, #582ca0, #b72fa7);
-  padding-block: clamp(3rem, 9.86vw, 8.875rem) clamp(2rem, 3vw, 3rem);
+  /* 142px over the kicker, as the file draws it. Under the link the file gives
+     13px; at that the band reads as cut off, so the foot is the page's own
+     vertical step of 100px. One number, if you want it deeper. */
+  padding-block: clamp(3rem, 9.86vw, 8.875rem) clamp(2.5rem, 6.94vw, 6.25rem);
 }
 .report-cta__kicker {
   font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3);
@@ -969,9 +993,15 @@
 
 /* ---------- "learn more" dialogs ---------- */
 /* Geometry from the Figma artboards (Frame 4/5/6, 1920x1080): an 888px card with
-   a 35px radius, 88px of padding and 32px body copy on the navy-to-violet
-   gradient. Those four numbers are expressed as ratios of the card, not of the
-   viewport, so the card scales as one object down to a phone. */
+   a 35px radius, 88px of padding on the navy-to-violet gradient. Those numbers
+   are expressed as ratios of the card, not of the viewport, so the card scales
+   as one object down to a phone.
+
+   The type is the one thing that cannot come across at face value. The dialogs
+   are drawn on a 1920 artboard and the page on 1440: 32px body copy there is
+   24px here, and everything around it was already at the page's scale — which
+   is what made the text in the dialogs read large. The three sizes below are
+   the artboard's own, times 1440/1920. */
 .modal {
   border: 0; padding: 0; max-width: min(888px, calc(100vw - 2 * var(--gutter)));
   width: 100%; max-height: min(90vh, 1000px);
@@ -1038,7 +1068,7 @@
   overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
 .modal__body, .modal__figure-label {
-  font-size: clamp(1rem, 0.55rem + 1.45vw, 2rem); line-height: 1.2; margin: 0;
+  font-size: clamp(1rem, 0.824rem + 0.75vw, 1.5rem); line-height: 1.2; margin: 0;
 }
 .modal__figure { margin: clamp(1.5rem, 4vw, 3.25rem) 0 0; }
 /* A group of figures reads as one evidence block: the first keeps the gap that
@@ -1049,14 +1079,15 @@
 .modal__figures .modal__figure-label { margin-top: clamp(0.35rem, 1vw, 0.75rem); }
 .modal__figure-value {
   display: block; font-family: var(--font-display); line-height: 0.8;
-  font-size: clamp(2.25rem, 1rem + 3.8vw, 5.625rem);
+  font-size: clamp(2.25rem, 1.557rem + 2.96vw, 4.219rem);
 }
 .modal__body + .modal__body { margin-top: 1em; }
-/* The sentence set in the display face on the artboard: 35px against a 20px
-   body, solid leading, same colour. */
+/* The sentence set in the display face on the artboard: 35px there, 26.25px
+   here, solid leading, same colour. Its own size rather than a multiple of the
+   inherited body: the dialog's body is not the page's. */
 .modal__lead {
   font-family: var(--font-display); font-weight: 700;
-  font-size: 1.75em; line-height: 1;
+  font-size: clamp(1.094rem, 0.901rem + 0.82vw, 1.641rem); line-height: 1;
 }
 .modal__lead + .modal__body, .modal__body + .modal__lead { margin-top: 0.75em; }
 .modal__figure-label { display: block; margin-top: clamp(1rem, 3vw, 2.5rem); }
@@ -1157,7 +1188,6 @@ html.is-modal-open { overflow: hidden; padding-inline-end: var(--scrollbar-gap, 
   .polaroids--stacked .polaroid + .polaroid { margin-block-start: -10%; }
   /* Half a phone screen of gradient before a word of the chapter appears is a
      lot of nothing; the band keeps its proportions but not its desktop height. */
-  .chapter__intro { min-height: 22rem; }
   .block { padding-block: var(--sp-5); }
   .chapter { padding-block: var(--sp-5); }
   /* Stacked, the print sits directly under the copy it belongs to and climbs
