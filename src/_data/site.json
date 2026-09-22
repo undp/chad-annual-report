@@ -6,7 +6,7 @@
     "fr"
   ],
   "defaultLang": "en",
-  "components": false,
+  "components": true,
   "analytics": {
     "ga4": ""
   },

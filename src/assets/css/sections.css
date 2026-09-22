@@ -1,7 +1,7 @@
 /* Section layout. Mobile-first: the Figma file only provides the 1440 desktop
    artboard, so every small-screen rule below is a proposal to validate with design. */
 
-.container, .impact, .chapter > .block, .priorities, .closing, .report-cta__inner {
+.container, .impact__inner, .impact__outro, .chapter > .block, .priorities, .closing, .report-cta__inner {
   width: min(100% - (2 * var(--gutter)), var(--container));
   margin-inline: auto;
 }
@@ -152,40 +152,110 @@
 @media (prefers-reduced-motion: reduce) { .hero__scroll { animation: none; } }
 
 /* ---------- Impact band ---------- */
-.impact { position: relative; isolation: isolate; padding-block: var(--sp-7); overflow: clip; }
+/* Full width, unlike every other section: the map behind it is measured on the
+   1440 artboard and has to reach the edges of the window. Held to the 1152
+   column, which is what this was, the map stopped dead at 144px and at 1296px —
+   two straight grey edges down the middle of a white page, which is the cut
+   that was reported. The column comes back on the two wrappers inside. */
+.impact { position: relative; isolation: isolate; padding-block: var(--sp-7) 0; }
+.impact__outro { padding-block-end: var(--sp-7); }
+
+/* The stage: one screenful under the header, holding the sentence, the slot
+   under it and the link, with the map behind. Sticky, and only once the script
+   is in — with no script there is no sequence to play, every figure is on show
+   at once and the band is an ordinary stacking section.
+
+   This is what the sequence was missing. Driven by page scroll, the second and
+   third states arrived after the sentence had left the top of the screen, so
+   the reader saw figures light up under a headline that was no longer there.
+   Held still, the sentence is in front of them for all three. */
+.impact__stage { position: relative; }
+[data-impact-enhanced] .impact__stage {
+  position: sticky; top: var(--header-h);
+  min-block-size: calc(100svh - var(--header-h));
+  /* `safe`: on a window too short for the composition, centring would push the
+     first line of the headline up behind the header, where it cannot be
+     scrolled back to — the stage is held still. Safe centring falls back to
+     the top edge, so the sentence is always the part that is legible. */
+  display: grid; align-content: safe center;
+}
+/* Short windows: the file's clear space above the link, and the air under the
+   figures, give way before the composition does. */
+@media (max-height: 53rem) {
+  [data-impact-enhanced] .impact__more { margin-top: min(calc(11.7rem - 0.6 * var(--fs-h3)), 13svh); }
+  [data-impact-enhanced] .impact__figures { margin-block-end: min(var(--sp-6), 6svh); }
+}
+@media (max-height: 45rem) {
+  [data-impact-enhanced] .impact__more { margin-top: min(calc(11.7rem - 0.6 * var(--fs-h3)), 9svh); }
+}
+/* The runway: empty travel under the stage, and the only thing the sequence
+   costs. The stage is sticky inside the track, so it lets go exactly where the
+   track ends — which is where the closing sentence begins. No pin, no spacer,
+   nothing above or below this band recomputing. */
+[data-impact-enhanced] .impact__runway { block-size: var(--impact-runway, 200vh); }
+
 /* The map is placed exactly as the design places it: at its own size, offset so
    that Chad — the one shape in the file drawn at full strength, while the other
    159 sit at a tenth — lands in the margin to the left of the opening copy.
-   Centring it and scaling it to the band, which is what this did, showed the
-   Arctic and left Chad outside the section entirely. The container is
-   full-bleed because the design's offsets are measured on the 1440 artboard,
-   not on the 1152 column. */
+   It rides inside the stage, so it holds still with the sentence rather than
+   sliding out from under it. */
 .impact__map {
-  position: absolute; inset-block: 0; inset-inline-start: calc(50% - 50vw);
-  /* Full width, and clipped to the section, with the image hung from its top. */
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
   overflow: clip;
-  inline-size: 100vw; z-index: -1; pointer-events: none;
+  /* Where the band stops is not where the map stops: a clip alone leaves four
+     straight cuts through the continents. The map is masked instead — an
+     ellipse centred on Chad that dissolves the land outward, crossed with a
+     fade that empties the foot of the band — so it comes out of the white and
+     goes back into it with no edge anywhere for the eye to catch, and it is
+     gone before the sentence that closes the section. */
+  --map-fade-top: 4%;
+  --map-fade-start: 76%;
+  --map-fade-end: 99%;
+  --map-vignette: radial-gradient(116% 94% at 30% 46%, #000 0 38%, rgba(0,0,0,0) 86%);
+  --map-foot: linear-gradient(to bottom, rgba(0,0,0,0) 0, #000 var(--map-fade-top),
+                              #000 var(--map-fade-start), rgba(0,0,0,0) var(--map-fade-end));
+  -webkit-mask-image: var(--map-vignette), var(--map-foot);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--map-vignette), var(--map-foot);
+  mask-composite: intersect;
 }
-.impact__map img {
-  position: absolute; max-width: none;
-  /* 3619px wide at the design's 1440, offset -560px — which puts Chad at
-     x=171..345. The vertical offset centres Chad, whose own middle is at 62.5%
-     of the file's height, on the band. */
-  inline-size: 251.34vw; block-size: auto;
+/* 3619px wide at the design's 1440, offset -560px, which puts Chad at
+   x=171..345 — the margin the indented paragraph leaves free. The vertical
+   offset is the file's own: the map frame starts at y=-298 and this band at
+   y=1446, so the frame hangs 1744px above the stage, 121.1vw at 1440. */
+.impact__mapframe {
+  position: absolute;
+  inline-size: 251.34vw; aspect-ratio: 3619.2 / 3534.2;
   inset-inline-start: -38.89vw;
-  /* Anchored to the top of the section, not to the band under it: in the file
-     the map frame starts at y=-298 and the section at y=1446, so the image
-     hangs 1744px — 121.11vw at the design's 1440 — above this edge. Hung
-     from the band, as this was, the silhouette climbed onto the "learn more"
-     whenever the section came out shorter than the file's 1103px. */
-  /* Measured from the headline, which is what the silhouette has to clear:
-     in the file the map frame starts 1849px above the headline's top
-     (1551 + 298), which is 128.4vw at 1440. The headline sits one padding
-     under the section's top, so the map starts that much less above it. Set
-     this way the dark Chad ends 60px above the "learn more", as it does in
-     the file. */
-  inset-block-start: calc(-128.4vw + var(--sp-7));
+  inset-block-start: -121.1vw;
+  /* The drift and the zoom happen around Chad, not around the middle of a map
+     whose middle is in the Mediterranean. */
+  transform-origin: 20.19% 58.71%;
 }
+.impact__world, .impact__chad { position: absolute; max-width: none; }
+.impact__world {
+  inset: 0; inline-size: 100%; block-size: 100%;
+}
+.impact__world, .impact__chad { transition: opacity 520ms var(--ease); }
+/* Chad on its own, in the box the file gives it inside the frame. The world
+   map behind carries the country at the same tenth as the other 159, so this
+   is the only place the solid navy comes from — which is what lets it leave
+   and come back on its own. */
+/* In the box the file gives it inside the frame:
+   730.7/3619.2 and 2074.9/3534.2, 172.5 x 269.7. The world behind it steps
+   back while the figures are on show; this does not, so the country is the one
+   solid shape in the band from the first state to the last. */
+.impact__chad {
+  inset-inline-start: 20.1897%; inset-block-start: 58.7091%;
+  inline-size: 4.7662%; block-size: 7.6312%;
+}
+/* A half lit means the figures own the stage: the map drops back to a wash, so
+   the yellow reads against paper rather than against the Sahara — and the
+   silhouette goes with it, because a solid Chad cut in two by a row of cards
+   reads as a mistake rather than as a backdrop. It comes back the moment the
+   sentence does. */
+[data-impact-lit] .impact__world { opacity: 0.45; }
+[data-impact-lit] .impact__chad { opacity: 0; }
 
 /* Indented to the design's 415px, which is what opens the margin the map fills. */
 .impact__context { font-size: var(--fs-body); max-width: 46rem; }
@@ -310,16 +380,44 @@
 }
 .impact__outline path { fill: none; stroke: var(--color-yellow); stroke-width: 2; stroke-linejoin: miter; }
 [data-impact-lit] .impact__outline { display: none; }
+/* The fill arrives as a sweep from the first letter to the last, not as a box
+   that appears: it is the same gesture as a highlighter, and it tells the eye
+   which half of the sentence the figures underneath belong to. */
 .impact__mark {
   all: unset; box-sizing: border-box; cursor: pointer; color: inherit;
   box-decoration-break: clone; -webkit-box-decoration-break: clone;
   padding: 0.02em 0.1em;
-  transition: background-color 280ms var(--ease), color 280ms var(--ease);
+  background-image: linear-gradient(var(--color-yellow), var(--color-yellow));
+  background-repeat: no-repeat; background-size: 0% 100%;
+  transition: background-size 520ms var(--ease), background-color 280ms var(--ease), color 280ms var(--ease);
 }
-.impact__mark[data-lit] { background: var(--color-yellow); color: var(--color-navy); }
+.impact__mark[data-lit] { background-size: 100% 100%; color: var(--color-navy); }
 .impact__mark:focus-visible { outline: 3px solid var(--color-blue); outline-offset: 3px; }
 .impact__mark:disabled { cursor: auto; }
-.impact__mark:enabled:hover { background: color-mix(in srgb, var(--color-yellow) 32%, transparent); }
+.impact__mark:enabled:hover { background-color: color-mix(in srgb, var(--color-yellow) 32%, transparent); }
+
+/* Il paragrafo sotto la frase nomina le stesse due idee che la frase separa in
+   due metà: i problemi e il potenziale. Mentre il lettore attraversa il primo
+   tempo, ciascuna viene ripresa dallo stesso gesto da evidenziatore — da
+   sinistra a destra, una alla volta, nell'ordine in cui si leggono. Il giallo
+   qui sta a metà forza: il testo di servizio non può gridare quanto la frase
+   che lo introduce, e le due metà sopra restano la cosa più accesa della banda.
+   Senza script il segno è già posato: nulla da aspettare, niente da premere. */
+.impact__cue {
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  padding: 0.04em 0.1em;
+  background-image: linear-gradient(
+      color-mix(in srgb, var(--color-yellow) 50%, transparent),
+      color-mix(in srgb, var(--color-yellow) 50%, transparent));
+  background-repeat: no-repeat; background-size: 100% 100%;
+}
+[data-impact-enhanced] .impact__cue {
+  background-size: 0% 100%;
+  /* Più lento del tratto sulla frase: è un segno che accompagna la lettura di
+     tre righe, non l'accensione di due parole. */
+  transition: background-size 720ms var(--ease);
+}
+[data-impact-enhanced] .impact__cue[data-lit] { background-size: 100% 100%; }
 
 /* The figures of context. The paragraph and both card groups occupy one grid
    area once the script is in — in the file they all start at the same y and only
@@ -340,11 +438,18 @@
 .impact__cards { display: grid; gap: 21px; align-items: stretch; }
 .impact__cards[data-count='3'] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .impact__cards[data-count='4'] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-[data-impact-enhanced] .impact__cards {
-  opacity: 0; translate: 0 1.25rem;
-  transition: opacity 420ms var(--ease), translate 420ms var(--ease);
+/* The row arrives figure by figure, left to right — one row of four fading in
+   as a block reads as a panel being swapped; staggered, it reads as counting. */
+[data-impact-enhanced] .impact__cards { opacity: 0; }
+[data-impact-enhanced] .impact__cards[data-shown] { opacity: 1; }
+[data-impact-enhanced] .impact__cards .indicator {
+  opacity: 0; translate: 0 1.75rem;
+  transition: opacity 460ms var(--ease), translate 460ms var(--ease);
 }
-[data-impact-enhanced] .impact__cards[data-shown] { opacity: 1; translate: 0 0; }
+[data-impact-enhanced] .impact__cards[data-shown] .indicator {
+  opacity: 1; translate: 0 0;
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
 .indicator {
   container-type: inline-size;
   background: var(--color-yellow); color: var(--color-navy); padding: var(--sp-3);
@@ -368,7 +473,12 @@
    headline is three lines: at leading 1.2 it stands 0.6 sizes taller than the
    file's, and that much comes off the margin here so the link keeps the
    file's distance from the top of the title rather than from its foot. */
-.impact__more { margin-top: calc(11.7rem - 0.6 * var(--fs-h3)); padding-inline-start: calc(0.15 * var(--fs-h3)); }
+/* On a short window the file's clear space would push the link off the stage,
+   so it gives way to the height of the viewport before the composition does. */
+.impact__more {
+  margin-top: min(calc(11.7rem - 0.6 * var(--fs-h3)), 21svh);
+  padding-inline-start: calc(0.15 * var(--fs-h3));
+}
 
 @media (max-width: 62rem) {
   .impact__cards[data-count='3'], .impact__cards[data-count='4'] {
@@ -376,7 +486,8 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .impact__mark, .impact__phrase, .impact__cards, .impact__context { transition: none; }
+  .impact__mark, .impact__cue, .impact__phrase, .impact__cards, .impact__context,
+  .impact__world, .impact__cards .indicator { transition: none; }
 }
 
 

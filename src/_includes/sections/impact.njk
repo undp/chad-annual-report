@@ -1,66 +1,109 @@
 {%- import "sections/modal.njk" as modal with context -%}
 {%- set hl = c.impact.highlight if c.impact.highlight and c.impact.highlight.potential else en.impact.highlight -%}
+{%- set cues = c.impact.cues if c.impact.cues and c.impact.cues[0] else en.impact.cues -%}
 <section class="impact" id="impact" aria-labelledby="impact-lead" data-impact>
-  {#- In the design the outline map of Chad is the backdrop of this band, not of
-      the hero: the hero's gradient covers it entirely. #}
-  {#- The map moves with the page, but less than any other backdrop: in the
-      file the dark Chad ends 60px above the "learn more", and the link does not
-      move. At depth 0.85 the map travelled ±96px and the silhouette ran over
-      the link on every scroll. 0.4 is ±45 — inside the file's 60. #}
-  <div class="impact__map" aria-hidden="true" data-parallax="back" data-depth="0.4">
-    {#- The intrinsic size is not decoration here: without width/height this
-        lazy image has a zero-height box, never crosses the lazy-load threshold,
-        and so never loads — which is exactly what it was doing. #}
-    <img src="{{ '/assets/img/chad-map.svg' | asset }}" alt="" width="3619" height="3534"
-         loading="lazy" decoding="async">
-  </div>
-  {#- The design opens on the guiding line and sets the context paragraph in
-      under it, at 415px — which is what leaves the left margin free for the
-      outline of Chad. Reversed, as this was, the silhouette lands on the
-      headline instead of beside the paragraph. #}
-  <p class="impact__lead" id="impact-lead">
-    {%- if site.components -%}
-    {{ (c.impact.lead | t(en.impact.lead)) | markHalves(hl) | safe }}
-    {%- else -%}
-    {{ (c.impact.lead | t(en.impact.lead)) | outlinePhrase(hl) | safe }}
-    {%- endif -%}
-  </p>
-
-  {#- Base page: the sentence, the paragraph under it, the link, the transition.
-      `Component 9` in the file is an instance in its Default state — one frame,
-      1242×491, holding the title and this paragraph and nothing else. The three
-      variants (neither half lit → three figures → four figures) are the
-      component, and they arrive behind `site.components`: one grid area for the
-      paragraph and both card groups, because in the file they start at the same
-      y and only one is ever on show. #}
-  <div class="impact__figures">
-  <p class="impact__context">{{ c.impact.context | t(en.impact.context) }}</p>
-  {%- if site.components %}
-  {%- for half in ['potential', 'challenges'] %}
-  {%- set cards = en.impact[half] %}
-  {%- set tr = c.impact[half] %}
-  <div class="impact__cards" id="impact-panel-{{ half }}" aria-labelledby="impact-half-{{ half }}"
-       data-half="{{ half }}" data-count="{{ cards.length }}">
-    {%- for card in cards %}
-    {%- set t = tr[loop.index0] if tr else null %}
-    <div class="indicator">
-      <span class="indicator__label">{{ (t.label if t else null) | t(card.label) }}</span>
-      <span class="indicator__value">{{ card.value }}</span>
-      {%- if card.note %}
-      <span class="indicator__note">{{ (t.note if t else null) | t(card.note) }}</span>
-      {%- endif %}
+  {#- The stage is the band as the file draws it: one screenful that holds the
+      sentence, the slot under it and the link, with the map behind. It is
+      sticky, so the three states of `Component 9` play out in front of a reader
+      who is looking at the sentence — before, the sequence ran on page scroll
+      and by the time the second half lit the sentence had left the screen. The
+      scroll that drives it is the runway under the stage, not the band itself,
+      so nothing above or below moves. #}
+  <div class="impact__track" data-impact-track>
+  <div class="impact__stage" data-impact-stage>
+    {#- In the design the outline map of Chad is the backdrop of this band, not
+        of the hero: the hero's gradient covers it entirely. #}
+    <div class="impact__map" aria-hidden="true" data-impact-map>
+      {#- The frame is the map at the file's own size and offset; everything
+          inside it is placed as a percentage of the frame, so Chad stays where
+          the file puts it at any viewport. #}
+      <div class="impact__mapframe" data-impact-mapframe>
+        {#- The intrinsic size is not decoration here: without width/height this
+            lazy image has a zero-height box, never crosses the lazy-load
+            threshold, and so never loads — which is exactly what it was doing. #}
+        <img class="impact__world" src="{{ '/assets/img/chad-map.svg' | asset }}" alt=""
+             width="3619" height="3534" loading="lazy" decoding="async">
+        {#- Chad again, on its own, pinned to the same spot it occupies inside
+            the world map. The world behind it steps back while the figures are
+            on show; this one does not, so the country stays the one solid
+            shape in the band from the first state to the last. #}
+        <img class="impact__chad" src="{{ '/assets/img/chad-outline.svg' | asset }}" alt=""
+             width="173" height="270" loading="lazy" decoding="async">
+      </div>
     </div>
-    {%- endfor %}
+
+    <div class="impact__inner">
+      {#- The design opens on the guiding line and sets the context paragraph in
+          under it, at 415px — which is what leaves the left margin free for the
+          outline of Chad. Reversed, as this was, the silhouette lands on the
+          headline instead of beside the paragraph. #}
+      <p class="impact__lead" id="impact-lead">
+        {%- if site.components -%}
+        {{ (c.impact.lead | t(en.impact.lead)) | markHalves(hl) | safe }}
+        {%- else -%}
+        {{ (c.impact.lead | t(en.impact.lead)) | outlinePhrase(hl) | safe }}
+        {%- endif -%}
+      </p>
+
+      {#- Base page: the sentence, the paragraph under it, the link, the
+          transition. `Component 9` in the file is an instance in its Default
+          state — one frame, 1242×491, holding the title and this paragraph and
+          nothing else. The three variants (neither half lit → three figures →
+          four figures) are the component, and they arrive behind
+          `site.components`: one grid area for the paragraph and both card
+          groups, because in the file they start at the same y and only one is
+          ever on show. #}
+      <div class="impact__figures">
+      {#- Il paragrafo nomina le stesse due idee che la frase sopra separa in
+          due metà. Con i componenti attivi le porta evidenziate: si accendono
+          una alla volta mentre il lettore le attraversa, poi la frase le
+          riprende una per volta. Sulla pagina base resta il testo del file. #}
+      <p class="impact__context">
+        {%- if site.components -%}
+        {{ (c.impact.context | t(en.impact.context)) | markCues(cues) | safe }}
+        {%- else -%}
+        {{ c.impact.context | t(en.impact.context) }}
+        {%- endif -%}
+      </p>
+      {%- if site.components %}
+      {%- for half in ['potential', 'challenges'] %}
+      {%- set cards = en.impact[half] %}
+      {%- set tr = c.impact[half] %}
+      <div class="impact__cards" id="impact-panel-{{ half }}" aria-labelledby="impact-half-{{ half }}"
+           data-half="{{ half }}" data-count="{{ cards.length }}">
+        {%- for card in cards %}
+        {%- set t = tr[loop.index0] if tr else null %}
+        <div class="indicator" style="--i: {{ loop.index0 }}">
+          <span class="indicator__label">{{ (t.label if t else null) | t(card.label) }}</span>
+          <span class="indicator__value">{{ card.value }}</span>
+          {%- if card.note %}
+          <span class="indicator__note">{{ (t.note if t else null) | t(card.note) }}</span>
+          {%- endif %}
+        </div>
+        {%- endfor %}
+      </div>
+      {%- endfor %}
+      {%- endif %}
+      </div>
+
+      {#- The table of national indicators sits behind this, exactly as the
+          design's "learn more" does: the seven figures above are the story, the
+          sixteen behind it are the evidence for anyone who wants it. #}
+      <div class="impact__more">{{ modal.trigger('indicators', c.impact.cta | t(en.impact.cta)) }}</div>
+    </div>
   </div>
-  {%- endfor %}
-  {%- endif %}
+  {#- The runway has to be content, not padding: a sticky element is held
+      inside its parent's *content* box, so a track that bought its travel with
+      padding-bottom gave the stage nowhere to go and it scrolled away like any
+      other block. #}
+  <div class="impact__runway" aria-hidden="true"></div>
   </div>
 
-  {#- The table of national indicators sits behind this, exactly as the design's
-      "learn more" does: the seven figures above are the story, the sixteen
-      behind it are the evidence for anyone who wants it. #}
-  <div class="impact__more">{{ modal.trigger('indicators', c.impact.cta | t(en.impact.cta)) }}</div>
+  {#- Out of the stage: the dialog is fixed when open, and the closing sentence
+      has to read on white, after the map has gone. #}
   {{ modal.dialog('indicators', en.modals.indicators.title if not c.modals.indicators.title else c.modals.indicators.title) }}
 
-  <p class="impact__transition" data-anim="text-reveal">{{ (c.impact.transition | t(en.impact.transition)) | emph | safe }}</p>
+  <div class="impact__outro">
+    <p class="impact__transition" data-anim="text-reveal">{{ (c.impact.transition | t(en.impact.transition)) | emph | safe }}</p>
+  </div>
 </section>

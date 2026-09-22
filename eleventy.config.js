@@ -133,6 +133,29 @@ export default function (eleventyConfig) {
       text.slice(ib + b.length);
   });
 
+  /* Le due idee che il paragrafo nomina prima che la frase le separi in due.
+     Sono puntatori a un pezzo di testo già scritto, non copy nuovo: se una
+     traduzione riformula la frase il puntatore non trova nulla e il paragrafo
+     resta com'è — il testo non si rompe mai per un evidenziatore. */
+  eleventyConfig.addFilter('markCues', function (value, cues) {
+    const escape = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+    const list = (Array.isArray(cues) ? cues : []).map(escape).filter(Boolean);
+
+    /* Consumato da sinistra a destra: un segmento già evidenziato non può
+       ospitarne un secondo, e l'ordine nel markup è l'ordine di lettura —
+       che è l'ordine in cui si accendono. */
+    let rest = escape(value);
+    let out = '';
+    for (const cue of list) {
+      const i = rest.indexOf(cue);
+      if (i < 0) continue;
+      out += rest.slice(0, i) + '<span class="impact__cue">' + cue + '</span>';
+      rest = rest.slice(i + cue.length);
+    }
+    return out + rest;
+  });
+
   // Copy carries emphasis as **double asterisks** so translators edit plain text
   // and can never inject markup; everything else is escaped.
   eleventyConfig.addFilter('emph', function (value) {

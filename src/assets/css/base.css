@@ -40,7 +40,12 @@ body {
   line-height: var(--lh-body);
   color: var(--color-text);
   background: var(--color-bg);
-  overflow-x: hidden;
+  /* `clip`, not `hidden`: `hidden` makes the body a scroll container, and a
+     scroll container that never scrolls is a scrollport every `position:
+     sticky` element on the page resolves against — which is why the impact
+     stage computed as sticky and behaved as static. `clip` holds back the same
+     sideways overflow without creating one. */
+  overflow-x: clip;
 }
 img, svg, video { max-width: 100%; height: auto; display: block; }
 h1, h2, h3, h4, h5, h6 { margin: 0 0 var(--sp-2); line-height: 1.1; font-weight: 700; }
