@@ -313,7 +313,11 @@
 .stat__toggle {
   all: unset; box-sizing: border-box; display: block; cursor: pointer;
   background: var(--color-mist); padding: var(--sp-3);
-  transition: background-color 200ms var(--ease), color 200ms var(--ease);
+  /* The colour and the box travel together. The yellow used to arrive in 200ms
+     over a panel that appeared in one frame; now the panel takes 420ms to grow
+     and the card takes about as long to change colour, so the reader sees one
+     movement rather than a jump followed by a fade. */
+  transition: background-color 360ms var(--ease), color 360ms var(--ease);
 }
 .stat__toggle:focus-visible { outline: 3px solid var(--color-blue); outline-offset: 2px; }
 /* Outlined numeral. `text-stroke` is prefixed everywhere that supports it; the
@@ -325,7 +329,7 @@
      and whichever bites first wins. */
   font-size: min(var(--fs-h2), calc((100cqw - 2 * var(--sp-3)) / var(--fig-em, 4)));
   -webkit-text-stroke: 1.5px var(--color-navy);
-  transition: color 200ms var(--ease);
+  transition: color 360ms var(--ease);
 }
 /* A one-line label next to a two-line one leaves the closed row ragged for no
    reason; reserving the second line costs nothing and settles the grid. */
@@ -335,7 +339,7 @@
 }
 .stat__chevron {
   display: block; margin-top: var(--sp-2); color: var(--color-yellow);
-  transition: rotate 240ms var(--ease);
+  transition: rotate 420ms var(--ease), color 360ms var(--ease);
 }
 .stat__toggle[aria-expanded='true'] { background: var(--color-yellow); }
 .stat__toggle[aria-expanded='true'] .stat__value { color: var(--color-navy); }
