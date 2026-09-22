@@ -22,7 +22,7 @@
 <section class="report-cta" aria-labelledby="report-cta-title">
   <div class="report-cta__inner">
     <p class="report-cta__kicker" id="report-cta-title">{{ c.footer.kicker | t(en.footer.kicker) }}</p>
-    {%- if assets.reportPdf %}
+    {%- if assets.reportPdf[lang] %}
     <a class="report-cta__link" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
       {{ c.footer.cta | t(en.footer.cta) }}
     </a>
