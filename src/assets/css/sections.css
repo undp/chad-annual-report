@@ -273,11 +273,11 @@
      1.2 here: the yellow then runs through 27px of clear space instead of
      16, and touches no letter at any size. */
   text-transform: uppercase; line-height: 1.2; margin-block: 0 5.25rem;
-  /* The outline in the file stands 7px outside the text on the left (37
-     against 44 on the component), and the "learn more" under it sits on the
-     text's margin. The text steps in by that much so the outline's edge, not
-     the letters, lands on the column. */
-  padding-inline-start: 0.15em;
+  /* No indent. `Component 9` is placed at x=99 on a 1242 frame, so the file
+     puts the letters at 142.97 and the "learn more" under them at 144 — both
+     on the column — and lets the yellow outline hang 7px into the margin
+     (2.98% of the frame, x=136.01). The outline's edge is not what lands on
+     the column; the letters are. */
 }
 
 /* The five expandable figures, wherever a chapter puts them. `.stat` below is
@@ -482,10 +482,11 @@
    file's, and that much comes off the margin here so the link keeps the
    file's distance from the top of the title rather than from its foot. */
 /* On a short window the file's clear space would push the link off the stage,
-   so it gives way to the height of the viewport before the composition does. */
+   so it gives way to the height of the viewport before the composition does.
+   No indent: the file sets this TCA at x=144, the column edge, like the four
+   in the chapters. */
 .impact__more {
   margin-top: min(calc(11.7rem - 0.6 * var(--fs-h3)), 21svh);
-  padding-inline-start: calc(0.15 * var(--fs-h3));
 }
 
 @media (max-width: 62rem) {
