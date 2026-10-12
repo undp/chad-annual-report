@@ -20,7 +20,7 @@ const EN = 'src/_data/copy/en.json';
 const FR = 'src/_data/copy/fr.json';
 const DEFAULT_OUT = 'translations/undp-chad-report_EN-FR.csv';
 
-const STRUCTURAL = new Set(['id', 'type', 'src', 'value', 'suffix', 'align', 'file', 'image', 'ogImage', 'lang', 'locale', 'dir', 'side', 'rot', 'fw', 'w', 'h', 'statsLayout', 'layout', 'size', 'col', 'span', 'dy', 'by', 'bh']);
+const STRUCTURAL = new Set(['id', 'type', 'src', 'value', 'suffix', 'align', 'file', 'image', 'ogImage', 'lang', 'locale', 'dir', 'side', 'rot', 'fw', 'w', 'h', 'statsLayout', 'layout', 'figuresColumn', 'size', 'col', 'span', 'dy', 'by', 'bh']);
 
 /* Il nome di ogni lingua nel selettore è il suo endonimo, non una traduzione:
    la voce francese dice "Français", non "Anglais". Fuori dal foglio, quindi —
@@ -28,9 +28,11 @@ const STRUCTURAL = new Set(['id', 'type', 'src', 'value', 'suffix', 'align', 'fi
 /* Keys no template renders. `hero.intro` was superseded by `hero.paragraphs`;
    the hero prints and the map are decorative (`alt=""`, `aria-hidden`) and
    carry their description for the content model only; `footer.copyright` is
-   overridden by the UNDP footer's own line. A row for any of these would be
+   overridden by the UNDP footer's own line; `header.languageSwitch` was the
+   label of the old two-way toggle, replaced by the design system's dropdown,
+   which names each language by its endonym. A row for any of these would be
    work with nothing on the page to show for it. */
-const NOT_TRANSLATED = new Set(['header.languageLabel', 'hero.intro', 'hero.mapAlt', 'hero.photos[0].alt', 'hero.photos[1].alt', 'footer.copyright']);
+const NOT_TRANSLATED = new Set(['header.languageLabel', 'header.languageSwitch', 'hero.intro', 'hero.mapAlt', 'hero.photos[0].alt', 'hero.photos[1].alt', 'footer.copyright']);
 
 /* ---------- walking en.json ---------- */
 
@@ -58,6 +60,7 @@ function sectionOf(path, en) {
      the two halves that light up inside it, and the seven figures of context. */
   if (/^impact\.(cta|potential|challenges)/.test(path)) return 'Opening block — context indicators';
   if (path.startsWith('impact.highlight')) return 'Opening block — highlighted halves';
+  if (path === 'impact.context' || path.startsWith('impact.cues')) return 'Opening block — paragraph';
   return {
     meta: 'Page metadata (search engines, social sharing)',
     header: 'Header',
@@ -80,11 +83,14 @@ function kindOf(path, key, value) {
 
 function noteOf(path, key, kind, value) {
   if (kind === 'alt text') return 'Describes the photo for blind readers and for search engines. Never appears on screen.';
-  if (path === 'meta.title') return 'Browser tab and Google result. Aim for 60 characters or fewer.';
+  if (path === 'meta.ogImageAlt') return 'Describes the link-preview image for blind readers. Never appears on screen.';
+  if (path === 'meta.title') return 'Browser tab and Google result. Same pattern as the English, "report | organisation"; the French acronym of UNDP is PNUD. Aim for 60 characters or fewer.';
   if (path === 'meta.description') return 'Google result and link previews. Aim for 155 characters or fewer.';
   if (path.startsWith('undpFooter.')) return 'UNDP institutional footer — UNDP publishes official wording for these in French; please reuse it verbatim rather than translating.';
   if (path === 'impact.lead') return 'Opening sentence. The two phrases in the next two rows are highlighted inside it: their French must appear in this sentence exactly as written there, character for character.';
   if (path === 'impact.highlight.potential' || path === 'impact.highlight.challenges') return 'One of the two highlighted phrases of the opening sentence — must match, character for character, the words used inside the French of impact.lead.';
+  if (path === 'impact.context') return 'Paragraph above the opening sentence. Two phrases inside it are highlighted (rows impact.cues[0] and impact.cues[1]): once this is translated, copy those phrases from it.';
+  if (path.startsWith('impact.cues')) return 'Highlighted phrase of the paragraph in row impact.context — copy it from the French of that paragraph, character for character. impact.cues[0] must come before impact.cues[1] in the French text. A phrase that does not match is simply not highlighted.';
   if (/^impact\.(potential|challenges)\[/.test(path)) return 'Not shown on the demo today: label of the interactive version of the opening block (the seven context figures), kept ready for when it goes live.';
   if (path.startsWith('hero.titleLines')) return 'One line of the cover headline, set in the wide display face: going much longer than the English forces the whole title down a size.';
   if (kind === 'heading') return `Heading — the layout was drawn around ${value.length} characters.`;
