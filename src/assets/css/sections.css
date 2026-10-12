@@ -7,63 +7,57 @@
 }
 
 /* ---------- Header ---------- */
-.site-header {
-  position: sticky; top: 0; z-index: 50;
-  background: color-mix(in srgb, var(--color-white) 88%, transparent);
-  backdrop-filter: blur(8px);
-}
-/* The header is the one band that does not sit in the 1152 column: in the design
-   the mark starts 30px from the edge and the controls end 13px from the other,
-   so it runs on the wide grid with a 30px margin. */
-.site-header__inner {
-  width: min(100% - 2 * clamp(1rem, 2.08vw, 1.875rem), var(--container-wide));
-  margin-inline: auto;
-  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
-  min-height: 109px;
-}
-/* The mark runs the full height of the header, as in the design — it is the
-   element that sets the band's height, not a logo dropped inside it. */
-.site-header__brand { display: flex; align-items: center; gap: 24px; text-decoration: none; align-self: stretch; }
-.site-header__logo { height: 109px; width: auto; }
-.site-header__titles { display: flex; flex-direction: column; line-height: 1.1; }
-.site-header__country {
-  font-size: 12.2px; font-weight: 600; color: var(--color-slate); text-transform: uppercase;
-  /* The rule under the country name is 32.6px wide in the design — a mark, not
-     an underline of the word, so it is drawn on a fixed-width box. */
-  border-bottom: 0.67px solid var(--color-slate); width: 32.62px; padding-bottom: 5px;
-}
-.site-header__tagline { font-size: 19.46px; font-weight: 600; color: #000; margin-top: 7px; }
-.site-header__nav { display: flex; align-items: center; gap: 44px; }
+/* The band itself is the UNDP Design System's Country Site Header, loaded from
+   assets/vendor/undp-ds before this file. What follows is only what the system
+   leaves to the page that uses it — its base stylesheet, which the report does
+   not load, would otherwise have set these — plus the download link. */
+.country-header .header { color: var(--undpds-color-text-default); }
+.country-header a { text-decoration: none; }
+.country-header ul { margin: 0; }
+.country-header button { font-family: inherit; }
 
-/* Both controls are type in UNDP blue with an icon beside it. No borders: the
-   design gives neither a button box. */
-.header-link, .lang-switch__current {
-  display: inline-flex; align-items: center; gap: 9px;
-  font-size: 13.43px; font-weight: 600; letter-spacing: 0.01em;
-  color: var(--color-blue); text-transform: uppercase; text-decoration: none;
+/* The download of the system's Download Card without the card around it: the
+   card's label (bold capitals, 14px, 16px from 48em) and its animated icon,
+   whose arrow drops into the tray when the link is pointed at or focused. */
+.download-link {
+  display: flex; align-items: center;
+  font-size: var(--undpds-font-size-14); font-weight: 700; line-height: 1.4;
+  letter-spacing: 0.03em; text-transform: uppercase;
+  color: var(--undpds-color-text-default); text-decoration: none; white-space: nowrap;
 }
-.header-link__icon { width: 14.65px; height: 17.09px; flex: none; }
-.lang-switch__icon { width: 22.55px; height: 23.89px; flex: none; }
-.lang-switch__chevron { width: 12.21px; height: 7.63px; flex: none; }
+@media (min-width: 48em) { .download-link { font-size: var(--undpds-font-size-16); } }
+.download-link .download-animated { margin-inline-start: var(--undpds-spacing-04); }
+.download-link:is(:hover, :focus-visible) .download-animated::after { transform: rotate(-45deg) translate(7px, -7px); }
+.download-link:is(:hover, :focus-visible) .download-animated::before { transform: translateY(-10px); }
 
-/* <details> gives the chevron in the design something real to open: the browser
-   handles Escape, focus and the outside click, and there is no script. */
-.lang-switch { position: relative; }
-.lang-switch__current { cursor: pointer; list-style: none; padding-block: 0.5rem; }
-.lang-switch__current::-webkit-details-marker { display: none; }
-.lang-switch[open] .lang-switch__chevron { rotate: 180deg; }
-.lang-switch__menu {
-  position: absolute; inset-inline-end: 0; top: 100%; z-index: 60;
-  min-width: 100%; margin: 0; padding: var(--sp-1) 0; list-style: none;
-  background: var(--color-white); box-shadow: 0 8px 24px rgb(0 0 0 / 0.16);
+/* In the band it behaves as the system's header button does: gone below 64em,
+   where the burger menu carries it, and spaced like the controls beside it. */
+.country-header .header .download-link--header { display: none; margin-inline: var(--undpds-spacing-03); }
+@media (min-width: 64em) {
+  .country-header .header .download-link--header { display: flex; }
+  /* A burger menu left open while the window widens would hang under a band
+     that no longer has a burger to close it. */
+  .country-header .mobile-nav.show { display: none; }
 }
-.lang-switch__menu a {
-  display: block; padding: 0.5rem var(--sp-2); white-space: nowrap;
-  font-size: 13.43px; font-weight: 600; text-transform: uppercase;
-  color: var(--color-blue); text-decoration: none;
+
+/* Below 64em the band is logo, title and burger. The system sizes the title's
+   cell to its text and lets nothing shrink, so a title longer than its
+   Storybook "Site Title" pushes the burger onto a second row. Here the title
+   takes what is left and breaks between words when it must — at 320px it
+   reads "Annual Report / 2025", as the 2024 report's own header does. */
+@media (max-width: 63.9375em) {
+  .country-header .header .top-left:not(.large-9) { flex: 1 1 0; min-width: 0; }
+  .country-header .header .site-title { flex-shrink: 1; min-width: 0; width: auto; }
+  /* The menu hangs from the band, not from the grid row inside its padding:
+     edge to edge, starting where the band ends. */
+  .country-header .header .align-content-middle { position: static; }
 }
-.lang-switch__menu a:hover { background: var(--color-mist); }
-.lang-switch__menu a[aria-current='true'] { color: var(--color-navy); }
+
+/* The burger menu holds two entries, not the long list of sections the
+   system's top padding is measured for. */
+.country-header .mobile-nav .mobile-links { padding-block-start: var(--undpds-spacing-09); }
+.country-header .mobile-nav .mobile-nav-options .download-link { color: var(--undpds-color-text-default); }
+.country-header .mob-sub-lang a[aria-current='true'] { font-weight: 700; }
 
 /* ---------- Hero ---------- */
 /* The file's hero is frame 142:2870, 1440 x 1457: two prints in the upper half,
@@ -1101,7 +1095,7 @@
    restano a video con la stessa forma ma senza il gesto: il cursore non cambia
    e il title dice quando il file sarà disponibile. Sostituito il segnaposto in
    assets/files, i template tornano da soli al link scaricabile. */
-.header-link--pending, .report-cta__link--pending { cursor: default; }
+.download-link--pending, .report-cta__link--pending { cursor: default; }
 .report-cta__link--pending:hover { text-decoration-color: currentColor; }
 
 /* ---------- UNDP institutional footer ---------- */
@@ -1461,21 +1455,13 @@ html.is-modal-open { overflow: hidden; padding-inline-end: var(--scrollbar-gap, 
   .polaroids { margin-block: var(--sp-6) var(--sp-4); }
 }
 
-/* Touch targets. WCAG 2.5.8 asks for 24x24 CSS pixels; the language switch was
-   19x23, the social icons 28x28 and the legal links 23 tall. The boxes grow,
-   the type does not. */
-.lang-switch a { display: inline-block; padding: 0.5rem 0.35rem; }
+/* Touch targets. WCAG 2.5.8 asks for 24x24 CSS pixels; the social icons were
+   28x28 and the legal links 23 tall. The boxes grow, the type does not. */
 .footer-icons a { padding: 12px; margin: -12px; }
 .footer-lists a { display: inline-block; padding-block: 0.35rem; }
 .tca { padding-block: 0.5rem 0.6rem; }
 
-/* Reachability on a phone: a sticky header that takes a quarter of the screen is
-   not a header, so it gives up the strap-line and tightens the logo. */
 @media (max-width: 40rem) {
-  .site-header__inner { gap: var(--sp-2); min-height: 56px; }
-  .site-header__logo { height: 34px; }
-  .site-header__tagline { display: none; }
-  .site-header__nav .btn { padding: 0.6em 0.9em; font-size: 0.8rem; }
   .report-cta { padding-block: var(--sp-6); }
 }
 

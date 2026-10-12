@@ -46,7 +46,7 @@
 
   /* Layout — design content column is 1440 − 144 margins */
   --container: 72rem;    /* 1152px */
-  --header-h: 109px;     /* the sticky header, set by the UNDP mark inside it */
+  --header-h: 75px;      /* the UNDP Country Site Header: 75px, 115px from 64em */
   --container-wide: 90rem;
   --gutter: clamp(1.25rem, 4vw, 9rem);
 
@@ -55,3 +55,5 @@
   --motion: 600ms;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
+
+@media (min-width: 64em) { :root { --header-h: 115px; } }

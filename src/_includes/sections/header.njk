@@ -1,62 +1,102 @@
-{# Header, 109px tall as in the Figma frame: the UNDP mark runs the full height,
-   the country line sits under its own rule, and both controls on the right are
-   type in UNDP blue with an icon — no button boxes.
+{# The Country Site Header of the UNDP Design System 2.0.3, with its markup and
+   its compiled CSS (assets/vendor/undp-ds): the client checks this band against
+   the system's own Storybook, so it is the system's component rather than a
+   drawing of it. The arrangement on the right follows the 2024 global annual
+   report, which the client gave as the reference: language switcher, then the
+   download, and below 64em both move into the burger menu.
 
-   The language control is a <details>: the design draws a chevron, which
-   promises a menu, and <details> is a menu the browser already knows how to
-   open, close on Escape and reach from the keyboard. No script. #}
-<header class="site-header" data-header>
-  <div class="site-header__inner">
-    <a class="site-header__brand" href="{{ ('/' + lang + '/') | url }}">
-      <img class="site-header__logo" src="{{ '/assets/img/undp-logo.svg' | asset }}" alt="UNDP" width="53" height="109">
-      <span class="site-header__titles">
-        <span class="site-header__country">{{ c.header.brand | t(en.header.brand) }}</span>
-        <span class="site-header__tagline">{{ c.header.tagline | t(en.header.tagline) }}</span>
-      </span>
-    </a>
-    <nav class="site-header__nav" aria-label="{{ c.header.tagline | t(en.header.tagline) }}">
-      {%- if assets.reportPdf[lang] %}
-      <a class="header-link" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
-      {%- else %}
-      <span class="header-link header-link--pending" title="{{ c.header.downloadPending | t(en.header.downloadPending) }}">
-      {%- endif %}
-        {{ c.header.download | t(en.header.download) }}
-        <svg class="header-link__icon" viewBox="0 0 16 19" width="16" height="19" aria-hidden="true" focusable="false">
-          <g fill="none" stroke="currentColor" stroke-linecap="round">
-            <path d="M4.11 6.68 7.8 10.37 11.5 6.68" stroke-width="1.22"/>
-            <path d="M7.73 10.38V.61" stroke-width="1.22"/>
-            <path d="M.41 12.41v3.66a1.63 1.63 0 0 0 1.63 1.63h11.39a1.63 1.63 0 0 0 1.63-1.63v-3.66" stroke-width=".81"/>
-          </g>
-        </svg>
-      {%- if assets.reportPdf[lang] %}</a>{% else %}</span>{% endif %}
+   Two departures from the Storybook markup, both for screen readers and both
+   invisible: the language list is a disclosure (a button that says whether it
+   is open, and plain links) rather than role="menu", which would promise arrow
+   key navigation the system's script does not provide; and every button is a
+   real <button type="button"> with aria-expanded kept in step by
+   ui/site-header.js. #}
+{%- set home = ('/' + lang + '/') | url %}
+{%- set h = c.header %}
+{%- set enH = en.header %}
+{%- set pdf = (c.footer.file | t(en.footer.file)) | url %}
 
-      <details class="lang-switch">
-        <summary class="lang-switch__current">
-          <svg class="lang-switch__icon" viewBox="0 0 23 24" width="23" height="24" aria-hidden="true" focusable="false">
-            <g fill="none" stroke="currentColor" stroke-width=".96">
-              <path d="M17.27 17.75H.48V.48h22.07v15.35"/>
-              <path d="M16.79 17.75c.16 1.28-.96 3.84-1.92 5.28-1.33 2 7.68-4.32 7.68-7.68"/>
-              <path d="M7.2 2.88v2.88M2.88 6.24h7.68"/>
-              <path d="M2.88 12.47c2.08-.16 6.24-1.63 6.24-6.24M10.56 12.47c-1.74-.16-5.42-1.25-6.24-4.32"/>
-              <path d="M13.92 9.6h3.84M12.47 12.95l3.36-7.68 3.36 7.68"/>
-            </g>
-          </svg>
-          <span>{{ copy[lang].header.languageLabel | t(lang | upper) }}</span>
-          <svg class="lang-switch__chevron" viewBox="0 0 13 8" width="13" height="8" aria-hidden="true" focusable="false">
-            <path d="M.4.5 6.5 6.6 12.6.5" fill="none" stroke="currentColor" stroke-width="1.92"/>
-          </svg>
-        </summary>
-        <ul class="lang-switch__menu" role="list">
-          {%- for l in site.langs %}
-          <li>
-            <a href="{{ ('/' + l + '/') | url }}" hreflang="{{ l }}" lang="{{ l }}"
-               {% if l == lang %}aria-current="true"{% endif %}>
-              {{ copy[l].header.languageLabel | t(l | upper) }}
-            </a>
-          </li>
-          {%- endfor %}
-        </ul>
-      </details>
-    </nav>
-  </div>
+{%- macro download(extra) %}
+  {%- if assets.reportPdf[lang] %}
+  <a class="download-link {{ extra }}" href="{{ pdf }}" download>
+  {%- else %}
+  <span class="download-link download-link--pending {{ extra }}" title="{{ h.downloadPending | t(enH.downloadPending) }}">
+  {%- endif %}
+    {{ h.download | t(enH.download) }}
+    <span class="download-animated" aria-hidden="true"><i></i></span>
+  {%- if assets.reportPdf[lang] %}</a>{% else %}</span>{% endif %}
+{%- endmacro %}
+
+<header class="country-header" data-header>
+  <section class="header">
+    <div class="grid-container fluid">
+      <div class="grid-x grid-margin-x align-content-middle">
+        <div class="cell small-8 large-2 shrink align-self-middle top-left">
+          <a class="logo" href="{{ home }}" title="{{ h.tagline | t(enH.tagline) }}">
+            <img src="{{ '/assets/vendor/undp-ds/images/undp-logo-blue.svg' | asset }}" alt="UNDP" width="60" height="122">
+          </a>
+          <div class="site-title">
+            <span><a href="{{ site.regionLink }}">{{ h.brand | t(enH.brand) }}</a></span>
+            <span><a href="{{ home }}">{{ h.tagline | t(enH.tagline) }}</a></span>
+          </div>
+        </div>
+
+        <div class="cell small-1 large-auto align-content-middle top-center"></div>
+
+        <div class="cell small-3 large-auto top-right">
+          <div class="dropdown-language" data-undpds-component="language-switcher">
+            <button type="button" aria-expanded="false" aria-controls="language-list"
+                    aria-label="{{ copy[lang].header.languageLabel }}, {{ h.selectLanguage | t(enH.selectLanguage) }}">
+              {{ copy[lang].header.languageLabel }}
+            </button>
+            <ul id="language-list">
+              {%- for l in site.langs %}{% if l != lang %}
+              <li><a href="{{ ('/' + l + '/') | url }}" lang="{{ l }}" hreflang="{{ l }}" tabindex="-1">{{ copy[l].header.languageLabel }}</a></li>
+              {%- endif %}{% endfor %}
+            </ul>
+          </div>
+
+          <button class="menu-hamburger" type="button" aria-expanded="false" aria-controls="mobile-nav">
+            <span class="hamburger-line line-top"></span>
+            <span class="hamburger-line line-middle"></span>
+            <span class="hamburger-line line-bottom"></span>
+            {{ h.menu | t(enH.menu) }}
+          </button>
+
+          {{ download('download-link--header') }}
+        </div>
+
+        <div class="mobile-nav" id="mobile-nav">
+          <div class="grid-x">
+            <div class="cell mobile-links">
+              <div class="mobile-nav-options">
+                <a href="#mobile-languages" class="mob-lang-switcher" aria-controls="mobile-languages" aria-expanded="false">
+                  <img src="{{ '/assets/vendor/undp-ds/images/language.svg' | asset }}" alt="" width="25" height="26">
+                  {{ copy[lang].header.languageLabel }}
+                </a>
+                {{ download('') }}
+              </div>
+            </div>
+            <div class="cell mob-sub-lang" id="mobile-languages">
+              <button class="back-nav" type="button">
+                <img src="{{ '/assets/vendor/undp-ds/images/back.svg' | asset }}" alt="" width="33" height="17">
+                {{ h.back | t(enH.back) }}
+              </button>
+              <ul class="sub-sub-lang">
+                <li>
+                  <span>{{ h.selectLanguage | t(enH.selectLanguage) }}</span>
+                  <ul>
+                    {%- for l in site.langs %}
+                    <li><a href="{{ ('/' + l + '/') | url }}" lang="{{ l }}" hreflang="{{ l }}"
+                           {%- if l == lang %} aria-current="true"{% endif %}>{{ copy[l].header.languageLabel }}</a></li>
+                    {%- endfor %}
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </header>

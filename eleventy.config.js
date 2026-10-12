@@ -6,6 +6,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ 'src/assets/fonts': 'assets/fonts' });
   eleventyConfig.addPassthroughCopy({ 'src/assets/img': 'assets/img' });
   eleventyConfig.addPassthroughCopy({ 'src/assets/files': 'assets/files' });
+  eleventyConfig.addPassthroughCopy({ 'src/assets/vendor': 'assets/vendor' });
   eleventyConfig.addPassthroughCopy({ 'src/assets/js/bundle.js': 'assets/js/bundle.js' });
 
   // Fall back to the English string when a FR translation is still missing,

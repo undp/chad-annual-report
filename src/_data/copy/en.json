@@ -14,6 +14,9 @@
     "downloadPending": "The PDF will be available when the report is published.",
     "languageLabel": "English",
     "languageSwitch": "Français",
+    "selectLanguage": "Select your language",
+    "menu": "Menu",
+    "back": "Back",
     "skipToContent": "Skip to content"
   },
   "hero": {
@@ -429,7 +432,7 @@
               "w": 1400,
               "h": 933,
               "fw": 593.4,
-              "col": 662.0,
+              "col": 662,
               "dy": -82,
               "bh": 433,
               "by": -100

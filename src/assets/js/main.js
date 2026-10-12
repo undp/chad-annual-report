@@ -6,8 +6,10 @@ import initModals from './ui/modal.js';
 import initDisclosures from './ui/disclosure.js';
 import initImpactStates from './ui/impact-states.js';
 import initPhraseOutline from './ui/phrase-outline.js';
+import initSiteHeader from './ui/site-header.js';
 
 const start = () => {
+  initSiteHeader();
   initCounters(document.documentElement.lang);
   initScrollReveal();
   initParallax();
