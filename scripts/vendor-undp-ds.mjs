@@ -127,4 +127,34 @@ for (const img of files) {
 }
 writeFileSync(join(OUT, 'LICENSE'), readFileSync('scripts/undp-ds-LICENSE.txt', 'utf8'));
 
-console.log(`@undp/design-system-assets ${VERSION}: ${css.length} bytes of CSS, ${files.length} images`);
+// The favicon undp.org serves is the logo's top tile on its own: the UN emblem
+// in white on the blue square. The package has no favicon, so the tile is cut
+// out of undp-logo-blue.svg — the first path is the square, and every path
+// that stays inside it is part of the emblem. The rasters next to it are made
+// by scripts/build-favicons.py.
+/** Bounding box of a path drawn with absolute commands only. */
+function bbox(d) {
+  if (/[a-df-z]/.test(d.replace(/e-?\d/g, ''))) throw new Error(`Relative path command in logo: ${d.slice(0, 40)}`);
+  const xs = [], ys = [];
+  for (const [, cmd, args] of d.matchAll(/([A-Z])([^A-Z]*)/g)) {
+    const n = (args.match(/-?\d*\.?\d+(?:e-?\d+)?/g) || []).map(Number);
+    if (cmd === 'H') xs.push(...n);
+    else if (cmd === 'V') ys.push(...n);
+    else if (cmd === 'A') n.forEach((v, i) => { if (i % 7 === 5) xs.push(v); if (i % 7 === 6) ys.push(v); });
+    else n.forEach((v, i) => (i % 2 ? ys : xs).push(v));
+  }
+  return { x0: Math.min(...xs), y0: Math.min(...ys), x1: Math.max(...xs), y1: Math.max(...ys) };
+}
+const logo = readFileSync(join(PKG, 'images/undp-logo-blue.svg'), 'utf8');
+const paths = [...logo.matchAll(/<path\b[^>]*\/>/g)].map((m) => m[0]);
+const boxOf = (p) => bbox(p.match(/\sd="([^"]+)"/)[1]);
+const tile = boxOf(paths.find((p) => { const b = boxOf(p); return b.y0 === 0; }));
+const emblem = paths.filter((p) => {
+  const b = boxOf(p);
+  return b.x0 >= tile.x0 && b.x1 <= tile.x1 && b.y0 >= tile.y0 && b.y1 <= tile.y1;
+});
+const w = +(tile.x1 - tile.x0).toFixed(2), h = +(tile.y1 - tile.y0).toFixed(2);
+writeFileSync(join(OUT, 'images/undp-emblem.svg'),
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${+tile.x0.toFixed(2)} ${tile.y0} ${w} ${h}">\n${emblem.join('\n')}\n</svg>\n`);
+
+console.log(`@undp/design-system-assets ${VERSION}: ${css.length} bytes of CSS, ${files.length} images, emblem of ${emblem.length} paths`);

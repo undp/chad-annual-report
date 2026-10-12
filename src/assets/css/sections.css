@@ -1191,6 +1191,18 @@
 /* The two-column card, and the table of indicators, which is drawn on it. */
 .modal--wide, .modal--table { --card: 1240; }
 .modal::backdrop { background: rgb(17 20 35 / 0.55); backdrop-filter: blur(2px); }
+/* The card and its backdrop fade in and out together, at the design system's
+   own .3s ease for opacity. The fade out is held by ui/modal.js, which closes
+   the dialog only once it has run: close() takes a <dialog> out of the top
+   layer at once, leaving nothing on screen to fade. The global reduced-motion
+   rule in base.css does not reach ::backdrop, hence the rule of its own. */
+@keyframes modal-in { from { opacity: 0; } }
+@keyframes modal-out { to { opacity: 0; } }
+.modal[open], .modal[open]::backdrop { animation: modal-in 0.3s ease; }
+.modal.is-closing, .modal.is-closing::backdrop { animation: modal-out 0.3s ease forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .modal[open], .modal[open]::backdrop, .modal.is-closing, .modal.is-closing::backdrop { animation: none; }
+}
 /* The box is the card — gradient, rounded corners, shadow — and it is also
    the element that scrolls. A system scrollbar drawn on it cut straight
    through the rounded corner and the gradient. Two things fix that:

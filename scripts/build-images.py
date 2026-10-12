@@ -39,7 +39,6 @@ BACKDROP_EDGE = 1800
 
 SVGS = {
     "chad-map":  "4392b1eae1a43789fe5323f54efe6c895b0bb3fb.svg",
-    "undp-logo": "28b203773e3fe9fd76a0bad2617f6c7c0a99ca60.svg",
 }
 OG_SOURCE, OG_SIZE = "hero-02", (1200, 630)
 

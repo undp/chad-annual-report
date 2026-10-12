@@ -11,6 +11,7 @@
     "js:dev": "esbuild src/assets/js/main.js --bundle --format=esm --outfile=src/assets/js/bundle.js --watch",
     "clean": "rm -rf _site src/assets/js/bundle.js",
     "images": "python3 scripts/build-images.py",
+    "favicons": "python3 scripts/build-favicons.py",
     "vendor:ds": "node scripts/vendor-undp-ds.mjs"
   },
   "devDependencies": {

@@ -3,13 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ c.meta.title | t(en.meta.title) }}</title>
-  <meta name="description" content="{{ c.meta.description | t(en.meta.description) }}">
-  {#- The UNDP mark doubles as the favicon: an SVG one scales to every size the
-      browser asks for, and the .ico fallback is the only file Safari's pinned
-      tabs and old Edge will look for. Without either, every page view logs a
-      404 on /favicon.ico. #}
-  <link rel="icon" href="{{ '/assets/img/undp-logo.svg' | asset }}" type="image/svg+xml">
+  {%- set title = c.meta.title | t(en.meta.title) %}
+  {%- set description = c.meta.description | t(en.meta.description) %}
+  {%- set ogImage = site.url + ((c.meta.ogImage | t(en.meta.ogImage)) | asset) %}
+  {%- set ogImageAlt = c.meta.ogImageAlt | t(en.meta.ogImageAlt) %}
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  {#- The favicon is the one undp.org serves: the UN emblem tile of the logo,
+      cut out of the design system's own file by scripts/vendor-undp-ds.mjs.
+      Browsers that read SVG take the vector; the .ico and the touch icon sit at
+      the root, where the rest look for them unasked (scripts/build-favicons.py).
+      The sizes on the .ico keeps Chrome from preferring it to the SVG. #}
+  <link rel="icon" href="{{ '/favicon.ico' | asset }}" sizes="32x32">
+  <link rel="icon" href="{{ '/assets/vendor/undp-ds/images/undp-emblem.svg' | asset }}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | asset }}">
+  <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="{{ site.url }}/{{ lang }}/">
   {%- for l in site.langs %}
   <link rel="alternate" hreflang="{{ l }}" href="{{ site.url }}/{{ l }}/">
@@ -17,12 +25,24 @@
   <link rel="alternate" hreflang="x-default" href="{{ site.url }}/{{ site.defaultLang }}/">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="{{ c.meta.title | t(en.meta.title) }}">
-  <meta property="og:description" content="{{ c.meta.description | t(en.meta.description) }}">
+  <meta property="og:site_name" content="{{ c.undpFooter.brandLine1 | t(en.undpFooter.brandLine1) }} {{ c.undpFooter.brandLine2 | t(en.undpFooter.brandLine2) }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
   <meta property="og:url" content="{{ site.url }}/{{ lang }}/">
-  <meta property="og:image" content="{{ site.url }}{{ (c.meta.ogImage | t(en.meta.ogImage)) | asset }}">
-  <meta property="og:locale" content="{{ c.meta.locale | t('en') }}">
+  {#- 1200×630 is OG_SIZE in scripts/build-images.py. #}
+  <meta property="og:image" content="{{ ogImage }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ ogImageAlt }}">
+  <meta property="og:locale" content="{{ c.meta.locale | t(en.meta.locale) }}">
+  {%- for l in site.langs %}{% if l != lang %}
+  <meta property="og:locale:alternate" content="{{ copy[l].meta.locale }}">
+  {%- endif %}{% endfor %}
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image" content="{{ ogImage }}">
+  <meta name="twitter:image:alt" content="{{ ogImageAlt }}">
 
   <link rel="preload" href="{{ '/assets/fonts/soehne-breit-web-fett.woff2' | url }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ '/assets/fonts/proximanova-regular-webfont.woff2' | url }}" as="font" type="font/woff2" crossorigin>

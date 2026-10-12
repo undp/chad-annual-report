@@ -31,7 +31,7 @@ function merge(enNode, frNode, key) {
 }
 
 const merged = merge(en, fr, null);
-merged.meta = { ...merged.meta, lang: 'fr', locale: 'fr', dir: 'ltr' };
+merged.meta = { ...merged.meta, lang: 'fr', locale: 'fr_FR', dir: 'ltr' };
 writeFileSync(FR, JSON.stringify(merged, null, 2) + '\n');
 
 let total = 0, done = 0;

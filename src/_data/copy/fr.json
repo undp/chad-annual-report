@@ -1,11 +1,12 @@
 {
   "meta": {
     "lang": "fr",
-    "locale": "fr",
+    "locale": "fr_FR",
     "dir": "ltr",
     "title": "",
     "description": "",
-    "ogImage": "/assets/img/og-fr.jpg"
+    "ogImage": "/assets/img/og-fr.jpg",
+    "ogImageAlt": ""
   },
   "header": {
     "brand": "",

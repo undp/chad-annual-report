@@ -2,6 +2,8 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ 'src/.nojekyll': '.nojekyll' });
+  eleventyConfig.addPassthroughCopy({ 'src/favicon.ico': 'favicon.ico' });
+  eleventyConfig.addPassthroughCopy({ 'src/apple-touch-icon.png': 'apple-touch-icon.png' });
   eleventyConfig.addPassthroughCopy({ 'src/assets/css': 'assets/css' });
   eleventyConfig.addPassthroughCopy({ 'src/assets/fonts': 'assets/fonts' });
   eleventyConfig.addPassthroughCopy({ 'src/assets/img': 'assets/img' });

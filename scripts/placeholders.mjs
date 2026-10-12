@@ -13,7 +13,6 @@ const paths = new Set();
   if (typeof n === 'string' && /^\/assets\/(img|files)\//.test(n)) paths.add(n);
 })(copy, null);
 paths.add('/assets/img/chad-map.svg');
-paths.add('/assets/img/undp-logo.svg');
 paths.add('/assets/img/hero-01.jpg');
 paths.add('/assets/img/hero-02.jpg');
 

@@ -85,3 +85,15 @@ in the `PHOTOS` / `BACKDROPS` / `SVGS` tables at the top of the script.
 Two gradients stay as images because they are mesh gradients (`hero-bg`,
 `youth-panel`); the flat chapter bands are CSS `linear-gradient`s sampled from the
 design and cost nothing.
+
+## Favicon
+
+The favicon is the one undp.org serves: the UN emblem tile at the top of the UNDP
+logo. The design system package has no favicon file, so `scripts/vendor-undp-ds.mjs`
+cuts the tile out of its `undp-logo-blue.svg` into
+`src/assets/vendor/undp-ds/images/undp-emblem.svg`, and `scripts/build-favicons.py`
+renders it with Playwright's Chromium into `src/favicon.ico` (16/32/48) and
+`src/apple-touch-icon.png` (180):
+
+    npm run vendor:ds
+    npm run favicons
