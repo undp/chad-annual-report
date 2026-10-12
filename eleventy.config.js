@@ -107,7 +107,8 @@ export default function (eleventyConfig) {
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
     const button = (half, phrase) =>
       `<button class="impact__mark" type="button" id="impact-half-${half}"` +
-      ` data-half="${half}" aria-controls="impact-panel-${half}">${phrase}</button>`;
+      ` data-half="${half}" aria-controls="impact-panel-${half}">` +
+      `<span class="impact__mark-text">${phrase}</span></button>`;
 
     const text = escape(value);
     const a = escape((halves ?? {}).potential);

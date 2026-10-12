@@ -531,15 +531,29 @@
 /* The fill arrives as a sweep from the first letter to the last, not as a box
    that appears: it is the same gesture as a highlighter, and it tells the eye
    which half of the sentence the figures underneath belong to. */
+/* The yellow is painted on a span inside the button, not on the button. A
+   button stays one atomic box whatever its `display` says, so a half that
+   wrapped onto a second line became a yellow block as wide as the column, and
+   the full stop after it fell onto a line of its own (client review, October
+   2026). An inline span breaks with the words and paints only under them. */
 .impact__mark {
   all: unset; box-sizing: border-box; cursor: pointer; color: inherit;
+  transition: color 280ms var(--ease);
+}
+.impact__mark-text {
   box-decoration-break: clone; -webkit-box-decoration-break: clone;
   padding: 0.02em 0.1em;
   background-image: linear-gradient(var(--color-yellow), var(--color-yellow));
   background-repeat: no-repeat; background-size: 0% 100%;
-  transition: background-size 520ms var(--ease), color 280ms var(--ease);
+  transition: background-size 520ms var(--ease);
 }
-.impact__mark[data-lit] { background-size: 100% 100%; color: var(--color-navy); }
+.impact__mark[data-lit] { color: var(--color-navy); }
+.impact__mark[data-lit] .impact__mark-text { background-size: 100% 100%; }
+/* Where the sequence does not play — narrow screens, reduced motion — both
+   halves are lit for good and the buttons are disabled: there they are words
+   in a sentence, and they flow as words, so the full stop stays on the line of
+   the word it closes. */
+.impact__mark:disabled { display: contents; }
 /* Il giallo su queste due metà dice a che punto è la sequenza, non dove sta il
    mouse: la mano che passa sopra la frase lascia il segno fermo. Restano il
    cursore e il focus visibile, che sono l'unico avviso di cui la tastiera e lo
@@ -632,13 +646,28 @@
   margin-top: min(calc(11.7rem - 0.6 * var(--fs-h3)), 21svh);
 }
 
+/* Narrow screens, where the seven figures stack under the sentence (client
+   review, October 2026: two cards ran into each other and left a hole beside
+   them). The two groups were each fitting as many 11rem columns as they could,
+   so a group of three on two columns left its third card alone on a row, and
+   the second group started flush under it. Now: one column on a phone, two
+   from 30em with the odd card across the row — four across a tablet set the
+   figures at 20px — and the gap between the groups is the gap between cards. */
 @media (max-width: 62rem) {
-  .impact__cards[data-count='3'], .impact__cards[data-count='4'] {
-    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  .impact__cards[data-count='3'], .impact__cards[data-count='4'] { grid-template-columns: minmax(0, 1fr); }
+}
+.impact:not([data-impact-enhanced]) .impact__cards + .impact__cards { margin-top: 21px; }
+@media (min-width: 30em) and (max-width: 62rem) {
+  .impact__cards[data-count='3'], .impact__cards[data-count='4'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .impact__cards .indicator:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  /* Its figure keeps the size of its neighbours': it is sized from the card,
+     and this card is two cards wide. */
+  .impact__cards .indicator:last-child:nth-child(odd) .indicator__value {
+    font-size: min(var(--fs-h2), calc(((100cqw - 21px) / 2 - 2 * var(--sp-3)) / 4.6));
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .impact__mark, .impact__cue, .impact__phrase, .impact__cards, .impact__context,
+  .impact__mark, .impact__mark-text, .impact__cue, .impact__phrase, .impact__cards, .impact__context,
   .impact__world, .impact__cards .indicator { transition: none; }
 }
 
