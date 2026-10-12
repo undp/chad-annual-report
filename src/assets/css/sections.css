@@ -1081,22 +1081,38 @@
 }
 /* The design gives the download no button: the sentence is the link, set in at
    415px like a chapter paragraph. The underline is what makes it a link. */
-.report-cta__link {
-  display: inline-block; margin-top: clamp(1.5rem, 4.5vw, 4.25rem);
-  font-size: var(--fs-h6); font-weight: 500; line-height: 1.2; max-width: 71.18%;
-  color: inherit; text-decoration: underline; text-underline-offset: 0.18em;
-  text-decoration-thickness: 1px;
+.report-cta__action {
+  margin: clamp(1.5rem, 4.5vw, 4.25rem) 0 0; max-width: 71.18%;
+  font-size: var(--fs-h6); font-weight: 500; line-height: 1.2;
 }
-.report-cta__link:hover { text-decoration-color: var(--color-yellow); }
-@media (min-width: 62rem) { .report-cta__link { margin-inline-start: 23.52%; } }
-@media (max-width: 61.99rem) { .report-cta__link { max-width: none; } }
+@media (min-width: 62rem) { .report-cta__action { margin-inline-start: 23.52%; } }
+@media (max-width: 61.99rem) { .report-cta__action { max-width: none; } }
+/* The design system's link (Foundation › Typography › Links), as its Storybook
+   shows it and as undp.org uses it: a 2px dark-red rule drawn as a background
+   under the words, which on hover runs out to the right and comes back from
+   the left, on a loop (keyframes from assets/vendor/undp-ds). The system also
+   has a white `.inverted` form for dark grounds; on this band it was
+   indistinguishable from the plain underline the client asked to replace, and
+   the red reads on every stop of the gradient. Inline, so a sentence that
+   wraps carries the rule under every line. */
+.report-cta__link {
+  color: inherit; text-decoration: none;
+  background-image:
+    linear-gradient(var(--undpds-color-dark-red), var(--undpds-color-dark-red)),
+    linear-gradient(var(--undpds-color-dark-red), var(--undpds-color-dark-red));
+  background-position: 100% 100%, -30px 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 2px, 0 1px;
+}
+.report-cta__link:is(:hover, :focus-visible) { animation: lineLoop-animation 2s linear infinite; }
+[dir='rtl'] .report-cta__link:is(:hover, :focus-visible) { animation-name: lineLoop-animation-rtl; }
 
 /* Finché il PDF del report non arriva dal cliente, i due richiami al download
    restano a video con la stessa forma ma senza il gesto: il cursore non cambia
    e il title dice quando il file sarà disponibile. Sostituito il segnaposto in
    assets/files, i template tornano da soli al link scaricabile. */
 .download-link--pending, .report-cta__link--pending { cursor: default; }
-.report-cta__link--pending:hover { text-decoration-color: currentColor; }
+.report-cta__link--pending:hover { animation: none; }
 
 /* ---------- UNDP institutional footer ---------- */
 /* The Footer organism of the UNDP Design System, "simple" variant, loaded from

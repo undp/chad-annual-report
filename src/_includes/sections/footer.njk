@@ -13,19 +13,18 @@
 
 {#- The download band carries the same gradient and the same indent as a chapter
     opening: kicker on the column edge, the line that follows set in at 415px.
-    The design gives the download no button box — the sentence is the link. #}
+    The design gives the download no button box — the sentence is the link,
+    drawn as the design system draws a link on a dark ground. #}
 <section class="report-cta" aria-labelledby="report-cta-title">
   <div class="report-cta__inner">
     <p class="report-cta__kicker" id="report-cta-title">{{ c.footer.kicker | t(en.footer.kicker) }}</p>
+    <p class="report-cta__action">
     {%- if assets.reportPdf[lang] %}
-    <a class="report-cta__link" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>
-      {{ c.footer.cta | t(en.footer.cta) }}
-    </a>
+      <a class="report-cta__link" href="{{ (c.footer.file | t(en.footer.file)) | url }}" download>{{ c.footer.cta | t(en.footer.cta) }}</a>
     {%- else %}
-    <span class="report-cta__link report-cta__link--pending" title="{{ c.header.downloadPending | t(en.header.downloadPending) }}">
-      {{ c.footer.cta | t(en.footer.cta) }}
-    </span>
+      <span class="report-cta__link report-cta__link--pending" title="{{ c.header.downloadPending | t(en.header.downloadPending) }}">{{ c.footer.cta | t(en.footer.cta) }}</span>
     {%- endif %}
+    </p>
   </div>
 </section>
 
