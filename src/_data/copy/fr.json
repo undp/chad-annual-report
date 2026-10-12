@@ -786,9 +786,9 @@
     "close": ""
   },
   "undpFooter": {
-    "brandLine1": "",
-    "brandLine2": "",
-    "logoAlt": "",
+    "brandLine1": "Programme des Nations Unies",
+    "brandLine2": "pour le développement",
+    "logoAlt": "Programme des Nations Unies pour le développement",
     "socialLabel": "",
     "links": [
       {
@@ -804,6 +804,6 @@
         "label": ""
       }
     ],
-    "copyright": ""
+    "copyright": "© Programme des Nations Unies pour le développement"
   }
 }

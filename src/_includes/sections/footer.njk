@@ -1,20 +1,15 @@
 {# Two footers stacked, because they answer to two different owners.
 
    The first is the report's own closing band — the download call to action the
-   Figma design ends on. The second is the institutional footer from the UNDP
-   Design System 2.0.2 (undp/design-system, Footer organism, "simple" variant),
-   which the client asked for and which has to look the same here as on every
-   other UNDP property.
+   Figma design ends on. The second is the institutional footer of the UNDP
+   Design System 2.0.3 (Footer organism, "simple" variant): its markup, and its
+   compiled CSS from assets/vendor/undp-ds, so that it looks here as it does on
+   every other UNDP property and in the Storybook the client checks it against.
 
    The design system's *default* variant also carries four navigation columns and
    a newsletter form. Both are left out: in the design system itself their content
    is the placeholder "Page title", and this site has no newsletter endpoint —
-   inventing either would put dead links in a UN footer.
-
-   The four rows are siblings rather than the design system's nested
-   footer-top/footer-bottom wrappers, because the social row changes place
-   between breakpoints (beside the logo on desktop, above the copyright on
-   mobile) and one grid can move it without duplicating the markup. #}
+   inventing either would put dead links in a UN footer. #}
 
 {#- The download band carries the same gradient and the same indent as a chapter
     opening: kicker on the column edge, the line that follows set in at 415px.
@@ -36,35 +31,49 @@
 
 {%- set uf = c.undpFooter %}
 {%- set enUf = en.undpFooter %}
+{%- macro socialIcons() %}
+  <ul class="footer-icons" aria-label="{{ uf.socialLabel | t(enUf.socialLabel) }}">
+    {%- for s in site.undpFooter.social %}
+    <li><a href="{{ s.url }}" class="{{ s.name }}" title="{{ s.title }}" rel="noopener" target="_blank">{{ s.title }}</a></li>
+    {%- endfor %}
+  </ul>
+{%- endmacro %}
+
+{#- The name beside the logo is the design system's `h5` (FooterLogo molecule),
+    set here as a paragraph with the h5's measures: a heading level 5 with no
+    1 to 4 above it in the footer would be a heading in name only. #}
 <footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-logo">
-      <a href="{{ site.undpFooter.logoLink }}">
-        <img src="{{ '/assets/img/undp/undp-logo-white.svg' | asset }}"
-             alt="{{ uf.logoAlt | t(enUf.logoAlt) }}" width="106" height="218">
-      </a>
-      <p class="footer-logo__name">
-        <span>{{ uf.brandLine1 | t(enUf.brandLine1) }}</span>
-        <span>{{ uf.brandLine2 | t(enUf.brandLine2) }}</span>
-      </p>
+  <div class="grid-x">
+    <div class="cell medium-10 medium-offset-1 footer-inner">
+      <div class="grid-x footer-top">
+        <div class="cell medium-5">
+          <div class="footer-logo">
+            <a href="{{ site.undpFooter.logoLink }}">
+              <img src="{{ '/assets/vendor/undp-ds/images/undp-logo-white.svg' | asset }}"
+                   alt="{{ uf.logoAlt | t(enUf.logoAlt) }}" width="60" height="123">
+            </a>
+            <p class="footer-logo__name">{{ uf.brandLine1 | t(enUf.brandLine1) }}<br>{{ uf.brandLine2 | t(enUf.brandLine2) }}</p>
+          </div>
+        </div>
+        <div class="cell medium-5 show-large">
+          {{ socialIcons() }}
+        </div>
+      </div>
+      <div class="grid-x footer-bottom">
+        <div class="cell medium-5">
+          <p>{{ uf.copyright | t(enUf.copyright) }}</p>
+        </div>
+        <div class="cell medium-6">
+          <ul class="footer-lists">
+            {%- for l in enUf.links %}
+            <li><a href="{{ site.undpFooter.links[loop.index0] }}">{{ uf.links[loop.index0].label | t(l.label) }}</a></li>
+            {%- endfor %}
+          </ul>
+          <div class="show-small">
+            {{ socialIcons() }}
+          </div>
+        </div>
+      </div>
     </div>
-
-    <ul class="footer-icons" role="list" aria-label="{{ uf.socialLabel | t(enUf.socialLabel) }}">
-      {%- for s in site.undpFooter.social %}
-      <li>
-        <a href="{{ s.url }}" title="{{ s.title }}" rel="noopener" target="_blank">
-          <img src="{{ ('/assets/img/undp/' + s.name + '-white.svg') | asset }}" alt="{{ s.title }}" width="20" height="20">
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-
-    <ul class="footer-lists" role="list">
-      {%- for l in enUf.links %}
-      <li><a href="{{ site.undpFooter.links[loop.index0] }}">{{ uf.links[loop.index0].label | t(l.label) }}</a></li>
-      {%- endfor %}
-    </ul>
-
-    <p class="footer-copyright">{{ uf.copyright | t(enUf.copyright) }}</p>
   </div>
 </footer>

@@ -13,8 +13,8 @@
 // The components are copied whole. From base-minimal.min.css — which also
 // restyles body, headings, lists and every link, and would undo the report's
 // own typography — only three things are taken: the --undpds-* custom
-// properties the components read, the grid classes the header markup uses, and
-// the animated download icon.
+// properties the components read, the grid and visibility classes the header
+// and footer markup use, and the animated download icon.
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
@@ -28,16 +28,19 @@ const COMPONENTS = [
   'country-site-header',
   'language-switcher',
   'mobile-nav',
+  'footer',
 ];
 
 // Icons the templates point at directly, besides those the CSS asks for.
-const MARKUP_IMAGES = ['undp-logo-blue.svg', 'language.svg', 'back.svg'];
+const MARKUP_IMAGES = ['undp-logo-blue.svg', 'undp-logo-white.svg', 'language.svg', 'back.svg'];
 
 // A base-minimal selector is kept only when every class in it is listed here.
 const BASE_CLASSES = new Set([
   // grid, as used by the country site header
   'grid-container', 'fluid', 'grid-x', 'grid-margin-x', 'cell',
   'small-1', 'small-3', 'small-8', 'large-2', 'large-auto', 'shrink', 'align-self-middle',
+  // and by the footer
+  'medium-5', 'medium-6', 'medium-10', 'medium-offset-1', 'show-large', 'show-small',
   // the download icon of the download card
   'download-animated',
 ]);

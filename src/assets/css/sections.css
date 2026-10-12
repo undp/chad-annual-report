@@ -13,7 +13,7 @@
    not load, would otherwise have set these — plus the download link. */
 .country-header .header { color: var(--undpds-color-text-default); }
 .country-header a { text-decoration: none; }
-.country-header ul { margin: 0; }
+:where(.country-header) ul { margin: 0; }
 .country-header button { font-family: inherit; }
 
 /* The download of the system's Download Card without the card around it: the
@@ -1099,74 +1099,20 @@
 .report-cta__link--pending:hover { text-decoration-color: currentColor; }
 
 /* ---------- UNDP institutional footer ---------- */
-/* Ported from the UNDP Design System 2.0.2 (Footer organism, "simple" variant).
-   The tokens below are the design system's own compiled values, kept under their
-   own names rather than mapped onto this report's palette: this block has to go
-   on matching undp.org even if the report's colours are retuned. */
-.footer {
-  --undp-brand: #006eb5;
-  --undp-link-hover: #b5d5f5;
-  background: var(--undp-brand);
-  color: #fff;
-  padding: 48px 12px 40px;
-  font-family: var(--font-body);
+/* The Footer organism of the UNDP Design System, "simple" variant, loaded from
+   assets/vendor/undp-ds. What follows is what the system's base stylesheet
+   would have set and the report does not load. Zero specificity on the reset,
+   so every margin the component sets on its own lists still wins. */
+:where(.footer) ul { margin: 0; }
+.footer a { text-decoration: none; }
+/* The design system's h5, which is what the FooterLogo molecule sets the name
+   in: Proxima Nova regular, 20px and 24px from 48em, solid leading. */
+.footer .footer-logo__name {
+  margin: 0 var(--undpds-spacing-05);
+  font-size: var(--undpds-font-size-20); font-weight: 400; line-height: 1.15;
+  color: var(--undpds-color-text-inverse);
 }
-.footer-inner {
-  width: min(100% - 24px, var(--container-wide));
-  margin-inline: auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas: 'logo' 'links' 'social' 'copy';
-}
-.footer a { color: inherit; text-decoration: none; }
-.footer a:hover { color: var(--undp-link-hover); }
-
-.footer-logo { grid-area: logo; display: flex; align-items: flex-start; gap: 16px; }
-.footer-logo img { width: 53px; height: auto; }
-.footer-logo__name {
-  margin: 0; font-family: var(--font-display); font-size: 1rem; line-height: 1.25;
-  text-transform: uppercase; letter-spacing: 0.02em;
-}
-.footer-logo__name span { display: block; }
-
-/* Scoped under `.footer` to outrank `ul[role="list"]` in base.css: an attribute
-   selector beats a bare class, and it was silently zeroing the margins and
-   padding of both footer lists — which is what broke the rule under the first
-   row into two pieces at different heights. */
-.footer .footer-icons { grid-area: social; display: flex; flex-wrap: wrap; gap: 24px; list-style: none; margin: 32px 0 0; padding: 0; }
-.footer-icons a { display: inline-flex; padding: 4px; }
-.footer-icons img { width: 20px; height: 20px; }
-.footer-icons a:hover img { opacity: 0.7; }
-
-.footer .footer-lists { grid-area: links; list-style: none; margin: 32px 0 0; padding: 0; }
-.footer-lists li { margin-bottom: 12px; }
-.footer-lists a { font-size: 1rem; line-height: 1.4; }
-
-.footer-copyright { grid-area: copy; margin: 32px 0 0; font-size: 0.875rem; }
-
-/* The design system's `medium` breakpoint. Above it the footer is two columns:
-   logo and social share a row closed by a rule, copyright and legal links sit
-   under it. The rule is drawn on both cells rather than on a wrapper, so the
-   markup stays flat enough for the mobile reordering above. */
-@media (min-width: 48em) {
-  .footer { padding: 3.25rem 0 48px; }
-  .footer-inner {
-    width: min(100% - 2 * var(--gutter), var(--container-wide));
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'logo social' 'copy links';
-  }
-  /* The design system draws this rule on a wrapper spanning both cells. Here the
-     cells are siblings, so each draws its half — which only reads as one line if
-     they touch (no column gap) and end at the same height (both stretched, the
-     icons pushed to the bottom of their own box rather than shrinking it). */
-  .footer-logo, .footer .footer-icons {
-    border-bottom: 1px solid #fff; padding-bottom: 32px; margin-bottom: 32px;
-    align-self: stretch;
-  }
-  .footer .footer-icons { justify-content: flex-end; align-items: flex-end; margin-top: 0; padding-left: var(--sp-4); }
-  .footer .footer-lists { text-align: right; margin-top: 0; padding-left: var(--sp-4); }
-  .footer-copyright { margin: 0; font-size: 1rem; align-self: end; }
-}
+@media (min-width: 48em) { .footer .footer-logo__name { font-size: var(--undpds-font-size-24); } }
 
 /* ---------- "learn more" dialogs ---------- */
 /* Geometry from the file's own dialog frames — 158:3620 and 387:27, 387:120,
@@ -1455,10 +1401,10 @@ html.is-modal-open { overflow: hidden; padding-inline-end: var(--scrollbar-gap, 
   .polaroids { margin-block: var(--sp-6) var(--sp-4); }
 }
 
-/* Touch targets. WCAG 2.5.8 asks for 24x24 CSS pixels; the social icons were
-   28x28 and the legal links 23 tall. The boxes grow, the type does not. */
-.footer-icons a { padding: 12px; margin: -12px; }
-.footer-lists a { display: inline-block; padding-block: 0.35rem; }
+/* Touch target. WCAG 2.5.8 asks for 24x24 CSS pixels; the box grows, the type
+   does not. The footer's icons and legal links keep the design system's
+   measures: they are 20px and 22px tall, and clear the bar on spacing — 24px
+   or more between neighbours. */
 .tca { padding-block: 0.5rem 0.6rem; }
 
 @media (max-width: 40rem) {
