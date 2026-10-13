@@ -397,7 +397,7 @@
 .impact__context { font-size: var(--fs-body); max-width: 46rem; }
 @media (min-width: 62rem) {
   .impact__context { margin-inline-start: 23.44%; max-width: 76.56%; }
-  .impact__transition { margin-inline-start: 14.32%; }
+  .impact__transition { margin-inline-start: 14.32%; max-width: 71.3%; }
 }
 .impact__lead {
   position: relative;
@@ -494,8 +494,11 @@
 }
 .impact__transition {
   /* Centred on the column, 821 of the design's 1152 — the margin above is what
-     centres it, the alignment is what the file draws. */
-  font-size: var(--fs-h6); max-width: 71.3%; margin-top: var(--sp-6); text-align: center;
+     centres it, the alignment is what the file draws. Width and margin go
+     together, desktop only: the width alone left the block against the left
+     edge of a phone, with a third of the screen empty on its right. Below
+     62rem it takes the whole column. */
+  font-size: var(--fs-h6); margin-top: var(--sp-6); text-align: center;
 }
 .impact__transition strong { font-weight: 800; }
 
