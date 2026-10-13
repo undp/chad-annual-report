@@ -11,6 +11,9 @@ const fr = existsSync(FR) ? JSON.parse(readFileSync(FR, 'utf8')) : {};
 
 // Keys that carry structure, not copy: they are always taken from en.json.
 const STRUCTURAL = new Set(['id', 'type', 'src', 'value', 'suffix', 'align', 'file', 'image', 'ogImage', 'lang', 'locale', 'dir', 'statsLayout', 'layout', 'figuresColumn', 'size']);
+// Structural, but one per language: the FR report PDF and the FR link-preview
+// image are their own files. A French value already set is kept; EN only fills a gap.
+const PER_LANGUAGE = new Set(['file', 'ogImage']);
 
 function merge(enNode, frNode, key) {
   if (Array.isArray(enNode)) {
@@ -24,6 +27,7 @@ function merge(enNode, frNode, key) {
     return out;
   }
   if (typeof enNode === 'string') {
+    if (PER_LANGUAGE.has(key) && typeof frNode === 'string' && frNode.trim()) return frNode;
     if (STRUCTURAL.has(key)) return enNode;
     return typeof frNode === 'string' ? frNode : '';
   }

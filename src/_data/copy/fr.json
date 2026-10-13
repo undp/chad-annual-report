@@ -730,7 +730,14 @@
           "value": "68",
           "label": ""
         }
-      ]
+      ],
+      "leads": [
+        1
+      ],
+      "wide": true,
+      "split": 2,
+      "figuresColumn": "right",
+      "figureCols": 1
     },
     "trust-3": {
       "body": [
@@ -756,15 +763,21 @@
           "value": "34%",
           "label": ""
         }
-      ]
+      ],
+      "leads": [
+        1
+      ],
+      "wide": true,
+      "split": 1,
+      "figuresColumn": "left",
+      "figureCols": 2
     },
     "health-2": {
       "body": [
         ""
       ],
       "figure": "",
-      "figureLabel": "",
-      "image": ""
+      "figureLabel": ""
     },
     "youth-2": {
       "body": [
@@ -779,10 +792,7 @@
       "body": [
         "",
         ""
-      ],
-      "figure": "",
-      "figureLabel": "",
-      "image": ""
+      ]
     },
     "close": ""
   },
