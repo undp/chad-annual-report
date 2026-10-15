@@ -3,30 +3,30 @@
     "lang": "fr",
     "locale": "fr_FR",
     "dir": "ltr",
-    "title": "",
-    "description": "",
+    "title": "Rapport annuel 2025 | PNUD",
+    "description": "Là où le PNUD a fait la différence en 2025 : résultats au Tchad en matière de gouvernance, climat, stabilisation, santé et jeunesse.",
     "ogImage": "/assets/img/og-fr.jpg",
-    "ogImageAlt": ""
+    "ogImageAlt": "Une femme coiffée d’un foulard turquoise se tient près de barques en bois sur la rive du lac Tchad."
   },
   "header": {
-    "brand": "",
-    "tagline": "",
-    "download": "",
-    "downloadPending": "",
+    "brand": "TCHAD",
+    "tagline": "Rapport annuel 2025",
+    "download": "Télécharger le rapport",
+    "downloadPending": "Le PDF sera disponible lors de la publication du rapport.",
     "languageLabel": "Français",
     "languageSwitch": "",
-    "selectLanguage": "",
-    "menu": "",
-    "back": "",
-    "skipToContent": ""
+    "selectLanguage": "Choisissez votre langue",
+    "menu": "Menu",
+    "back": "Retour",
+    "skipToContent": "Aller au contenu"
   },
   "hero": {
-    "title": "",
+    "title": "Là où le PNUD a fait la différence en 2025",
     "titleLines": [
-      "",
-      "",
-      "",
-      ""
+      "Là où le PNUD",
+      "a fait",
+      "la différence",
+      "en 2025"
     ],
     "intro": "",
     "mapAlt": "",
@@ -51,115 +51,115 @@
       }
     ],
     "paragraphs": [
-      "",
-      ""
+      "En 2025, le Tchad a poursuivi la consolidation de ses institutions et de ses priorités de développement, marquant une nouvelle étape pour le pays.",
+      "Tout au long de l’année, nous avons travaillé avec le Gouvernement, les communautés et les partenaires du développement pour **renforcer les institutions** et **améliorer la vie des communautés les plus vulnérables**."
     ],
-    "scrollHint": ""
+    "scrollHint": "Faire défiler pour explorer"
   },
   "impact": {
-    "context": "",
-    "lead": "",
+    "context": "Entre 2024 et 2025, le Tchad a fait face à des défis économiques, sociaux, climatiques et institutionnels persistants, dans un contexte de forte pression démographique et de besoins élevés en services de base. Le pays dispose aussi d’un potentiel considérable, porté par une population majoritairement jeune et des possibilités de transformation structurelle à consolider.",
+    "lead": "L’avenir du Tchad est façonné par un potentiel immense et des défis considérables.",
     "highlight": {
-      "potential": "",
-      "challenges": ""
+      "potential": "potentiel immense",
+      "challenges": "défis considérables"
     },
     "cues": [
-      "",
-      ""
+      "défis économiques, sociaux, climatiques et institutionnels persistants",
+      "potentiel considérable"
     ],
     "potential": [
       {
-        "label": "",
+        "label": "Une population jeune",
         "value": "53.7%",
-        "note": ""
+        "note": "moins de 15 ans"
       },
       {
-        "label": "",
+        "label": "Une forte scolarisation",
         "value": "92.66%",
         "note": ""
       },
       {
-        "label": "",
+        "label": "Une économie en croissance",
         "value": "4.0%",
-        "note": ""
+        "note": "Croissance du PIB réel"
       }
     ],
     "challenges": [
       {
-        "label": "",
+        "label": "Pauvreté",
         "value": "44.8%",
         "note": ""
       },
       {
-        "label": "",
+        "label": "Accès limité à l’électricité",
         "value": "11%",
         "note": ""
       },
       {
-        "label": "",
+        "label": "Faible taux d'alphabétisation, surtout chez les femmes",
         "value": "48.2%",
         "note": ""
       },
       {
-        "label": "",
+        "label": "Développement humain",
         "value": "0.416",
-        "note": ""
+        "note": "IDH"
       }
     ],
-    "cta": "",
+    "cta": "en savoir plus",
     "stats": [
       {
         "value": "74",
         "suffix": "%",
-        "label": "",
-        "detail": ""
+        "label": "bénéficient de la relance économique",
+        "detail": "grâce aux initiatives de Cash for Work et à la fourniture de matériel agricole et de pêche pour soutenir les moyens de subsistance."
       },
       {
         "value": "68",
         "suffix": "%",
-        "label": "",
-        "detail": ""
+        "label": "déclarent avoir un meilleur accès à la justice",
+        "detail": "grâce à la construction de tribunaux de paix et de postes de gendarmerie, ainsi qu’à la sensibilisation communautaire aux droits humains."
       },
       {
         "value": "63",
         "suffix": "%",
-        "label": "",
-        "detail": ""
+        "label": "des ménages se sentent plus en sécurité",
+        "detail": "grâce au renforcement de la mobilité et de la présence des forces de sécurité et à l’installation de plus de 600 lampadaires solaires."
       },
       {
         "value": "15000",
         "suffix": "+",
-        "label": "",
-        "detail": ""
+        "label": "enfants apprennent dans des écoles plus sûres",
+        "detail": "mieux protégés contre les inondations à N’Djamena, grâce à la **réhabilitation de 10 écoles**, intégrant de meilleurs systèmes d’évacuation des eaux pluviales."
       },
       {
         "value": "2000",
         "suffix": "+",
-        "label": "",
-        "detail": ""
+        "label": "ménages mieux protégés, près de 10 000 personnes",
+        "detail": "grâce au **curage de 9 km de caniveaux**, à l’**installation de 125 mètres de buses** et d’ouvrages de drainage, ainsi qu’à la **distribution de 2 400 poubelles** pour améliorer la gestion des déchets à N’Djamena."
       }
     ],
-    "transition": ""
+    "transition": "Aux côtés du Gouvernement, des autorités locales, des communautés et des partenaires du développement, **nous avons obtenu des résultats qui améliorent la vie des populations à travers le Tchad.**"
   },
   "chapters": [
     {
       "id": "trust",
-      "title": "",
-      "intro": "",
+      "title": "Renforcer la confiance dans les institutions",
+      "intro": "Nous avons soutenu des institutions pour plus de transparence, d’inclusivité et de responsabilité grâce à la transformation numérique, à la décentralisation et à une participation accrue à la vie publique.",
       "blocks": [
         {
           "type": "feature",
-          "heading": "",
-          "body": "",
+          "heading": "Renforcer la transparence et la redevabilité de l’action publique",
+          "body": "Une nouvelle **plateforme numérique** permet de mieux suivre la performance de l’action publique et d’éclairer les décisions.\n\nLes textes législatifs et réglementaires depuis 1954 sont désormais accessibles au public via la **plateforme numérique du Journal officiel**.",
           "highlights": [
-            "",
-            ""
+            "plateforme numérique nationale",
+            "plateforme numérique du Journal officiel"
           ],
-          "cta": "",
+          "cta": "en savoir plus",
           "photos": [
             {
               "src": "/assets/img/trust-01.jpg",
-              "alt": "",
+              "alt": "Une femme portant un foulard jaune prend des notes lors d’une réunion institutionnelle.",
               "rot": 4.85,
               "side": "",
               "w": 1400,
@@ -176,17 +176,17 @@
         },
         {
           "type": "feature",
-          "heading": "",
-          "body": "",
+          "heading": "Les collectivités deviennent des moteurs du développement",
+          "body": "Un séminaire national sur la décentralisation, présidé par le Président de la République, a réuni **plus de 300 participants.**\n\nUne **feuille de route nationale de la décentralisation sur 10 ans** a été adoptée et diffusée dans tout le pays.\n\nUn **cadre national partagé** place désormais les collectivités au cœur du développement.",
           "highlights": [
-            "",
-            "",
-            ""
+            "plus de 300 participants.",
+            "Feuille de route nationale de la décentralisation sur 10 ans",
+            "cadre national partagé"
           ],
           "photos": [
             {
               "src": "/assets/img/trust-02.jpg",
-              "alt": "",
+              "alt": "Une chanteuse en robe rouge se produit sur scène lors d’un événement public.",
               "rot": -5.9,
               "side": "",
               "w": 933,
@@ -204,22 +204,22 @@
         },
         {
           "type": "cards",
-          "heading": "",
+          "heading": "Rendre les institutions plus inclusives",
           "items": [
             {
-              "label": ""
+              "label": "La représentation des femmes a progressé dans les institutions nationales et locales"
             },
             {
-              "label": ""
+              "label": "Des personnes handicapées retrouvent de la mobilité et de l'autonomie grâce à des dispositifs d’assistance"
             },
             {
               "value": "950",
               "suffix": "+",
-              "label": "",
+              "label": "Des détenus ont bénéficié d’une assistance juridique grâce aux audiences foraines",
               "outline": true
             }
           ],
-          "cta": "",
+          "cta": "en savoir plus",
           "layout": "aside",
           "col": 0,
           "span": 253,
@@ -234,16 +234,16 @@
     },
     {
       "id": "crises",
-      "title": "",
-      "intro": "",
+      "title": "Aider les communautés à mieux résister aux crises",
+      "intro": "Dans le bassin du lac Tchad et à l’est du Tchad, nous avons aidé les communautés à renforcer leur résilience en améliorant la sécurité, en rétablissant les services essentiels et en prévenant les conflits.",
       "blocks": [
         {
           "type": "photos",
-          "heading": "",
+          "heading": "Redonner espoir dans le bassin du lac Tchad",
           "photos": [
             {
               "src": "/assets/img/crises-01.jpg",
-              "alt": "",
+              "alt": "Des membres de la communauté en tenue traditionnelle se réunissent autour d’une bannière de canton lors d’un événement local.",
               "rot": 9.39,
               "side": "",
               "w": 1400,
@@ -260,17 +260,17 @@
         },
         {
           "type": "feature",
-          "heading": "",
-          "body": "",
+          "heading": "Soutenir les réfugiés et les communautés hôtes",
+          "body": "3 000 personnes ont désormais **accès à l’eau potable** à Iriba.\n\nÀ Adré, les communautés bénéficient d’un meilleur **accès à l’éducation et aux services communautaires essentiels** grâce à de nouvelles infrastructures publiques.\n\nPlus de 1 000 femmes ont renforcé leurs moyens de subsistance grâce à un **soutien aux activités génératrices de revenus**.",
           "highlights": [
-            "",
-            "",
-            ""
+            "accès à l’eau potable",
+            "accès à l’éducation et aux services communautaires essentiels",
+            "soutien aux activités génératrices de revenus"
           ],
           "photos": [
             {
               "src": "/assets/img/crises-02.jpg",
-              "alt": "",
+              "alt": "Deux femmes se tiennent sur des sacs de céréales dans un point de distribution en milieu désertique.",
               "rot": -5.43,
               "side": "",
               "w": 1400,
@@ -288,18 +288,18 @@
         },
         {
           "type": "counters",
-          "heading": "",
+          "heading": "Prévenir les conflits avant leur escalade",
           "items": [
             {
               "value": "40",
               "suffix": "+",
-              "label": "",
+              "label": "Comités de paix mis en place",
               "outline": true
             },
             {
               "value": "500",
               "suffix": "+",
-              "label": "",
+              "label": "conflits prévenus ou résolus localement",
               "outline": true
             }
           ],
@@ -318,16 +318,16 @@
     },
     {
       "id": "climate",
-      "title": "",
-      "intro": "",
+      "title": "Renforcer la résilience climatique et l’énergie propre",
+      "intro": "De la protection contre les inondations aux énergies renouvelables, nous avons aidé les communautés à s’adapter au changement climatique tout en créant de nouvelles opportunités de subsistance.",
       "blocks": [
         {
           "type": "photos",
-          "heading": "",
+          "heading": "Mieux protégés contre les inondations",
           "photos": [
             {
               "src": "/assets/img/climate-01.jpg",
-              "alt": "",
+              "alt": "Des élèves se rassemblent dans la cour d’une école où flotte le drapeau tchadien.",
               "rot": 9.91,
               "side": "",
               "w": 1400,
@@ -343,21 +343,21 @@
         },
         {
           "type": "counters",
-          "heading": "Transformer l'énergie en opportunités durables",
+          "heading": "Transformer l’énergie propre en opportunités",
           "items": [
             {
               "value": "1200",
-              "label": ""
+              "label": "personnes, dont 500 femmes, ont accès à l’électricité grâce à une mini-centrale solaire"
             },
             {
               "value": "30",
-              "label": ""
+              "label": "des groupements de femmes ont accru leur productivité agricole grâce à des équipements solaires"
             }
           ],
           "photos": [
             {
               "src": "/assets/img/energy-01.jpg",
-              "alt": "",
+              "alt": "Des rangées de panneaux solaires installés dans un paysage aride.",
               "rot": 6.03,
               "side": "",
               "w": 960,
@@ -370,7 +370,7 @@
             },
             {
               "src": "/assets/img/energy-02.jpg",
-              "alt": "",
+              "alt": "Un panneau annonce l’installation d’une mini-centrale solaire dans la province du Chari-Baguirmi.",
               "rot": -2.59,
               "side": "",
               "w": 1280,
@@ -390,21 +390,21 @@
     },
     {
       "id": "health",
-      "title": "",
-      "intro": "",
+      "title": "Améliorer l’accès à des services de santé de qualité",
+      "intro": "Nous avons renforcé les systèmes de santé en améliorant la prévention des maladies, en modernisant les établissements de santé et en accélérant l’innovation numérique.",
       "blocks": [
         {
           "type": "counters",
-          "heading": "",
+          "heading": "Protéger les enfants contre le paludisme",
           "items": [
             {
               "value": "96",
               "suffix": "%",
-              "label": ""
+              "label": "d’enfants âgés de 3 à 59 mois protégés dans les districts ciblés"
             },
             {
               "value": "350000",
-              "label": ""
+              "label": "enfants suivis numériquement via la plateforme DHIS2 pendant la campagne de CPS"
             }
           ],
           "layout": "beside",
@@ -417,17 +417,17 @@
         },
         {
           "type": "feature",
-          "heading": "",
-          "body": "",
+          "heading": "Des établissements de santé mieux équipés pour dispenser des soins",
+          "body": "100 centres de santé et 11 hôpitaux équipés de matériel médical et de chaînes du froid\n\nL’énergie solaire contribue à assurer la continuité des services de santé essentiels",
           "highlights": [
-            ""
+            "L’énergie solaire contribue à assurer la continuité des services de santé essentiels"
           ],
-          "cta": "",
+          "cta": "en savoir plus",
           "rule": true,
           "photos": [
             {
               "src": "/assets/img/health-01.jpg",
-              "alt": "",
+              "alt": "Un agent de santé s’occupe d’une mère et de son enfant dans une salle de consultation.",
               "rot": -3.65,
               "side": "",
               "w": 1400,
@@ -444,15 +444,15 @@
         },
         {
           "type": "feature",
-          "heading": "",
-          "body": "",
+          "heading": "Des systèmes d’approvisionnement en médicaments plus performants",
+          "body": "Chaîne d’approvisionnement pharmaceutique entièrement numérisée\n\nLes outils numériques ont amélioré la gestion des stocks et la distribution des médicaments",
           "highlights": [
-            ""
+            "Les outils numériques ont amélioré la gestion des stocks et la distribution des médicaments"
           ],
           "photos": [
             {
               "src": "/assets/img/health-02.jpg",
-              "alt": "",
+              "alt": "Un agent de santé gère les stocks de médicaments sur un ordinateur portable, à côté de cartons de fournitures.",
               "rot": 4.96,
               "side": "",
               "w": 1400,
@@ -472,31 +472,31 @@
     },
     {
       "id": "youth",
-      "title": "",
-      "intro": "",
+      "title": "Donner aux jeunes les moyens de conduire le changement",
+      "intro": "Nous avons travaillé avec les jeunes pour renforcer leurs compétences numériques, nourrir le dialogue public et contribuer à l’avenir du Sahel.",
       "blocks": [
         {
           "type": "cards",
-          "heading": "",
+          "heading": "Les jeunes façonnent le dialogue régional",
           "items": [
             {
               "value": "1000",
               "suffix": "+",
-              "label": "",
+              "label": "jeunes réunis à N’Djamena pour la deuxième édition du Forum YouthConnekt Sahel",
               "outline": true
             },
             {
-              "title": "",
-              "label": ""
+              "title": "Dialogue direct",
+              "label": "entre les jeunes et les décideurs nationaux et régionaux"
             },
             {
-              "title": ""
+              "title": "Pacte Jeunesse Sahel 2025–2030 adopté"
             }
           ],
           "photos": [
             {
               "src": "/assets/img/youth-01.jpg",
-              "alt": "",
+              "alt": "Une jeune femme tient un cadre photo YouthConnekt Sahel portant l’inscription « J’y étais ».",
               "rot": 7.9,
               "side": "",
               "w": 933,
@@ -528,20 +528,20 @@
         },
         {
           "type": "counters",
-          "heading": "",
+          "heading": "Développer les compétences numériques de demain",
           "items": [
             {
               "value": "7",
-              "label": "",
+              "label": "jeunes innovateurs tchadiens formés aux applications pratiques de l’IA en Guinée",
               "outline": true
             },
             {
               "value": "5",
-              "label": "",
+              "label": "jeunes Tchadiens certifiés en cybersécurité grâce à l’initiative Tech4Peace au Sénégal",
               "outline": true
             }
           ],
-          "cta": "",
+          "cta": "en savoir plus",
           "layout": "columns",
           "col": 0,
           "span": 841,
@@ -562,34 +562,34 @@
     }
   ],
   "priorities": {
-    "title": "",
+    "title": "Forts de ces résultats, nous sommes prêts à amplifier l’impact.",
     "items": [
       {
-        "title": "",
-        "body": ""
+        "title": "Gouvernance, développement local et justice",
+        "body": "Mettre la décentralisation en action, renforcer les institutions locales et élargir l’accès à la justice."
       },
       {
-        "title": "",
-        "body": ""
+        "title": "Stabilisation et cohésion sociale",
+        "body": "S’appuyer sur les progrès réalisés en matière de stabilisation tout en renforçant la résilience, la cohésion sociale et le soutien aux réfugiés et aux communautés hôtes."
       },
       {
-        "title": "",
-        "body": ""
+        "title": "Climat, énergie et croissance inclusive",
+        "body": "Accélérer l’action climatique, développer les énergies propres et créer des opportunités économiques plus inclusives, avec les femmes au cœur des solutions."
       },
       {
-        "title": "",
-        "body": ""
+        "title": "Jeunesse et innovation",
+        "body": "Créer des opportunités pour permettre aux jeunes de renforcer leurs compétences numériques, de stimuler l’innovation et de façonner l’avenir du Tchad."
       }
     ],
     "rule": true
   },
   "closing": {
-    "body": "",
-    "cta": "",
+    "body": "**Voilà à quoi ressemble une transformation durable :** travailler aux côtés du Gouvernement, des collectivités locales, des partenaires du développement, de la société civile et du secteur privé. **Ensemble.**\n\n**Pour que les femmes, les hommes et les communautés puissent façonner leur propre avenir.**",
+    "cta": "en savoir plus",
     "photos": [
       {
         "src": "/assets/img/youth-02.jpg",
-        "alt": "",
+        "alt": "Des femmes en vêtements aux couleurs vives se réunissent lors d’un événement communautaire dans la province du Lac.",
         "rot": -11.61,
         "side": "",
         "w": 1400,
@@ -603,97 +603,97 @@
     ]
   },
   "footer": {
-    "kicker": "",
-    "cta": "",
+    "kicker": "découvrir toute l’histoire",
+    "cta": "télécharger le rapport annuel 2025 du PNUD Tchad",
     "file": "/assets/files/rapport-annuel-pnud-tchad-2025-fr.pdf",
     "copyright": ""
   },
   "modals": {
     "indicators": {
-      "title": "",
+      "title": "Principaux indicateurs de développement (2024–2025)",
       "groups": [
         {
           "column": 1,
-          "name": "",
+          "name": "Population et territoire",
           "rows": [
             {
-              "label": "",
+              "label": "Superficie",
               "value": "1 284 000 km²"
             },
             {
-              "label": "",
+              "label": "Population totale",
               "value": "19.3 million"
             }
           ]
         },
         {
           "column": 1,
-          "name": "",
+          "name": "Économie",
           "rows": [
             {
-              "label": "",
+              "label": "PIB par habitant",
               "value": "CFAF 616 645"
             },
             {
-              "label": "",
+              "label": "Taux d’inflation",
               "value": "4.1%"
             }
           ]
         },
         {
           "column": 1,
-          "name": "",
+          "name": "Éducation",
           "rows": [
             {
-              "label": "",
+              "label": "Scolarisation au primaire, filles",
               "value": "85.42%"
             },
             {
-              "label": "",
+              "label": "Scolarisation au primaire, garçons",
               "value": "99.84%"
             },
             {
-              "label": "",
+              "label": "Provinces au-dessus de la moyenne nationale de scolarisation",
               "value": "8 of 23"
             }
           ]
         },
         {
           "column": 2,
-          "name": "",
+          "name": "Accès aux services et à la santé",
           "rows": [
             {
-              "label": "",
+              "label": "Espérance de vie à la naissance",
               "value": "55 years"
             },
             {
-              "label": "",
+              "label": "Nombre d’habitants par médecin",
               "value": "24,188"
             },
             {
-              "label": "",
+              "label": "Distance moyenne vers un centre de santé",
               "value": "15 km"
             },
             {
-              "label": "",
+              "label": "Distance moyenne vers un hôpital",
               "value": "60 km"
             }
           ]
         },
         {
           "column": 2,
-          "name": "",
+          "name": "Emploi",
           "rows": [
             {
-              "label": "",
+              "label": "Taux d’emploi",
               "value": "48.4%"
             },
             {
-              "label": "",
+              "label": "Taux de chômage (BIT)",
               "value": "3.08%"
             },
             {
-              "label": "",
+              "label": "Taux de chômage au sens élargi",
               "value": "23.3%"
             }
           ]
@@ -701,14 +701,14 @@
         {
           "column": 3,
           "figures": true,
-          "name": "",
+          "name": "Développement humain et genre",
           "rows": [
             {
-              "label": "",
+              "label": "Indice de développement humain (IDH)",
               "value": "0.416"
             },
             {
-              "label": "",
+              "label": "Indice de développement du genre (IDG)",
               "value": "0.787"
             }
           ]
@@ -717,18 +717,18 @@
     },
     "trust-1": {
       "body": [
-        "",
-        "",
-        ""
+        "Pour la première fois, la performance du Gouvernement est suivie grâce à un système numérique structuré, permettant des décisions mieux éclairées à partir de données en temps réel.",
+        "Cette avancée est rendue possible par une plateforme numérique gérée par le Secrétariat général du Gouvernement, qui centralise les données de performance et appuie la prise de décision fondée sur les données au plus haut niveau.",
+        "Les citoyens et les institutions publiques peuvent désormais consulter le Journal officiel du Tchad et les textes juridiques depuis 1954 grâce à une plateforme numérique dédiée."
       ],
       "figures": [
         {
           "value": "500,000",
-          "label": ""
+          "label": "documents officiels numérisés et accessibles au public"
         },
         {
           "value": "68",
-          "label": ""
+          "label": "ans de mémoire institutionnelle désormais accessibles via la plateforme numérique du Journal officiel"
         }
       ],
       "leads": [
@@ -741,27 +741,27 @@
     },
     "trust-3": {
       "body": [
-        "",
-        "",
-        "",
-        ""
+        "Les élections législatives et locales de décembre 2024 ont marqué le retour du Tchad à l’ordre constitutionnel, lequel s'est accompagné d'une amélioration significative de la représentation des femmes dans les institutions.",
+        "Nous avons soutenu les institutions nationales et locales dans la promotion des droits des personnes handicapées.",
+        "Dans le Hadjer Lamis, 100 personnes handicapées ont reçu des équipements de mobilité, notamment des fauteuils roulants et des cannes, les aidant à retrouver mobilité, autonomie et dignité.",
+        "Les audiences foraines ont réduit de 10 % la surpopulation carcérale et permis à 956 détenus, dont des femmes et des mineurs, de bénéficier d’une assistance juridique. Quatre établissements pénitentiaires ont été dotés de nouvelles infrastructures hydrauliques, améliorant l’hygiène, la santé et les conditions générales de détention."
       ],
       "figures": [
         {
           "value": "27%",
-          "label": ""
+          "label": "femmes dans les conseils provinciaux"
         },
         {
           "value": "34%",
-          "label": ""
+          "label": "à l’Assemblée nationale"
         },
         {
           "value": "37.7%",
-          "label": ""
+          "label": "au Sénat"
         },
         {
           "value": "34%",
-          "label": ""
+          "label": "dans les conseils communaux"
         }
       ],
       "leads": [
@@ -774,45 +774,45 @@
     },
     "health-2": {
       "body": [
-        ""
+        "Les établissements de santé ont été renforcés grâce à la fourniture de matériel médical, de chaînes du froid et de solutions solaires, améliorant la qualité et la continuité des services essentiels, notamment dans les zones reculées."
       ],
-      "figure": "",
-      "figureLabel": ""
+      "figure": "Plus de 500",
+      "figureLabel": "techniciens biomédicaux ont également été formés à l’utilisation et à la maintenance des équipements, renforçant les capacités locales, la durabilité à long terme et l’appropriation nationale."
     },
     "youth-2": {
       "body": [
-        ""
+        "Grâce à un bootcamp intensif d’un mois sur l’IA en Guinée et à un programme spécialisé de cybersécurité au Sénégal, de jeunes Tchadiens ont renforcé leurs compétences numériques pratiques aux côtés de pairs de toute l’Afrique francophone, contribuant à préparer une nouvelle génération d’innovateurs numériques."
       ],
       "figure": "",
       "figureLabel": "",
       "image": "/assets/img/youth-panel.jpg",
-      "imageAlt": ""
+      "imageAlt": "De jeunes Tchadiens lors du rassemblement YouthConnekt Sahel, 2025"
     },
     "closing": {
       "body": [
-        "",
-        ""
+        "Derrière chaque résultat présenté dans ce rapport, il y a des partenariats solides, un engagement partagé et une action collective. Aux côtés du Gouvernement et de partenaires bilatéraux et multilatéraux, le PNUD contribue à élargir les opportunités, à atteindre les communautés les plus vulnérables et à faire progresser le développement durable au Tchad.",
+        "**Nos partenaires comprennent :** la Banque africaine de développement, l’Union européenne, la France, le Fonds pour l’environnement mondial, le Fonds mondial, l’Allemagne, la Banque islamique de développement, le Japon, les Pays-Bas, la Slovénie, la Suède, la Suisse, le Royaume-Uni, le Fonds des Nations Unies pour la consolidation de la paix, les Funding Windows du PNUD et la Banque mondiale."
       ]
     },
-    "close": ""
+    "close": "Fermer"
   },
   "undpFooter": {
     "brandLine1": "Programme des Nations Unies",
     "brandLine2": "pour le développement",
     "logoAlt": "Programme des Nations Unies pour le développement",
-    "socialLabel": "",
+    "socialLabel": "Le PNUD sur les réseaux sociaux",
     "links": [
       {
-        "label": ""
+        "label": "Signaler une fraude, un abus ou une faute"
       },
       {
-        "label": ""
+        "label": "Déposer une plainte sociale ou environnementale"
       },
       {
-        "label": ""
+        "label": "Alerte aux escroqueries"
       },
       {
-        "label": ""
+        "label": "Conditions d’utilisation"
       }
     ],
     "copyright": "© Programme des Nations Unies pour le développement"

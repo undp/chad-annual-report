@@ -401,7 +401,13 @@
 }
 .impact__lead {
   position: relative;
-  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3);
+  font-family: var(--font-display); font-weight: 700;
+  /* `--lead-chars` is the sentence's longest word, full stop included, as the
+     template will set it. A word wider than the phone is the one thing a line
+     break cannot fix — the French "CONSIDÉRABLES." runs 361px on a 320px
+     screen at the heading size — so the type gives way first, on the same
+     0.8em-a-letter measure as the hero. English, at 11 letters, never hits it. */
+  font-size: min(var(--fs-h3), (100vw - 2 * var(--gutter)) / (var(--lead-chars, 1) * 0.8));
   /* The file's 149px box holds three lines of 55px trimmed to cap and
      baseline — 55 + 55 + 39 of cap height — so the leading there is 55, and
      the outline's edges, 8px outside the caps, meet in the 16px between one

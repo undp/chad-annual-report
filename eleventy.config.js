@@ -29,6 +29,22 @@ export default function (eleventyConfig) {
     return (prefix.replace(/\/$/, '') + path) + '?v=' + assetHash.get(path);
   });
 
+  // Static figures are written in English notation in en.json and never reach
+  // the translator. The French page sets them the French way: decimal comma,
+  // narrow no-break space between thousands, "millions" in the plural, and the
+  // three units written inside a value (CFA francs, years, "8 of 23"). The
+  // animated counters get the same from toLocaleString in counter.js.
+  eleventyConfig.addFilter('num', function (value, lang) {
+    if (lang !== 'fr' || typeof value !== 'string') return value;
+    return value
+      .replace(/(\d),(?=\d{3}\b)/g, '$1 ')
+      .replace(/(\d)\.(?=\d)/g, '$1,')
+      .replace(/\bmillion\b/, (m) => (parseFloat(value) >= 2 ? 'millions' : m))
+      .replace(/^CFAF (.+)$/, '$1 FCFA')
+      .replace(/^(\d+) years$/, '$1 ans')
+      .replace(/^(\d+) of (\d+)$/, '$1 sur $2');
+  });
+
   eleventyConfig.addFilter('t', function (value, fallback) {
     if (value === undefined || value === null || value === '') return fallback ?? '';
     return value;
@@ -56,6 +72,12 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter('maxLen', function (list) {
     return (list ?? []).reduce((n, s) => Math.max(n, String(s ?? '').length), 0);
+  });
+
+  // Longest word of a sentence, punctuation included: the unit a line break
+  // cannot split. The opening sentence sizes its type against it.
+  eleventyConfig.addFilter('longestWord', function (value) {
+    return String(value ?? '').split(/\s+/).reduce((n, w) => Math.max(n, w.length), 0);
   });
 
   // How wide a figure is, in ems of its own font size. A card sets its numeral

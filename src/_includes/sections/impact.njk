@@ -37,7 +37,7 @@
           under it, at 415px — which is what leaves the left margin free for the
           outline of Chad. Reversed, as this was, the silhouette lands on the
           headline instead of beside the paragraph. #}
-      <p class="impact__lead" id="impact-lead">
+      <p class="impact__lead" id="impact-lead" style="--lead-chars:{{ c.impact.lead | t(en.impact.lead) | longestWord }}">
         {%- if site.components -%}
         {{ (c.impact.lead | t(en.impact.lead)) | markHalves(hl) | safe }}
         {%- else -%}
@@ -75,7 +75,7 @@
         {%- set t = tr[loop.index0] if tr else null %}
         <div class="indicator" style="--i: {{ loop.index0 }}">
           <span class="indicator__label">{{ (t.label if t else null) | t(card.label) }}</span>
-          <span class="indicator__value">{{ card.value }}</span>
+          <span class="indicator__value">{{ card.value | num(lang) }}</span>
           {%- if card.note %}
           <span class="indicator__note">{{ (t.note if t else null) | t(card.note) }}</span>
           {%- endif %}

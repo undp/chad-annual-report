@@ -35,7 +35,7 @@
   {%- if loop.index0 > 0 and loop.index0 % cols == 0 %}<hr class="modal__rule">{% endif %}
   {%- set trf = tr.figures[loop.index0] if tr.figures else null %}
   <p class="modal__figure">
-    <span class="modal__figure-value">{{ f.value }}</span>
+    <span class="modal__figure-value">{{ f.value | num(lang) }}</span>
     <span class="modal__figure-label">{{ (trf.label if trf else null) | t(f.label) }}</span>
   </p>
   {%- endfor %}
@@ -128,7 +128,7 @@
           {%- for row in g.rows %}
           {%- set trr = trg.rows[loop.index0] if trg and trg.rows else null %}
           <p class="modal__stat">
-            <span class="modal__stat-value">{{ row.value }}</span>
+            <span class="modal__stat-value">{{ row.value | num(lang) }}</span>
             <span class="modal__stat-label">{{ (trr.label if trr else null) | t(row.label) }}</span>
           </p>
           {%- endfor %}
@@ -141,7 +141,7 @@
             {%- set trr = trg.rows[loop.index0] if trg and trg.rows else null %}
             <tr>
               <th scope="row">{{ (trr.label if trr else null) | t(row.label) }}</th>
-              <td>{{ row.value }}</td>
+              <td>{{ row.value | num(lang) }}</td>
             </tr>
             {%- endfor %}
           </tbody>
