@@ -168,7 +168,9 @@ if (cmd === 'export') {
   let filled = 0, unknown = [];
   for (const row of rows) {
     const key = row[iKey]?.trim();
-    const value = (row[iFr] ?? '').trim();
+    /* French sets a narrow no-break space before the percent sign; whatever
+       the translator typed — a space, a no-break space or none — lands as one. */
+    const value = (row[iFr] ?? '').trim().replace(/(\d)[ \u00A0]?%/g, '$1\u202F%');
     if (!key || !value) continue;
     if (setAt(fr, key, value)) filled++; else unknown.push(key);
   }

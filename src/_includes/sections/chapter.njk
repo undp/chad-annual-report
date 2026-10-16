@@ -52,9 +52,9 @@ block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b
   {%- for i in refs %}
   {%- set enS = en.impact.stats[i] %}
   {%- set trS = c.impact.stats[i] if c.impact.stats else none %}
-  <li class="stat" style="--fig-em:{{ enS.value | figureWidth(enS.suffix) }}">
+  <li class="stat" style="--fig-em:{{ enS.value | figureWidth(enS.suffix, lang) }}">
     <button class="stat__toggle" type="button" aria-expanded="false" aria-controls="stat-{{ i }}">
-      <span class="stat__value" data-counter="{{ enS.value }}" data-suffix="{{ enS.suffix }}">{{ enS.value }}{{ enS.suffix }}</span>
+      <span class="stat__value" data-counter="{{ enS.value }}" data-suffix="{{ enS.suffix | num(lang) }}">{{ (enS.value ~ (enS.suffix or '')) | num(lang) }}</span>
       <span class="stat__label">{{ (trS.label if trS else '') | t(enS.label) }}</span>
       <svg class="stat__chevron" viewBox="0 0 24 14" width="24" height="14" aria-hidden="true" focusable="false">
         <path d="M2 2 12 12 22 2" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="square"/>
@@ -105,8 +105,8 @@ block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b
       <ul class="counters" role="list">
       {%- for it in enB.items %}
       {%- set colG = enB.cols[loop.index0] if enB.cols else none %}
-      <li class="counter{% if it.outline %} counter--outline{% endif %}" style="--fig-em:{{ it.value | figureWidth(it.suffix) }};{% if colG %}--track:{{ loop.index * 2 - 1 }};{% endif %}">
-        <span class="counter__value" data-counter="{{ it.value }}" data-suffix="{{ it.suffix }}">{{ it.value }}{{ it.suffix }}</span>
+      <li class="counter{% if it.outline %} counter--outline{% endif %}" style="--fig-em:{{ it.value | figureWidth(it.suffix, lang) }};{% if colG %}--track:{{ loop.index * 2 - 1 }};{% endif %}">
+        <span class="counter__value" data-counter="{{ it.value }}" data-suffix="{{ it.suffix | num(lang) }}">{{ (it.value ~ (it.suffix or '')) | num(lang) }}</span>
         <span class="counter__label">{{ b.items[loop.index0].label | t(it.label) }}</span>
       </li>
       {%- endfor %}
@@ -122,8 +122,8 @@ block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b
       <ul class="cards" role="list">
       {%- for it in enB.items %}
       {%- set colG = enB.cols[loop.index0] if enB.cols else none %}
-      <li class="card{% if it.outline %} card--outline{% endif %}{% if not it.value and not it.label %} card--bare{% endif %}" style="{% if it.value %}--fig-em:{{ it.value | figureWidth(it.suffix) }};{% endif %}{% if colG %}--track:{{ loop.index * 2 - 1 }};{% endif %}">
-        {%- if it.value %}<span class="card__value" data-counter="{{ it.value }}" data-suffix="{{ it.suffix }}">{{ it.value }}{{ it.suffix }}</span>{% endif %}
+      <li class="card{% if it.outline %} card--outline{% endif %}{% if not it.value and not it.label %} card--bare{% endif %}" style="{% if it.value %}--fig-em:{{ it.value | figureWidth(it.suffix, lang) }};{% endif %}{% if colG %}--track:{{ loop.index * 2 - 1 }};{% endif %}">
+        {%- if it.value %}<span class="card__value" data-counter="{{ it.value }}" data-suffix="{{ it.suffix | num(lang) }}">{{ (it.value ~ (it.suffix or '')) | num(lang) }}</span>{% endif %}
         {%- if it.title %}<span class="card__title">{{ b.items[loop.index0].title | t(it.title) }}</span>{% endif %}
         {%- if it.label %}<span class="card__label">{{ b.items[loop.index0].label | t(it.label) }}</span>{% endif %}
       </li>

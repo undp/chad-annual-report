@@ -34,16 +34,22 @@ export default function (eleventyConfig) {
   // narrow no-break space between thousands, "millions" in the plural, and the
   // three units written inside a value (CFA francs, years, "8 of 23"). The
   // animated counters get the same from toLocaleString in counter.js.
-  eleventyConfig.addFilter('num', function (value, lang) {
-    if (lang !== 'fr' || typeof value !== 'string') return value;
-    return value
+  // The percent sign takes a narrow no-break space after its number in both
+  // languages ("53,7 %", "53.7 %"); a bare "%" is a counter's suffix and gets
+  // it too.
+  const pct = (value) => value.replace(/(\d|^)[ \u00A0]?%/g, '$1\u202F%');
+  const num = (value, lang) => {
+    if (typeof value !== 'string') return value;
+    if (lang !== 'fr') return pct(value);
+    return pct(value
       .replace(/(\d),(?=\d{3}\b)/g, '$1 ')
       .replace(/(\d)\.(?=\d)/g, '$1,')
       .replace(/\bmillion\b/, (m) => (parseFloat(value) >= 2 ? 'millions' : m))
       .replace(/^CFAF (.+)$/, '$1 FCFA')
       .replace(/^(\d+) years$/, '$1 ans')
-      .replace(/^(\d+) of (\d+)$/, '$1 sur $2');
-  });
+      .replace(/^(\d+) of (\d+)$/, '$1 sur $2'));
+  };
+  eleventyConfig.addFilter('num', num);
 
   eleventyConfig.addFilter('t', function (value, fallback) {
     if (value === undefined || value === null || value === '') return fallback ?? '';
@@ -84,12 +90,18 @@ export default function (eleventyConfig) {
   // from its own width, so the cap has to be the real advance width: "1,200" is
   // narrower than "96%" despite having more characters, because the 1 and the
   // comma are narrow. The table is Söhne Breit Fett's own advances, measured in
-  // the browser; the 1.5% allowance covers kerning between pairs.
+  // the browser; the 1.5% allowance covers kerning between pairs. Söhne Breit
+  // has no narrow no-break space, the one both languages put before "%" and
+  // French between thousands: Chrome draws it at half Söhne's space (0.144em),
+  // a browser that borrows it from the next font in the stack gets Proxima
+  // Nova Bold's 0.216em.
+  // The table takes the wider, so the figure fits either way.
   const SB_ADVANCE = { '0': 0.867, '1': 0.489, '2': 0.77, '3': 0.809, '4': 0.83, '5': 0.774,
-    '6': 0.828, '7': 0.775, '8': 0.819, '9': 0.828, ',': 0.276, '.': 0.276, '+': 0.8, '%': 0.986 };
-  eleventyConfig.addFilter('figureWidth', function (value, suffix) {
+    '6': 0.828, '7': 0.775, '8': 0.819, '9': 0.828, ',': 0.276, '.': 0.276, '+': 0.8, '%': 0.986,
+    '\u202F': 0.216 };
+  eleventyConfig.addFilter('figureWidth', function (value, suffix, lang) {
     const n = Number(value);
-    const shown = (Number.isFinite(n) ? n.toLocaleString('en-US') : String(value ?? '')) + String(suffix ?? '');
+    const shown = num((Number.isFinite(n) ? n.toLocaleString('en-US') : String(value ?? '')) + String(suffix ?? ''), lang);
     const em = [...shown].reduce((w, ch) => w + (SB_ADVANCE[ch] ?? 0.83), 0);
     return Math.round(em * 101.5) / 100;
   });
