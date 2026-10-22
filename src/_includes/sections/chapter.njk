@@ -24,9 +24,9 @@ block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b
 
 {%- macro polaroids(enPhotos, trPhotos) %}
 {%- if enPhotos %}
-<div class="polaroids polaroids--{{ enPhotos[0].side }}{% if enPhotos | length > 1 %} polaroids--stacked{% endif %}{% if enPhotos[0].col is defined %} polaroids--placed{% endif %}">
+<div class="polaroids polaroids--{{ enPhotos[0].side }}{% if enPhotos | length > 1 %} polaroids--stacked{% endif %}{% if enPhotos[0].dy is defined %} polaroids--placed{% endif %}">
   {%- for p in enPhotos %}
-  <figure class="polaroid polaroid--{{ p.side }}" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }};{% if p.col is defined %}--p-col:{{ p.col }};--p-dy:{{ p.dy }};--p-by:{{ p.by }};--p-bh:{{ p.bh }};{% endif %}"
+  <figure class="polaroid polaroid--{{ p.side }}" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }};{% if p.dy is defined %}--p-col:{{ p.col }};--p-dy:{{ p.dy }};--p-by:{{ p.by }};--p-bh:{{ p.bh }};{% endif %}{% if p.travel %}--travel:{{ p.travel }};{% endif %}"
           data-parallax="stack">
     <div class="polaroid__frame">
       <picture>
@@ -74,6 +74,23 @@ block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b
     <div class="chapter__band" aria-hidden="true"></div>
     <div class="chapter__intro-text">
       <h2 class="chapter__title" id="ch-{{ enCh.id }}-title">{{ ch.title | t(enCh.title) }}</h2>
+      {#- Two bands carry a print of their own (October 2026 debrief): under the
+          title, left of the paragraph, hanging past the band's lower edge.
+          `col`, `fw`, `top` (from the title) and `hang` are artboard px, like
+          the block prints. It comes before the paragraph so it can float
+          beside it; on a phone the CSS moves it after. #}
+      {%- if enCh.photo %}{% set p = enCh.photo %}
+      <figure class="polaroid chapter__photo" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }};--p-col:{{ p.col }};--top:{{ p.top }};--hang:{{ p.hang }};--travel:4;"
+              data-parallax="stack">
+        <div class="polaroid__frame">
+          <picture>
+            <source srcset="{{ (p.src | replace('.jpg', '.webp')) | asset }}" type="image/webp">
+            <img src="{{ p.src | asset }}" width="{{ p.w }}" height="{{ p.h }}"
+                 alt="{{ ch.photo.alt | t(p.alt) }}" loading="lazy" decoding="async">
+          </picture>
+        </div>
+      </figure>
+      {%- endif %}
       <p class="chapter__lead" data-anim="text-reveal">{{ ch.intro | t(enCh.intro) }}</p>
     </div>
   </div>
@@ -89,11 +106,21 @@ block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b
       {#- The file sets these bodies as separate paragraphs with Extrabold runs,
           and the docx carries the same breaks and the same bold: both travel as
           blank lines and **asterisks**, so the translator edits plain text. #}
+      {#- `list` sets the same paragraphs as bullets (the two health blocks, at
+          HQ's request): the copy keeps its blank lines, only the markup changes. #}
+      {%- if enB.list %}
+      <ul class="block__body block__body--list" data-anim="text-reveal">
+        {%- for para in (b.body | t(enB.body)).split('\n\n') %}
+        <li>{{ para | emph | safe }}</li>
+        {%- endfor %}
+      </ul>
+      {%- else %}
       <div class="block__body" data-anim="text-reveal">
         {%- for para in (b.body | t(enB.body)).split('\n\n') %}
         <p>{{ para | emph | safe }}</p>
         {%- endfor %}
       </div>
+      {%- endif %}
       {%- if enB.cta %}{{ modal.trigger(blockId, b.cta | t(enB.cta)) }}{{ modal.dialog(blockId, b.heading | t(enB.heading)) }}{% endif %}
     </div>
     {{ polaroids(enB.photos, b.photos) }}
@@ -112,8 +139,12 @@ block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b
       {%- endfor %}
       </ul>
       {%- if enB.cta %}{{ modal.trigger(blockId, b.cta | t(enB.cta)) }}{{ modal.dialog(blockId, b.heading | t(enB.heading)) }}{% endif %}
+      {#- Beside the figures the print sits under the title, in the title's
+          column: in the grid, so a title that runs longer pushes it down
+          instead of meeting it. #}
+      {%- if enB.layout == "beside" %}{{ polaroids(enB.photos, b.photos) }}{% endif %}
     </div>
-    {{ polaroids(enB.photos, b.photos) }}
+    {%- if enB.layout != "beside" %}{{ polaroids(enB.photos, b.photos) }}{% endif %}
   </div>
   {%- elif enB.type == "cards" %}
   <div class="{{ blockClass(enB, 'cards') }}" style="{{ geom(enB) }}" data-anim="reveal">

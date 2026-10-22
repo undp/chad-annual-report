@@ -737,6 +737,41 @@
   .chapter__lead { margin-inline-start: 23.52%; max-width: 71.18%; }
 }
 
+/* The print in the health and youth bands (October 2026 debrief): under the
+   title, left of the paragraph, hanging past the band's lower edge into the
+   100px over the next title. It floats, so the band grows to hold it when it is
+   deeper than the paragraph; the negative bottom margin is the hang plus the
+   band's own bottom padding. `--art` is one artboard px of the column, as in
+   the blocks. Its right edge is where the file puts it, clear of the
+   paragraph's 415px indent; its left edge gives way to the window, so below
+   the 1440 artboard the print narrows instead of running off the page. Its
+   parallax travel is held to 4% of its height (`--travel`), less than the air
+   over it, so it never climbs onto the title. */
+.chapter__intro:has(.chapter__photo) { overflow: visible; }
+@media (min-width: 62rem) {
+  .chapter__intro-text:has(.chapter__photo) { container-type: inline-size; }
+  .chapter__intro .chapter__photo {
+    --art: calc(100cqw / 1152);
+    --right: calc((var(--p-col) + var(--fw)) * var(--art));
+    --w: min(calc(var(--fw) * var(--art)), calc(var(--right) + (100vw - 100%) / 2 - 1.5rem));
+    float: left; max-inline-size: none; inline-size: var(--w);
+    margin-inline: calc(var(--right) - var(--w)) 0;
+    margin-block: calc(var(--top) * var(--art) - max(var(--sp-4), 6.94vw))
+                  calc(-1 * (max(var(--sp-5), 7.43vw) + var(--hang) * var(--art)));
+  }
+}
+/* On a phone the print follows the paragraph and the band stops short of its
+   foot, so it still reads as hanging off the band. */
+@media (max-width: 61.99rem) {
+  .chapter__intro-text:has(.chapter__photo) {
+    display: flex; flex-direction: column; padding-block-end: var(--sp-4);
+  }
+  .chapter__intro .chapter__photo {
+    order: 1; align-self: flex-start; inline-size: min(78%, 24rem); margin: var(--sp-5) 0 0;
+  }
+  .chapter__intro:has(.chapter__photo) .chapter__band { inset-block-end: calc(var(--sp-4) + 2.5rem); }
+}
+
 /* Every block is a size container: `--art` is one px of the 1440 artboard as a
    share of the block's own width, and it is what turns the file's numbers into
    layout — usable by the children for widths and vertical offsets alike (a
@@ -766,6 +801,10 @@
 /* Paragraphs inside a body: 21.5px apart at 20px in the file, 1.075em. */
 .block__body p { margin: 0; }
 .block__body p + p { margin-top: 1.075em; }
+/* Bulleted bodies (the two health blocks): the paragraphs' spacing, native
+   markers so the list keeps its semantics in every screen reader. */
+.block__body--list { margin: 0; padding-inline-start: 1.2em; list-style: disc; }
+.block__body--list li + li { margin-top: 1.075em; }
 
 /* The yellow hairline the file draws between blocks: 1240 wide on the 1440
    artboard, so 100px in from each edge — wider than the 1152 column the text
@@ -871,6 +910,19 @@
   }
   .block--beside .block__heading { grid-column: 1; margin-bottom: 0; }
   .block--beside .counters { grid-column: 2; grid-row: 1; margin-block: 0; grid-template-columns: minmax(0, 1fr); gap: var(--sp-5); }
+  /* The print under the title (October 2026 debrief): 50px below it, from
+     x=-77 and 518 wide on the artboard, running 60px past the hairline under
+     the block, as the other prints cross theirs. Its parallax
+     travel is held to 4% of its height, under the air above it. */
+  .block--beside:has(.polaroids) { display: block; }
+  .block--beside:has(.polaroids) .block__text { grid-template-rows: auto 1fr; }
+  .block--beside:has(.polaroids) .counters { grid-row: 1 / span 2; }
+  .block--beside .polaroids {
+    grid-column: 1; grid-row: 2; display: block;
+    inline-size: calc(var(--p-fw) * var(--art));
+    margin: calc(50 * var(--art)) 0 calc(-1 * (var(--pad-top) + 60 * var(--art))) calc(var(--p-col) * var(--art));
+  }
+  .block--beside .polaroids .polaroid { inline-size: 100%; margin: 0; }
 }
 
 /* Columns side by side ("Young people shaping regional dialogue", "Building
@@ -1018,6 +1070,21 @@
     inset-inline-start: -14.9%; inset-block-start: -11.35vw; z-index: 0;
   }
   .block--photos-stats .block__split { position: relative; z-index: 1; }
+  /* Since the October 2026 debrief chapter 3 opens on two prints: the aerial
+     view takes the school's place on the left, and the school moves right,
+     over the band's lower edge and clear of the cards. Each print is placed on
+     its own, so the stack is a zero-height layer across the block. The right
+     one keeps 1.5rem from the window rather than running off it. */
+  .block--photos-stats:has(.block__split) .polaroids--stacked {
+    inset-inline-start: 0; inset-block-start: 0; inline-size: 100%; block-size: 0;
+  }
+  .block--photos-stats:has(.block__split) .polaroids--stacked .polaroid {
+    position: absolute; margin: 0; inset-inline-start: -14.9%; inset-block-start: -11.35vw;
+  }
+  .block--photos-stats:has(.block__split) .polaroids--stacked .polaroid + .polaroid {
+    inset-inline-start: auto; inset-inline-end: max(-13.8%, calc((100% - 100vw) / 2 + 1.5rem));
+    inset-block-start: -6.6vw; z-index: 1;
+  }
 }
 @media (max-width: 61.99rem) {
   .statcards--row, .statcards--beside { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }

@@ -74,7 +74,7 @@
         "note": "moins de 15 ans"
       },
       {
-        "label": "Une forte scolarisation",
+        "label": "Élèves scolarisés au primaire",
         "value": "92.66%",
         "note": ""
       },
@@ -86,7 +86,7 @@
     ],
     "challenges": [
       {
-        "label": "Pauvreté",
+        "label": "Taux de pauvreté",
         "value": "44.8%",
         "note": ""
       },
@@ -186,16 +186,16 @@
           "photos": [
             {
               "src": "/assets/img/trust-02.jpg",
-              "alt": "Une chanteuse en robe rouge se produit sur scène lors d’un événement public.",
+              "alt": "Des élus portant l’écharpe aux couleurs nationales sont assis aux premiers rangs d’une salle de conférence.",
               "rot": -5.9,
               "side": "",
-              "w": 933,
-              "h": 1400,
-              "fw": 370.3,
-              "col": -79.4,
-              "dy": -85,
-              "bh": 591,
-              "by": -102
+              "w": 1080,
+              "h": 719,
+              "fw": 430,
+              "col": -90,
+              "dy": -20,
+              "bh": 329,
+              "by": -41
             }
           ],
           "col": 376,
@@ -215,7 +215,7 @@
             {
               "value": "950",
               "suffix": "+",
-              "label": "Des détenus ont bénéficié d’une assistance juridique grâce aux audiences foraines",
+              "label": "des détenus ont bénéficié d’une assistance juridique grâce aux audiences foraines",
               "outline": true
             }
           ],
@@ -293,7 +293,7 @@
             {
               "value": "40",
               "suffix": "+",
-              "label": "Comités de paix mis en place",
+              "label": "comités de paix mis en place",
               "outline": true
             },
             {
@@ -326,13 +326,22 @@
           "heading": "Mieux protégés contre les inondations",
           "photos": [
             {
-              "src": "/assets/img/climate-01.jpg",
-              "alt": "Des élèves se rassemblent dans la cour d’une école où flotte le drapeau tchadien.",
+              "src": "/assets/img/climate-02.jpg",
+              "alt": "Vue aérienne d’un centre de santé à Koumra, avec des panneaux solaires installés dans sa cour.",
               "rot": 9.91,
               "side": "",
               "w": 1400,
               "h": 933,
               "fw": 463.9
+            },
+            {
+              "src": "/assets/img/climate-01.jpg",
+              "alt": "Des élèves se rassemblent dans la cour d’une école où flotte le drapeau tchadien.",
+              "rot": -3.4,
+              "side": "",
+              "w": 1400,
+              "h": 933,
+              "fw": 370
             }
           ],
           "statsRef": [
@@ -357,11 +366,11 @@
           "photos": [
             {
               "src": "/assets/img/energy-01.jpg",
-              "alt": "Des rangées de panneaux solaires installés dans un paysage aride.",
+              "alt": "Une femme irrigue un champ maraîcher avec l’eau d’une pompe.",
               "rot": 6.03,
               "side": "",
-              "w": 960,
-              "h": 1280,
+              "w": 1050,
+              "h": 1400,
               "fw": 339.9,
               "col": 806.3,
               "dy": -133,
@@ -370,16 +379,16 @@
             },
             {
               "src": "/assets/img/energy-02.jpg",
-              "alt": "Un panneau annonce l’installation d’une mini-centrale solaire dans la province du Chari-Baguirmi.",
+              "alt": "Des rangées de panneaux solaires installés dans un paysage aride.",
               "rot": -2.59,
               "side": "",
-              "w": 1280,
-              "h": 960,
+              "w": 960,
+              "h": 540,
               "fw": 470.5,
               "col": 622.7,
-              "dy": 241,
-              "bh": 374,
-              "by": 231
+              "dy": 315,
+              "bh": 286,
+              "by": 305
             }
           ],
           "rule": true,
@@ -392,6 +401,17 @@
       "id": "health",
       "title": "Améliorer l’accès à des services de santé de qualité",
       "intro": "Nous avons renforcé les systèmes de santé en améliorant la prévention des maladies, en modernisant les établissements de santé et en accélérant l’innovation numérique.",
+      "photo": {
+        "src": "/assets/img/health-intro.jpg",
+        "alt": "Une agente de santé portant un masque lit une fiche à Bol.",
+        "rot": 4,
+        "w": 1260,
+        "h": 1400,
+        "fw": 347,
+        "col": -95,
+        "top": 20,
+        "hang": 27
+      },
       "blocks": [
         {
           "type": "counters",
@@ -413,7 +433,20 @@
           "figs": {
             "col": 480,
             "w": 574
-          }
+          },
+          "photos": [
+            {
+              "src": "/assets/img/health-01.jpg",
+              "alt": "Un agent de santé s’occupe d’une mère et de son enfant dans une salle de consultation.",
+              "rot": -2.5,
+              "side": "",
+              "w": 1400,
+              "h": 933,
+              "fw": 518,
+              "col": -77,
+              "travel": 4
+            }
+          ]
         },
         {
           "type": "feature",
@@ -424,23 +457,9 @@
           ],
           "cta": "en savoir plus",
           "rule": true,
-          "photos": [
-            {
-              "src": "/assets/img/health-01.jpg",
-              "alt": "Un agent de santé s’occupe d’une mère et de son enfant dans une salle de consultation.",
-              "rot": -3.65,
-              "side": "",
-              "w": 1400,
-              "h": 933,
-              "fw": 593.4,
-              "col": 662,
-              "dy": -82,
-              "bh": 433,
-              "by": -100
-            }
-          ],
           "col": 0,
-          "span": 574
+          "span": 574,
+          "list": true
         },
         {
           "type": "feature",
@@ -466,7 +485,8 @@
           ],
           "col": 480,
           "span": 540,
-          "rule": true
+          "rule": true,
+          "list": true
         }
       ]
     },
@@ -474,6 +494,17 @@
       "id": "youth",
       "title": "Donner aux jeunes les moyens de conduire le changement",
       "intro": "Nous avons travaillé avec les jeunes pour renforcer leurs compétences numériques, nourrir le dialogue public et contribuer à l’avenir du Sahel.",
+      "photo": {
+        "src": "/assets/img/youth-intro.jpg",
+        "alt": "Un participant agite un drapeau sous les acclamations du public, au YouthConnekt Sahel 2025.",
+        "rot": -4.9,
+        "w": 1400,
+        "h": 933,
+        "fw": 470,
+        "col": -215,
+        "top": 95,
+        "hang": 48
+      },
       "blocks": [
         {
           "type": "cards",
@@ -562,7 +593,7 @@
     }
   ],
   "priorities": {
-    "title": "Forts de ces résultats, nous sommes prêts à amplifier l’impact.",
+    "title": "Forts de ces résultats, nous sommes prêts à amplifier l’impact",
     "items": [
       {
         "title": "Gouvernance, développement local et justice",
@@ -786,7 +817,7 @@
       "figure": "",
       "figureLabel": "",
       "image": "/assets/img/youth-panel.jpg",
-      "imageAlt": "De jeunes Tchadiens lors du rassemblement YouthConnekt Sahel, 2025"
+      "imageAlt": "Des jeunes femmes et hommes brandissent le drapeau du Tchad devant un bâtiment."
     },
     "closing": {
       "body": [

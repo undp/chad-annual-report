@@ -12,22 +12,28 @@ ROOT = Path(__file__).resolve().parent.parent
 RAW, OUT = ROOT / "src/assets/figma", ROOT / "src/assets/img"
 MAX_EDGE, JPEG_Q, WEBP_Q = 1400, 82, 80
 
-# target name -> raw Figma export (node name kept in the comment for traceability)
+# target name -> raw Figma export (node name kept in the comment for traceability).
+# A tuple adds a crop, as fractions of the raw frame (left, top, right, bottom):
+# the October 2026 debrief from HQ supplied camera originals whose framing
+# differs from the slot they fill, and its mockups show the crop to take.
 PHOTOS = {
     "hero-01":    "099aeb31dccacf43b0118608cdf6352dbd6a6600.png",  # Échelle IMG_5494
     "hero-02":    "e3c5f65a28362b34b429f8da8358a08daff0b7f6.png",  # UNDP Chad © 2024 (5)
     "trust-01":   "9e1b4358b77245457549606d45c5cfe13eb30e39.png",  # Lake province Tchad (11)
-    "trust-02":   "beedfba3561e0acc64e6044457377bee2c72f33f.png",  # Des institutions plus inclusives (7)
+    "trust-02":   "hq-2026-10-local-governments.jpg",              # debrief: Local governments growing into drivers of development
     "crises-01":  "b0e148cd61139d13c31cd444292cb938e26aee3a.png",  # Lake province Tchad (7)
     "crises-02":  "2ae86298e402694051c04192d54b337d346e41ca.png",  # Accueillir les réfugiés
     "climate-01": "bdc65c2b6fb02faac6359b111d0e1e9c9f44d923.png",  # Des villes mieux protégées
-    "energy-01":  "0785d43d068afb4db78a46c3c0edc8569ab00437.png",  # Transformer l'énergie (8)
-    "energy-02":  "20aab1ea25c1223601acb42f8337b6b0bca1b6de.png",  # Transformer l'énergie (4)
+    "climate-02": ("hq-2026-10-dji-0260-koumra.jpg", (0.0787, 0, 0.9213, 1)),   # debrief: DJI_0260 Palat santé soleil Koumra, 3:2
+    "energy-01":  ("hq-2026-10-energie-3.jpg", (0, 0, 1, 0.8889)),              # debrief: Transformer l'énergie (3), 3:4
+    "energy-02":  ("0785d43d068afb4db78a46c3c0edc8569ab00437.png", (0, 0.11, 1, 0.5319)),  # Transformer l'énergie (8), 16:9
     "health-01":  "867bc284c6667ef0dc4d3471ebaab94c71f7426f.png",  # Protection contre le paludisme (2)
     "health-02":  "f3dec83e724999749ac4b1da1ef868d754dcaa93.png",  # Protection contre le paludisme (3)
+    "health-intro": ("hq-2026-10-hp7a1274-bol.jpg", (0, 0, 1, 0.7407)),       # debrief: HP7A1274 Palat CPS Bol, 9:10
     "youth-01":   "698da4eb91fc2e634c322a74871dcb9100cebc20.png",  # YouthConnekt Sahel © PNUD-2025 (15)
     "youth-02":   "1e74c8cbab759e7a105f39ea17f6a83b96692946.png",  # UK-LAC-21 Mai
-    "youth-panel": "3c467fc6537ff5596480e59286e6670f86f72918.png", # YouthConnekt Sahel © PNUD-2025 (16), Frame 14
+    "youth-intro": ("hq-2026-10-youthconnekt-18.jpg", (0.0889, 0, 0.8506, 1)),  # debrief: YouthConnekt Sahel © PNUD-2025 (18), 3:2
+    "youth-panel": "hq-2026-10-digital-skills-popup.jpg",          # debrief: Pop-up Building digital skills for tomorrow
 }
 # Full-bleed mesh gradients from the design. They are smooth, so they survive a
 # hard downscale and land in the tens of KB — but they are not reproducible as a
@@ -51,13 +57,18 @@ def emit(img: Image.Image, stem: str) -> None:
 
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
-    missing = [f for f in (*PHOTOS.values(), *BACKDROPS.values(), *SVGS.values()) if not (RAW / f).exists()]
+    sources = [v[0] if isinstance(v, tuple) else v for v in PHOTOS.values()]
+    missing = [f for f in (*sources, *BACKDROPS.values(), *SVGS.values()) if not (RAW / f).exists()]
     if missing:
         print("missing raw exports:", *missing, sep="\n  ")
         return 1
 
     for stem, raw in PHOTOS.items():
+        raw, crop = raw if isinstance(raw, tuple) else (raw, None)
         img = ImageOps.exif_transpose(Image.open(RAW / raw))
+        if crop:
+            l, t, r, b = crop
+            img = img.crop((round(l * img.width), round(t * img.height), round(r * img.width), round(b * img.height)))
         img.thumbnail((MAX_EDGE, MAX_EDGE), Image.LANCZOS)
         emit(img, stem)
         print(f"{stem:<11} {img.width}x{img.height}  {(OUT / f'{stem}.jpg').stat().st_size // 1024} KB")

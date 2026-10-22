@@ -74,7 +74,7 @@
         "note": "under 15"
       },
       {
-        "label": "Strong school enrolment",
+        "label": "Gross primary school enrolment",
         "value": "92.66%",
         "note": ""
       },
@@ -86,7 +86,7 @@
     ],
     "challenges": [
       {
-        "label": "Poverty",
+        "label": "Poverty rate",
         "value": "44.8%",
         "note": ""
       },
@@ -186,16 +186,16 @@
           "photos": [
             {
               "src": "/assets/img/trust-02.jpg",
-              "alt": "A singer in a red dress performs on stage at a public event.",
+              "alt": "Elected officials wearing sashes in the national colours sit in the front rows of a conference hall.",
               "rot": -5.9,
               "side": "left",
-              "w": 933,
-              "h": 1400,
-              "fw": 370.3,
-              "col": -79.4,
-              "dy": -85,
-              "bh": 591,
-              "by": -102
+              "w": 1080,
+              "h": 719,
+              "fw": 430,
+              "col": -90,
+              "dy": -20,
+              "bh": 329,
+              "by": -41
             }
           ],
           "col": 376,
@@ -326,13 +326,22 @@
           "heading": "Better protected against floods",
           "photos": [
             {
-              "src": "/assets/img/climate-01.jpg",
-              "alt": "Pupils gather in the courtyard of a school building flying the Chadian flag.",
+              "src": "/assets/img/climate-02.jpg",
+              "alt": "Aerial view of a health centre in Koumra with solar panels installed in its yard.",
               "rot": 9.91,
               "side": "left",
               "w": 1400,
               "h": 933,
               "fw": 463.9
+            },
+            {
+              "src": "/assets/img/climate-01.jpg",
+              "alt": "Pupils gather in the courtyard of a school building flying the Chadian flag.",
+              "rot": -3.4,
+              "side": "right",
+              "w": 1400,
+              "h": 933,
+              "fw": 370
             }
           ],
           "statsRef": [
@@ -357,11 +366,11 @@
           "photos": [
             {
               "src": "/assets/img/energy-01.jpg",
-              "alt": "Rows of solar panels installed in an arid landscape.",
+              "alt": "A woman irrigates a vegetable field with water from a pump.",
               "rot": 6.03,
               "side": "right",
-              "w": 960,
-              "h": 1280,
+              "w": 1050,
+              "h": 1400,
               "fw": 339.9,
               "col": 806.3,
               "dy": -133,
@@ -370,16 +379,16 @@
             },
             {
               "src": "/assets/img/energy-02.jpg",
-              "alt": "A sign announcing the installation of a solar mini-grid in the Chari-Baguirmi province.",
+              "alt": "Rows of solar panels installed in an arid landscape.",
               "rot": -2.59,
               "side": "right",
-              "w": 1280,
-              "h": 960,
+              "w": 960,
+              "h": 540,
               "fw": 470.5,
               "col": 622.7,
-              "dy": 241,
-              "bh": 374,
-              "by": 231
+              "dy": 315,
+              "bh": 286,
+              "by": 305
             }
           ],
           "rule": true,
@@ -392,6 +401,17 @@
       "id": "health",
       "title": "Expanding access to quality health services",
       "intro": "We supported stronger health systems by improving disease prevention, modernizing health facilities and accelerating digital innovation.",
+      "photo": {
+        "src": "/assets/img/health-intro.jpg",
+        "alt": "A health worker wearing a face mask reads a card in Bol.",
+        "rot": 4,
+        "w": 1260,
+        "h": 1400,
+        "fw": 347,
+        "col": -95,
+        "top": 20,
+        "hang": 27
+      },
       "blocks": [
         {
           "type": "counters",
@@ -413,7 +433,20 @@
           "figs": {
             "col": 480,
             "w": 574
-          }
+          },
+          "photos": [
+            {
+              "src": "/assets/img/health-01.jpg",
+              "alt": "A health worker attends to a mother and her child in a clinic consultation room.",
+              "rot": -2.5,
+              "side": "left",
+              "w": 1400,
+              "h": 933,
+              "fw": 518,
+              "col": -77,
+              "travel": 4
+            }
+          ]
         },
         {
           "type": "feature",
@@ -424,23 +457,9 @@
           ],
           "cta": "learn more",
           "rule": true,
-          "photos": [
-            {
-              "src": "/assets/img/health-01.jpg",
-              "alt": "A health worker attends to a mother and her child in a clinic consultation room.",
-              "rot": -3.65,
-              "side": "right",
-              "w": 1400,
-              "h": 933,
-              "fw": 593.4,
-              "col": 662,
-              "dy": -82,
-              "bh": 433,
-              "by": -100
-            }
-          ],
           "col": 0,
-          "span": 574
+          "span": 574,
+          "list": true
         },
         {
           "type": "feature",
@@ -466,7 +485,8 @@
           ],
           "col": 480,
           "span": 540,
-          "rule": true
+          "rule": true,
+          "list": true
         }
       ]
     },
@@ -474,6 +494,17 @@
       "id": "youth",
       "title": "Empowering young people to lead change",
       "intro": "We worked with young people to strengthen their digital skills, shape public dialogue and contribute to the future of the Sahel.",
+      "photo": {
+        "src": "/assets/img/youth-intro.jpg",
+        "alt": "A participant waves a flag as the audience cheers at YouthConnekt Sahel 2025.",
+        "rot": -4.9,
+        "w": 1400,
+        "h": 933,
+        "fw": 470,
+        "col": -215,
+        "top": 95,
+        "hang": 48
+      },
       "blocks": [
         {
           "type": "cards",
@@ -562,7 +593,7 @@
     }
   ],
   "priorities": {
-    "title": "Building on these results, we are ready to scale up impact.",
+    "title": "Building on these results, we are ready to scale up impact",
     "items": [
       {
         "title": "Governance, local development and justice",
@@ -786,7 +817,7 @@
       "figure": "",
       "figureLabel": "",
       "image": "/assets/img/youth-panel.jpg",
-      "imageAlt": "Young Chadians at the Youth Connekt Sahel gathering, 2025"
+      "imageAlt": "Young women and men hold up the flag of Chad in front of a building."
     },
     "closing": {
       "body": [
