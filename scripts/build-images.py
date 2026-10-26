@@ -29,6 +29,7 @@ PHOTOS = {
     "energy-02":  ("0785d43d068afb4db78a46c3c0edc8569ab00437.png", (0, 0.11, 1, 0.5319)),  # Transformer l'énergie (8), 16:9
     "health-01":  "867bc284c6667ef0dc4d3471ebaab94c71f7426f.png",  # Protection contre le paludisme (2)
     "health-02":  "f3dec83e724999749ac4b1da1ef868d754dcaa93.png",  # Protection contre le paludisme (3)
+    "health-03":  "hq-2026-10-health-3-mockup.jpg",               # HQ mockup Health-3: cold chain freezers, cut from the mockup until the original arrives
     "health-intro": ("hq-2026-10-hp7a1274-bol.jpg", (0, 0, 1, 0.7407)),       # debrief: HP7A1274 Palat CPS Bol, 9:10
     "youth-01":   "698da4eb91fc2e634c322a74871dcb9100cebc20.png",  # YouthConnekt Sahel © PNUD-2025 (15)
     "youth-02":   "1e74c8cbab759e7a105f39ea17f6a83b96692946.png",  # UK-LAC-21 Mai

@@ -69,9 +69,9 @@
     ],
     "potential": [
       {
-        "label": "A young population",
+        "label": "Population under 15",
         "value": "53.7%",
-        "note": "under 15"
+        "note": ""
       },
       {
         "label": "Gross primary school enrolment",
@@ -79,9 +79,9 @@
         "note": ""
       },
       {
-        "label": "A growing economy",
+        "label": "Real GDP growth",
         "value": "4.0%",
-        "note": "Real GDP growth"
+        "note": ""
       }
     ],
     "challenges": [
@@ -91,19 +91,19 @@
         "note": ""
       },
       {
-        "label": "Limited access to electricity",
+        "label": "Access to electricity",
         "value": "11%",
         "note": ""
       },
       {
-        "label": "Low literacy, especially for women",
+        "label": "Literacy rate",
         "value": "48.2%",
-        "note": ""
+        "note": "63.9 % men, 35.1 % women"
       },
       {
-        "label": "Human Development",
+        "label": "Human Development Index",
         "value": "0.416",
-        "note": "HDI"
+        "note": ""
       }
     ],
     "cta": "learn more",
@@ -459,7 +459,22 @@
           "rule": true,
           "col": 0,
           "span": 574,
-          "list": true
+          "list": true,
+          "photos": [
+            {
+              "src": "/assets/img/health-03.jpg",
+              "alt": "Officials inspect cold chain freezers for health facilities.",
+              "rot": -3.7,
+              "side": "right",
+              "w": 1164,
+              "h": 776,
+              "fw": 601,
+              "col": 662,
+              "dy": -90,
+              "bh": 444,
+              "by": -109
+            }
+          ]
         },
         {
           "type": "feature",

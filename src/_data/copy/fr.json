@@ -69,9 +69,9 @@
     ],
     "potential": [
       {
-        "label": "Une population jeune",
+        "label": "Population de moins de 15 ans",
         "value": "53.7%",
-        "note": "moins de 15 ans"
+        "note": ""
       },
       {
         "label": "Élèves scolarisés au primaire",
@@ -79,9 +79,9 @@
         "note": ""
       },
       {
-        "label": "Une économie en croissance",
+        "label": "Croissance du PIB réel",
         "value": "4.0%",
-        "note": "Croissance du PIB réel"
+        "note": ""
       }
     ],
     "challenges": [
@@ -91,19 +91,19 @@
         "note": ""
       },
       {
-        "label": "Accès limité à l’électricité",
+        "label": "Accès à l’électricité",
         "value": "11%",
         "note": ""
       },
       {
-        "label": "Faible taux d'alphabétisation, surtout chez les femmes",
+        "label": "Taux d’alphabétisation",
         "value": "48.2%",
-        "note": ""
+        "note": "63,9 % hommes, 35,1 % femmes"
       },
       {
-        "label": "Développement humain",
+        "label": "Indice de développement humain",
         "value": "0.416",
-        "note": "IDH"
+        "note": ""
       }
     ],
     "cta": "en savoir plus",
@@ -459,7 +459,22 @@
           "rule": true,
           "col": 0,
           "span": 574,
-          "list": true
+          "list": true,
+          "photos": [
+            {
+              "src": "/assets/img/health-03.jpg",
+              "alt": "Des responsables inspectent des congélateurs de la chaîne du froid destinés aux établissements de santé.",
+              "rot": -3.7,
+              "side": "right",
+              "w": 1164,
+              "h": 776,
+              "fw": 601,
+              "col": 662,
+              "dy": -90,
+              "bh": 444,
+              "by": -109
+            }
+          ]
         },
         {
           "type": "feature",
