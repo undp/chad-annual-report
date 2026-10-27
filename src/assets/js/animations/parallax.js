@@ -111,7 +111,10 @@ function depthOf(el) {
    `--travel` names that half-travel directly, as a percentage of the print's
    own height, so one number holds from the 1440 frame down to a phone where the
    print is a quarter the size. Absent, nothing changes and the size-derived
-   budget applies. */
+   budget applies. The same number holds back the prints that hang between
+   two lines of text with a few dozen pixels either side — chapter 2 over its
+   figures, the aerial view of chapter 3 over its heading — where the full
+   budget carried them onto the copy on the way in. */
 function travelOf(el) {
   const t = parseFloat(getComputedStyle(el).getPropertyValue('--travel'));
   return Number.isNaN(t) ? null : t;
@@ -143,7 +146,13 @@ export default function initParallax() {
         const anchored = scope.getBoundingClientRect().top + window.scrollY < window.innerHeight * 0.5;
         const range = (amount) => (anchored ? [0, -amount] : [amount, -amount]);
 
+        /* Every tween runs the whole trigger. Without the default, GSAP gives
+           the frame its own 0.5 while the two-part shadow below spans 1: the
+           frame then finished its travel by mid-scroll and sat the full travel
+           above its design position while the block was centred — over the
+           paragraph or the link above it (HQ, October 2026). */
         const tl = gsap.timeline({
+          defaults: { duration: 1 },
           scrollTrigger: {
             trigger: scope,
             start: anchored ? 'top top' : 'top bottom',

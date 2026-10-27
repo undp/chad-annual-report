@@ -1052,20 +1052,28 @@
   }
   /* Three figures across, chapter 2: the print is on the right and its lower
      corner falls over the empty top-right of the third card, which is where the
-     design leaves it, clear of the third figure itself. */
+     design leaves it, clear of the third figure itself. The 2.5rem over the
+     cards is what keeps it clear: the narrow space before "%" widened the
+     figure, and at 1280–1440 its sign had reached under the corner. */
   .block--photos-stats:not(:has(.block__split)) .polaroids {
     inset-inline-start: 68.1%; inset-block-start: -3.93vw;
   }
   .block--photos-stats:not(:has(.block__split)) .block__heading { max-width: 58.33%; }
-  .block--photos-stats:not(:has(.block__split)) .statcards { margin-block-start: 3.5vw; }
+  .block--photos-stats:not(:has(.block__split)) .statcards { margin-block-start: calc(3.5vw + 2.5rem); }
   /* Two figures beside the heading, chapter 3: the print is on the left and
      runs off the canvas, as it does in the design. The design lifts it 163px
      over the band, at the design's own offset. The heading starts under the
      print's lower corner rather than across it: the design runs the two over
      each other, but our chapter titles wrap onto three lines where the Figma
      text box reports one, and the extra depth puts the heading over the crowd
-     in the photograph instead of over the sand. */
-  .block--photos-stats:has(.block__split) { padding-block-start: 13vw; }
+     in the photograph instead of over the sand.
+     The aerial view that replaced the school in October 2026 is wider at the
+     top, and at the school's 163px its upper corner sat on the band's last
+     line. It now hangs 117px over the band, the heading follows it down by the
+     same amount, and both stop growing at the 1440 artboard: the paragraph
+     does not grow past it either, and a lift in vw climbed onto it on wider
+     screens. */
+  .block--photos-stats:has(.block__split) { padding-block-start: min(17.2vw, 247.7px); }
   .block--photos-stats:has(.block__split) .polaroids {
     inset-inline-start: -14.9%; inset-block-start: -11.35vw; z-index: 0;
   }
@@ -1079,7 +1087,7 @@
     inset-inline-start: 0; inset-block-start: 0; inline-size: 100%; block-size: 0;
   }
   .block--photos-stats:has(.block__split) .polaroids--stacked .polaroid {
-    position: absolute; margin: 0; inset-inline-start: -14.9%; inset-block-start: -11.35vw;
+    position: absolute; margin: 0; inset-inline-start: -14.9%; inset-block-start: max(-8.15vw, -117.4px);
   }
   .block--photos-stats:has(.block__split) .polaroids--stacked .polaroid + .polaroid {
     inset-inline-start: auto; inset-inline-end: max(-13.8%, calc((100% - 100vw) / 2 + 1.5rem));
@@ -1532,6 +1540,10 @@ html.is-modal-open { overflow: hidden; padding-inline-end: var(--scrollbar-gap, 
      headroom is the clearance for that climb, not decoration — a print must
      never come to rest under a paragraph. */
   .polaroids { margin-block: var(--sp-6) var(--sp-4); }
+  /* The closing is the one place where the print comes before its copy, so it
+     arrives from below towards the paragraph rather than climbing away from
+     it: at 32px its tilted corner was inside "This is" on the way in. */
+  .closing .polaroids { margin-block-end: var(--sp-7); }
 }
 
 /* Touch target. WCAG 2.5.8 asks for 24x24 CSS pixels; the box grows, the type
