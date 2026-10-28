@@ -935,6 +935,17 @@
     grid-template-columns: var(--tracks); gap: 0; margin-inline: 0; width: 100%;
   }
   .block--columns .counter, .block--columns .card { grid-column: var(--track, auto); }
+  /* The youth print runs 39px into the Sahel pact column in the file, and at
+     1440 the title's widest line stops 14px short of its white border. Below
+     the artboard the print shrinks with the column while the 35px titles did
+     not: from 992 to 1200 the title wrapped wider and met the border. The
+     row's titles now scale with the artboard as the print does, so they keep
+     the file's wrap and its 14px. A worded card holds no figure, so it drops
+     its container role and `--art` resolves against the block. */
+  .block--columns:has(.polaroids--placed) .card:not(:has(.card__value)) { container-type: normal; }
+  .block--columns:has(.polaroids--placed) .card:not(:has(.card__value)) .card__title {
+    font-size: min(var(--fs-h5), calc(35.04 * var(--art)));
+  }
 }
 
 .polaroids { display: flex; flex-wrap: wrap; gap: var(--sp-5); margin-block: var(--sp-5); }
