@@ -27,7 +27,7 @@ block block--{{ kind }}{% if b.layout %} block--{{ b.layout }}{% endif %}{% if b
 <div class="polaroids polaroids--{{ enPhotos[0].side }}{% if enPhotos | length > 1 %} polaroids--stacked{% endif %}{% if enPhotos[0].dy is defined %} polaroids--placed{% endif %}">
   {%- for p in enPhotos %}
   <figure class="polaroid polaroid--{{ p.side }}" style="--rot:{{ p.rot }}deg;--fw:{{ p.fw }};{% if p.dy is defined %}--p-col:{{ p.col }};--p-dy:{{ p.dy }};--p-by:{{ p.by }};--p-bh:{{ p.bh }};{% endif %}{% if p.travel %}--travel:{{ p.travel }};{% endif %}"
-          data-parallax="stack">
+          data-parallax="stack"{% if p.hold %} data-hold{% endif %}>
     <div class="polaroid__frame">
       <picture>
         <source srcset="{{ (p.src | replace('.jpg', '.webp')) | asset }}" type="image/webp">

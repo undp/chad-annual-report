@@ -368,6 +368,7 @@
           "photos": [
             {
               "src": "/assets/img/energy-01.jpg",
+              "hold": true,
               "alt": "A woman irrigates a vegetable field with water from a pump.",
               "rot": 6.03,
               "side": "right",
@@ -848,7 +849,7 @@
     "brandLine1": "United Nations",
     "brandLine2": "Development Programme",
     "logoAlt": "United Nations Development Programme",
-    "socialLabel": "UNDP on social media",
+    "socialLabel": "UNDP Chad on social media",
     "links": [
       {
         "label": "Report Fraud, Abuse, Misconduct"

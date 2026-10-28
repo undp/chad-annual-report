@@ -201,7 +201,13 @@ export default function initParallax() {
               .to(el, { boxShadow: shadow(to), ease: 'none', duration: 0.5 }, 0.5);
           }
 
-          const photo = el.querySelector('img');
+          /* A print marked `data-hold` keeps its picture still in the frame.
+             The window effect needs slack all round the subject, and the
+             woman at the pump has her head within 4% of the photo's top
+             edge: the zoom alone cut her at the brow, the drift up to the
+             eyes (HQ, October 2026). The frame still travels, sways and
+             tips; only the picture stays at the crop the design takes. */
+          const photo = el.hasAttribute('data-hold') ? null : el.querySelector('img');
           if (photo) {
             gsap.set(photo, { scale: INNER_SCALE, transformOrigin: '50% 50%' });
             /* Opposite sign to the frame's travel: the frame rises through
