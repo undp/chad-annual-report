@@ -3,7 +3,9 @@
    the system's own Storybook, so it is the system's component rather than a
    drawing of it. The arrangement on the right follows the 2024 global annual
    report, which the client gave as the reference: language switcher, then the
-   download, and below 64em both move into the burger menu.
+   download, and below 64em both move into the burger menu. There the switcher
+   is the same dropdown as in the band, at the client's request, rather than the
+   Storybook's entry that opens a second panel with a back button.
 
    Two departures from the Storybook markup, both for screen readers and both
    invisible: the language list is a disclosure (a button that says whether it
@@ -27,6 +29,20 @@
   {%- if assets.reportPdf[lang] %}</a>{% else %}</span>{% endif %}
 {%- endmacro %}
 
+{%- macro languageSwitcher(listId) %}
+  <div class="dropdown-language" data-undpds-component="language-switcher">
+    <button type="button" aria-expanded="false" aria-controls="{{ listId }}"
+            aria-label="{{ copy[lang].header.languageLabel }}, {{ h.selectLanguage | t(enH.selectLanguage) }}">
+      {{ copy[lang].header.languageLabel }}
+    </button>
+    <ul id="{{ listId }}">
+      {%- for l in site.langs %}{% if l != lang %}
+      <li><a href="{{ ('/' + l + '/') | url }}" lang="{{ l }}" hreflang="{{ l }}" tabindex="-1">{{ copy[l].header.languageLabel }}</a></li>
+      {%- endif %}{% endfor %}
+    </ul>
+  </div>
+{%- endmacro %}
+
 <header class="country-header" data-header>
   <section class="header">
     <div class="grid-container fluid">
@@ -44,17 +60,7 @@
         <div class="cell small-1 large-auto align-content-middle top-center"></div>
 
         <div class="cell small-3 large-auto top-right">
-          <div class="dropdown-language" data-undpds-component="language-switcher">
-            <button type="button" aria-expanded="false" aria-controls="language-list"
-                    aria-label="{{ copy[lang].header.languageLabel }}, {{ h.selectLanguage | t(enH.selectLanguage) }}">
-              {{ copy[lang].header.languageLabel }}
-            </button>
-            <ul id="language-list">
-              {%- for l in site.langs %}{% if l != lang %}
-              <li><a href="{{ ('/' + l + '/') | url }}" lang="{{ l }}" hreflang="{{ l }}" tabindex="-1">{{ copy[l].header.languageLabel }}</a></li>
-              {%- endif %}{% endfor %}
-            </ul>
-          </div>
+          {{ languageSwitcher('language-list') }}
 
           <button class="menu-hamburger" type="button" aria-expanded="false" aria-controls="mobile-nav">
             <span class="hamburger-line line-top"></span>
@@ -70,29 +76,9 @@
           <div class="grid-x">
             <div class="cell mobile-links">
               <div class="mobile-nav-options">
-                <a href="#mobile-languages" class="mob-lang-switcher" aria-controls="mobile-languages" aria-expanded="false">
-                  <img src="{{ '/assets/vendor/undp-ds/images/language.svg' | asset }}" alt="" width="25" height="26">
-                  {{ copy[lang].header.languageLabel }}
-                </a>
+                {{ languageSwitcher('mobile-language-list') }}
                 {{ download('') }}
               </div>
-            </div>
-            <div class="cell mob-sub-lang" id="mobile-languages">
-              <button class="back-nav" type="button">
-                <img src="{{ '/assets/vendor/undp-ds/images/back.svg' | asset }}" alt="" width="33" height="17">
-                {{ h.back | t(enH.back) }}
-              </button>
-              <ul class="sub-sub-lang">
-                <li>
-                  <span>{{ h.selectLanguage | t(enH.selectLanguage) }}</span>
-                  <ul>
-                    {%- for l in site.langs %}
-                    <li><a href="{{ ('/' + l + '/') | url }}" lang="{{ l }}" hreflang="{{ l }}"
-                           {%- if l == lang %} aria-current="true"{% endif %}>{{ copy[l].header.languageLabel }}</a></li>
-                    {%- endfor %}
-                  </ul>
-                </li>
-              </ul>
             </div>
           </div>
         </div>

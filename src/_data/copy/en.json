@@ -3,7 +3,7 @@
     "lang": "en",
     "locale": "en_US",
     "dir": "ltr",
-    "title": "Annual Report 2025 | UNDP",
+    "title": "Annual Report 2025 | UNDP Chad",
     "description": "Where UNDP made a difference in 2025: results from Chad in governance, climate, stabilization, health and youth.",
     "ogImage": "/assets/img/og-en.jpg",
     "ogImageAlt": "A woman in a turquoise headscarf stands beside wooden boats on the shore of Lake Chad."
@@ -17,7 +17,6 @@
     "languageSwitch": "Français",
     "selectLanguage": "Select your language",
     "menu": "Menu",
-    "back": "Back",
     "skipToContent": "Skip to content"
   },
   "hero": {

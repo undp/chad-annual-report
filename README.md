@@ -1,7 +1,7 @@
 # UNDP Chad — Annual Report 2025
 
 Interactive scrollytelling microsite (EN/FR), built as a static site and deployed to
-GitHub Pages on `annualreport.chad.undp.org`.
+GitHub Pages on `annualreport.td.undp.org`.
 
 ## Stack
 

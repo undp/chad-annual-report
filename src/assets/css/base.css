@@ -15,10 +15,21 @@
   src: url('../fonts/proximanova-medium-webfont.woff2') format('woff2');
   font-weight: 500; font-style: normal; font-display: swap;
 }
+/* The package ships two semibold cuts. The system's own stylesheet and its
+   Storybook set 600 in the -2 file, the heavier of the two, and the client
+   checks the language switcher against them. That file has no narrow no-break
+   space, the one both languages put before "%": the other cut lends it, and
+   is fetched only by a page that sets one in semibold. */
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('../fonts/proximanova-semibold-webfont-2.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
 @font-face {
   font-family: 'Proxima Nova';
   src: url('../fonts/proximanova-semibold-webfont.woff2') format('woff2');
   font-weight: 600; font-style: normal; font-display: swap;
+  unicode-range: U+202F;
 }
 @font-face {
   font-family: 'Proxima Nova';

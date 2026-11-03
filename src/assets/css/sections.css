@@ -57,7 +57,30 @@
    system's top padding is measured for. */
 .country-header .mobile-nav .mobile-links { padding-block-start: var(--undpds-spacing-09); }
 .country-header .mobile-nav .mobile-nav-options .download-link { color: var(--undpds-color-text-default); }
-.country-header .mob-sub-lang a[aria-current='true'] { font-weight: 700; }
+
+/* The band's language switcher, repeated in the burger menu. The system hides
+   every switcher in the band below 64em, this one included, and dresses the
+   menu's lists and links for its section menu — a rule and 36px under each
+   list and item, a flex row and a bottom margin on each link. The dropdown
+   takes the link's margin; its list and items keep their own. The band's rule
+   also pushes the switcher to the end of its row: here it lines up with the
+   download under it.
+   In the band the open list lies over the page; in the menu it would lie over
+   the download, so it opens in the flow instead and moves the download down,
+   at the same 3px under the button and 16px in. */
+.country-header .header .mobile-nav .dropdown-language {
+  display: flex; flex-direction: column; align-items: flex-start;
+  width: fit-content; justify-self: start;
+  margin-inline: 0; margin-block-end: 1.58125rem;
+}
+.country-header .mobile-nav .mobile-links .dropdown-language ul {
+  position: static; border-block-end: 0; margin: 0; margin-inline-start: var(--undpds-spacing-05);
+}
+.country-header .mobile-nav .mobile-links .dropdown-language.active ul { margin-block-start: 3px; }
+.country-header .mobile-nav .mobile-links .dropdown-language ul li { padding-block-end: 0; }
+.country-header .mobile-nav .mobile-nav-options .dropdown-language ul li a {
+  display: block; margin-block-end: 0; color: var(--undpds-color-text-default);
+}
 
 /* ---------- Hero ---------- */
 /* The file's hero is frame 142:2870, 1440 x 1457: two prints in the upper half,

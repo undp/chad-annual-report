@@ -3,7 +3,7 @@
     "lang": "fr",
     "locale": "fr_FR",
     "dir": "ltr",
-    "title": "Rapport annuel 2025 | PNUD",
+    "title": "Rapport annuel 2025 | PNUD Tchad",
     "description": "Là où le PNUD a fait la différence en 2025 : résultats au Tchad en matière de gouvernance, climat, stabilisation, santé et jeunesse.",
     "ogImage": "/assets/img/og-fr.jpg",
     "ogImageAlt": "Une femme coiffée d’un foulard turquoise se tient près de barques en bois sur la rive du lac Tchad."
@@ -17,7 +17,6 @@
     "languageSwitch": "",
     "selectLanguage": "Choisissez votre langue",
     "menu": "Menu",
-    "back": "Retour",
     "skipToContent": "Aller au contenu"
   },
   "hero": {

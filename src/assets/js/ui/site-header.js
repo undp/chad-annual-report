@@ -6,72 +6,57 @@
  *
  *   language switcher — a click toggles `.active` on `.dropdown-language`, a
  *                       click anywhere else closes it; here also Escape, and
- *                       aria-expanded on the button.
+ *                       aria-expanded on the button. The band and the burger
+ *                       menu each carry one, and each behaves the same.
  *   burger            — toggles `.mobile-nav.show` and `.is-active`, and always
- *                       opens on the first panel; here also Escape and
- *                       aria-expanded.
- *   mobile languages  — the language entry opens its own panel over the first
- *                       one, `back` returns.
+ *                       opens with its language list closed; here also Escape
+ *                       and aria-expanded.
  *   logo              — `.scrolled` once the header is no longer wholly in
  *                       view: the mark drops the 7px it hangs below the band.
  *
  * Without this file the header still shows its title, the region link and the
- * download; the two menus stay closed.
+ * download; the menus stay closed.
  */
 export default function initSiteHeader() {
   const header = document.querySelector('.country-header');
   if (!header) return;
 
-  /* Language switcher */
-  const dropdown = header.querySelector('.dropdown-language');
-  const dropdownButton = dropdown?.querySelector('button');
-  const setDropdown = (open) => {
-    if (!dropdown) return;
+  /* Language switchers */
+  const dropdowns = [...header.querySelectorAll('.dropdown-language')];
+  const setDropdown = (dropdown, open) => {
     dropdown.classList.toggle('active', open);
-    dropdownButton.setAttribute('aria-expanded', String(open));
+    dropdown.querySelector('button').setAttribute('aria-expanded', String(open));
     dropdown.querySelectorAll('ul a').forEach((a) => { a.tabIndex = open ? 0 : -1; });
   };
-  dropdownButton?.addEventListener('click', () => setDropdown(!dropdown.classList.contains('active')));
+  dropdowns.forEach((dropdown) => {
+    dropdown.querySelector('button').addEventListener('click', () => {
+      setDropdown(dropdown, !dropdown.classList.contains('active'));
+    });
+  });
   document.addEventListener('click', (e) => {
-    if (dropdown && !dropdown.contains(e.target)) setDropdown(false);
+    dropdowns.forEach((dropdown) => { if (!dropdown.contains(e.target)) setDropdown(dropdown, false); });
   });
 
-  /* Burger menu and its language panel */
+  /* Burger menu */
   const burger = header.querySelector('.menu-hamburger');
   const nav = header.querySelector('.mobile-nav');
-  const links = nav?.querySelector('.mobile-links');
-  const langPanel = nav?.querySelector('.mob-sub-lang');
-  const langOpener = nav?.querySelector('.mob-lang-switcher');
 
-  const setLangPanel = (open) => {
-    langPanel?.classList.toggle('show', open);
-    links?.classList.toggle('hide', open);
-    langOpener?.setAttribute('aria-expanded', String(open));
-  };
   const setNav = (open) => {
     if (!nav) return;
     nav.classList.toggle('show', open);
     burger.classList.toggle('is-active', open);
     burger.setAttribute('aria-expanded', String(open));
-    setLangPanel(false);
+    nav.querySelectorAll('.dropdown-language').forEach((dropdown) => setDropdown(dropdown, false));
   };
 
   burger?.addEventListener('click', () => setNav(!nav.classList.contains('show')));
-  langOpener?.addEventListener('click', (e) => {
-    e.preventDefault();
-    setLangPanel(true);
-    langPanel.querySelector('a')?.focus();
-  });
-  nav?.querySelector('.back-nav')?.addEventListener('click', () => {
-    setLangPanel(false);
-    langOpener?.focus();
-  });
 
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    if (dropdown?.classList.contains('active')) {
-      setDropdown(false);
-      dropdownButton.focus();
+    const open = dropdowns.find((dropdown) => dropdown.classList.contains('active'));
+    if (open) {
+      setDropdown(open, false);
+      open.querySelector('button').focus();
     } else if (nav?.classList.contains('show')) {
       setNav(false);
       burger.focus();
