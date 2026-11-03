@@ -24,7 +24,15 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # On the default Pages address the site lives under /<repository>/; once a
+      # custom domain is attached it lives at the root. configure-pages reports
+      # which applies (base_path is empty on a custom domain), so attaching the
+      # domain needs a rebuild and no edit here.
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm run build
+        env:
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
