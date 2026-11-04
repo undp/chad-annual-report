@@ -14,6 +14,8 @@
    real <button type="button"> with aria-expanded kept in step by
    ui/site-header.js. #}
 {%- set home = ('/' + lang + '/') | url %}
+{#- The system ships the logo in English (UNDP) and in French (PNUD). #}
+{%- set logo = 'pnud' if lang == 'fr' else 'undp' %}
 {%- set h = c.header %}
 {%- set enH = en.header %}
 {%- set pdf = (c.footer.file | t(en.footer.file)) | url %}
@@ -49,7 +51,7 @@
       <div class="grid-x grid-margin-x align-content-middle">
         <div class="cell small-8 large-2 shrink align-self-middle top-left">
           <a class="logo" href="{{ home }}" title="{{ h.tagline | t(enH.tagline) }}">
-            <img src="{{ '/assets/vendor/undp-ds/images/undp-logo-blue.svg' | asset }}" alt="UNDP" width="60" height="122">
+            <img src="{{ ('/assets/vendor/undp-ds/images/' + logo + '-logo-blue.svg') | asset }}" alt="{{ logo | upper }}" width="60" height="122">
           </a>
           <div class="site-title">
             <span><a href="{{ site.regionLink }}">{{ h.brand | t(enH.brand) }}</a></span>

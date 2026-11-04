@@ -48,8 +48,13 @@
         <div class="cell medium-5">
           <div class="footer-logo">
             <a href="{{ site.undpFooter.logoLink }}">
+              {%- if lang == 'fr' %}
+              <img src="{{ '/assets/vendor/undp-ds/images/pnud-logo-white.svg' | asset }}"
+                   alt="{{ uf.logoAlt | t(enUf.logoAlt) }}" width="61" height="122">
+              {%- else %}
               <img src="{{ '/assets/vendor/undp-ds/images/undp-logo-white.svg' | asset }}"
                    alt="{{ uf.logoAlt | t(enUf.logoAlt) }}" width="60" height="123">
+              {%- endif %}
             </a>
             <p class="footer-logo__name">{{ uf.brandLine1 | t(enUf.brandLine1) }}<br>{{ uf.brandLine2 | t(enUf.brandLine2) }}</p>
           </div>

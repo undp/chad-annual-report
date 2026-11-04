@@ -33,7 +33,7 @@ const COMPONENTS = [
 ];
 
 // Icons the templates point at directly, besides those the CSS asks for.
-const MARKUP_IMAGES = ['undp-logo-blue.svg', 'undp-logo-white.svg', 'language.svg', 'back.svg'];
+const MARKUP_IMAGES = ['undp-logo-blue.svg', 'undp-logo-white.svg', 'pnud-logo-blue.svg', 'pnud-logo-white.svg', 'language.svg', 'back.svg'];
 
 // A base-minimal selector is kept only when every class in it is listed here.
 const BASE_CLASSES = new Set([
