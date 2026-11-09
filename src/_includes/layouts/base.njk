@@ -51,10 +51,14 @@
   <link rel="stylesheet" href="{{ '/assets/css/base.css' | asset }}">
   <link rel="stylesheet" href="{{ '/assets/css/sections.css' | asset }}">
   {%- if site.analytics.ga4 %}
-  <!-- GA4 loads only after consent — see assets/js/consent.js -->
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-  gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied'});
-  window.GA4_ID='{{ site.analytics.ga4 }}';</script>
+  {#- The Google tag exactly as UNDP issued it for this property (November 2026). #}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.ga4 }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.analytics.ga4 }}');
+  </script>
   {%- endif %}
   {#- The hero opens with an animation, and an animation needs a hidden state to
       open from. That state is written in CSS under `.js-hero`, and the class is
